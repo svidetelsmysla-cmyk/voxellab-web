@@ -1,6 +1,7 @@
 {
   "schema_version": "1.0",
   "task_id": "CODEX_WEB_VOXELLAB_SCENE_LAB_V2_FULL_SCENE_SUITE_V1",
+  "commit": "d395d49391bb3727c2e034bcc437e9d12a856aff",
   "generated_utc": "2026-08-04T16:55:20.583Z",
   "environment": "LOCAL_DESKTOP_PLAYWRIGHT_CHROMIUM_HEADLESS",
   "base_url": "http://127.0.0.1:4173/voxellab-web/",
