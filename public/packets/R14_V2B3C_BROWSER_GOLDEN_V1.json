@@ -1,0 +1,56 @@
+{
+  "packet_version": "2.0",
+  "producer_commit": "2c7a376cb9276db7bf8eecfc34a1fc0575874f06",
+  "packet_sha256": "3e0c2618d1e2fdd16236fca0d5fa0fe11e9705bd9f7675ca9d6930bff69b4313",
+  "manifest_sha256": "NOT_APPLICABLE_BOUNDED_PUBLIC_PROJECTION",
+  "verdict": "CURVED_SOLID_ANGLE_ANALYTIC_ORACLE_BLOCKER",
+  "claim_ceiling": "RUNTIME_DIAGNOSTIC_NOT_VALIDATION",
+  "scene": "S11_CURVED_SOLID_ANGLE_SPHERE_CONTROL",
+  "receipts": [],
+  "diagnostics": {
+    "P0_role": "CM_CONTROL_NEGATIVE_FAR_FIELD_ONLY",
+    "P1_role": "LOW_ORDER_POINT_CUBATURE_DISCRETE_POINT_VOLUME",
+    "P2_role": "FIXED_FIBONACCI_BIN_CENTRE_CURVED_ANGULAR_QUADRATURE",
+    "P2_levels": {
+      "A0": 192,
+      "A1": 768,
+      "A2": 3072
+    },
+    "P2_geometry_route": "RECEIVER_CENTRED_FULL_SPHERE_GRID_WITH_EXACT_ANALYTIC_SPHERE_RAY_INTERVAL_H_OMEGA_AND_EQUAL_WEIGHTS",
+    "P2_worst_case_relative_outlier": 0.9982902848633791,
+    "P2_outlier_localization": {
+      "scene": null,
+      "control": null,
+      "component": null,
+      "absolute_error": null,
+      "reference_magnitude": null,
+      "relative_denominator": null,
+      "near_zero_flag": null,
+      "status": "CAUSE_NOT_YET_LOCALIZED"
+    },
+    "P3A_role": "ADAPTIVE_SPHERICAL_TESSELLATION",
+    "P3B_sphere_role": "EXACT_CAP_BOUNDARY_PLUS_POLAR_GAUSS",
+    "P3B_general_role": "GLOBAL_GAUSS_LEGENDRE_X_AZIMUTHAL_WITH_EXACT_SHARED_RAY_INTERVALS",
+    "P3B_is_explicit_spherical_polygon_boolean": false,
+    "P3C_role": "EXPLICIT_SPHERICAL_POLYGON_BOOLEAN_FUTURE_NOT_IMPLEMENTED",
+    "P3A_P3B_independence_scope": "ANGULAR_QUADRATURE_ONLY_SHARED_GEOMETRY_ROUTE",
+    "browser_preview_golden_parity": "NOT_ISSUED",
+    "operator_catalogue": [
+      "CM_CONTROL",
+      "POINT_CUBATURE_SC",
+      "POINT_CUBATURE_BCC",
+      "POINT_CUBATURE_FCC",
+      "POINT_CUBATURE_HCP",
+      "P2_FIXED_FIBONACCI_CURVED_ANGULAR",
+      "P3A_ADAPTIVE_CURVED_ANGULAR",
+      "P3B_EXACT_CAP_SPHERE",
+      "P3B_GLOBAL_GAUSS_RAY_INTERVALS",
+      "P3C_EXPLICIT_SPHERICAL_POLYGON_BOOLEAN_FUTURE_NOT_IMPLEMENTED"
+    ],
+    "p3a_p3b_two_finest_relative_delta_max": 0.010485913657058017,
+    "p3b_two_finest_relative_error_max": 1.708497894455263e-7,
+    "p3_surface_continuity_residual": 4.074739600104183e-6,
+    "mesh_p3a_p3b_relative_delta": 0.0005445994985393824
+  },
+  "visual_arrays": {}
+}

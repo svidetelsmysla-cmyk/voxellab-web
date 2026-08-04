@@ -1,0 +1,41 @@
+{
+  "scene_version": "2.0",
+  "scene_id": "S17_3DSMAX_IMPORTED",
+  "scene_class": "DIAGNOSTIC",
+  "category": "3ds Max import",
+  "display_name": "3ds Max exporter fixture",
+  "description": "Fixture matching VoxelLabSceneExporter.ms output; manual Max execution remains separately declared.",
+  "mobility_summary": "two movable groups and one locked group",
+  "does_not_claim": "scientific authority, scale or validation",
+  "coefficient_c": 0.22,
+  "objects": [
+    {
+      "object_id": "max-1001", "group_id": "MAX_GROUP_ALPHA", "parent_id": null, "display_name": "Locked_Source", "body_role": "IMPORTED_SOURCE", "representation_mode": "RIGID_VOLUME",
+      "transform": { "position": [-1.4, 0, 0], "rotation": [0, 0, 0, 1], "scale": [1, 1, 1] }, "geometry_type": "IMPORTED_MESH", "outer_radius": 0.45,
+      "amount": 1, "density": 1, "k_v": 1, "world_locked": true, "movable_translation": false, "movable_rotation": false,
+      "initial_velocity": [0, 0, 0], "initial_angular_velocity": [0, 0, 0], "velocity": [0, 0, 0], "angular_velocity": [0, 0, 0], "fixed_far": false, "visible": true, "kou_tier": null, "kou_role": null,
+      "packing": { "mode": "IMPORTED_POINTS", "level": "P4", "custom_count": 1, "display_count": 1, "compute_count": 1, "boundary_policy": "IMPORTED_POINTS" }, "voxel_level": "V4",
+      "voxel_elements": [{ "local_position": [0, 0, 0], "amount": 1, "volume": 1 }], "provenance": { "source": "VoxelLabSceneExporter.ms fixture", "producer_commit": "FIXTURE", "claim_ceiling": "PREVIEW_IMPORT_ONLY" }
+    },
+    {
+      "object_id": "max-1002", "group_id": "MAX_GROUP_BETA", "parent_id": null, "display_name": "Moving_Receiver", "body_role": "IMPORTED_RECEIVER", "representation_mode": "RIGID_VOLUME",
+      "transform": { "position": [0, 0.4, 0], "rotation": [0, 0, 0, 1], "scale": [1, 1, 1] }, "geometry_type": "IMPORTED_MESH", "outer_radius": 0.35,
+      "amount": 0.7, "density": 1, "k_v": 1, "world_locked": false, "movable_translation": true, "movable_rotation": true,
+      "initial_velocity": [0.02, 0, 0], "initial_angular_velocity": [0, 0.1, 0], "velocity": [0.02, 0, 0], "angular_velocity": [0, 0.1, 0], "fixed_far": false, "visible": true, "kou_tier": null, "kou_role": null,
+      "packing": { "mode": "IMPORTED_POINTS", "level": "P4", "custom_count": 1, "display_count": 1, "compute_count": 1, "boundary_policy": "IMPORTED_POINTS" }, "voxel_level": "V4",
+      "voxel_elements": [{ "local_position": [0, 0, 0], "amount": 0.7, "volume": 0.7 }], "provenance": { "source": "VoxelLabSceneExporter.ms fixture", "producer_commit": "FIXTURE", "claim_ceiling": "PREVIEW_IMPORT_ONLY" }
+    },
+    {
+      "object_id": "max-1003", "group_id": "MAX_GROUP_GAMMA", "parent_id": "max-1002", "display_name": "FCC_Child", "body_role": "IMPORTED_RECEIVER", "representation_mode": "RIGID_VOLUME",
+      "transform": { "position": [1.4, -0.2, 0], "rotation": [0, 0.258819, 0, 0.965926], "scale": [1, 1, 1] }, "geometry_type": "SPHERE", "outer_radius": 0.4,
+      "amount": 0.8, "density": 1, "k_v": 1, "world_locked": false, "movable_translation": true, "movable_rotation": true,
+      "initial_velocity": [-0.01, 0, 0], "initial_angular_velocity": [0, 0, 0.15], "velocity": [-0.01, 0, 0], "angular_velocity": [0, 0, 0.15], "fixed_far": false, "visible": true, "kou_tier": null, "kou_role": null,
+      "packing": { "mode": "FCC", "level": "P0", "custom_count": null, "display_count": 4, "compute_count": 4, "boundary_policy": "SPHERE_CLIP_RECENTER_RENORMALIZE" }, "voxel_level": "V0",
+      "voxel_elements": [{"local_position":[-0.1,-0.1,0],"amount":0.2,"volume":0.2},{"local_position":[0.1,-0.1,0],"amount":0.2,"volume":0.2},{"local_position":[-0.1,0.1,0],"amount":0.2,"volume":0.2},{"local_position":[0.1,0.1,0],"amount":0.2,"volume":0.2}], "provenance": { "source": "VoxelLabSceneExporter.ms fixture", "producer_commit": "FIXTURE", "claim_ceiling": "PREVIEW_IMPORT_ONLY" }
+    }
+  ],
+  "simulation": { "dt": 0.002, "substeps_per_frame": 4, "playback_speed": 1, "fps_cap": 60, "damping_enabled": false, "damping_factor": 0.997, "integrator": "SYMPLECTIC_EULER", "operator_name": "POINT_CUBATURE_IMPORTED", "evaluation_method": "DISTRIBUTED_ELEMENTS" },
+  "first_hit": { "enabled": false, "observer_body_id": null, "direction_count": 16384, "max_distance": 20, "mode": "SKY_VIEW" },
+  "kou": null,
+  "provenance": { "source": "VoxelLabSceneExporter.ms fixture", "producer_commit": "FIXTURE", "claim_ceiling": "PREVIEW_IMPORT_ONLY" }
+}

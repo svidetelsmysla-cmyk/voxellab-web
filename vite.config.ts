@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 
-export default defineConfig({
+export default defineConfig(({ isSsrBuild }) => ({
   base: "/voxellab-web/",
   worker: { format: "es" },
   build: {
@@ -8,7 +8,7 @@ export default defineConfig({
     sourcemap: true,
     assetsInlineLimit: 0,
     chunkSizeWarningLimit: 550,
-    rollupOptions: {
+    rollupOptions: isSsrBuild ? undefined : {
       output: {
         manualChunks: {
           three: ["three", "three/examples/jsm/controls/OrbitControls.js"],
@@ -20,4 +20,4 @@ export default defineConfig({
     environment: "node",
     include: ["tests/**/*.test.ts"],
   },
-});
+}));

@@ -2,7 +2,7 @@ name: Deploy VoxelLab Web to Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, agent/web/voxellab-scene-lab-v2-full-suite-v1]
   workflow_dispatch:
 
 permissions:
@@ -17,7 +17,7 @@ concurrency:
 jobs:
   validate-build-deploy:
     environment:
-      name: github-pages
+      name: ${{ github.ref == 'refs/heads/main' && 'github-pages' || 'github-pages-preview' }}
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
@@ -44,6 +44,11 @@ jobs:
 
       - name: Unit tests
         run: pnpm test
+
+      - name: Complete deterministic scene suite
+        run: pnpm suite
+        env:
+          VITE_COMMIT_SHA: ${{ github.sha }}
 
       - name: Production build
         run: pnpm build
