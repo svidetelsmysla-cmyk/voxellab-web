@@ -1,0 +1,26 @@
+{
+  "authority": "BROWSER_PREVIEW_ONLY",
+  "base": "a8e3413d2d8ff88b5df990f59626443a04c9fa05",
+  "branch": "agent/web/voxellab-scene-lab-v2-full-suite-v1",
+  "damping_default": "OFF",
+  "first_hit_direction_gate": 16384,
+  "kou_presets": {
+    "M0_K4": 180,
+    "M0_K6": 546,
+    "TINY": 30
+  },
+  "performance_gates": {
+    "B1_compute_elements_per_body": 512,
+    "B2_visible_elements": 20000,
+    "B3_kou_bodies": 180,
+    "B4_movable_bodies": 50,
+    "B5_first_hit_directions": 16384
+  },
+  "runtime_executed": false,
+  "scene_ids": [
+    "S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09",
+    "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17"
+  ],
+  "task_id": "CODEX_WEB_VOXELLAB_SCENE_LAB_V2_FULL_SCENE_SUITE_V1",
+  "validation_status": "NOT_CLAIMED"
+}

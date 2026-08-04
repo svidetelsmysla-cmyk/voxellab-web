@@ -12,7 +12,7 @@
     "local paths, credentials and secrets"
   ],
   "export_policy": "BROWSER_SAFE_FILES_ONLY_NO_SOURCE_HISTORY",
-  "file_count_excluding_manifest": 33,
+  "file_count_excluding_manifest": 35,
   "files": {
     ".github/workflows/deploy-pages.yml": "76ed4df289cef690c22d4f58ea5c4f40a7b41f9d55a630196fe6f4766a849631",
     ".gitignore": "3aaed9100bdd41a1c82e15ee664b352bfec2abfcb218ac9b508d2fdace11e672",
@@ -23,6 +23,7 @@
     "docs/interfaces/VOXELLAB_BROWSER_PACKET_SCHEMA_V1.md": "7117ab055e2cf5518d2430c44b894df0ebaffabd2d663a0ad7696a5a45cc0cd4",
     "docs/interfaces/VOXELLAB_WEB_MVP_V1.md": "4082685a80b618aba29e32427bffd3478c2f099a72c6158cb3f4bb5fd19244ac",
     "docs/interfaces/examples/3DSMAX_RIGID_GROUP_EXAMPLE_V1.json": "04335b981491f1eccda69c668618de064d782f271f3322cf972fb8e5eca6e600",
+    "docs/tasks/CODEX_WEB_VOXELLAB_SCENE_LAB_V2_FULL_SCENE_SUITE_V1_PREREGISTRATION.md": "7bc88f0038558160e918b0cae9cf3e6d079b532d533662bb2fb7671b4db9d4e5",
     "index.html": "45bad1d48a74dcfad81213ba670d2782f57fbae04efc56fe0c80cf90e3346c28",
     "package.json": "cba9ff7e83675d7f32f7c26868aadd3840656c710fd027da32fe61ab6ed26bbb",
     "playwright.config.ts": "ef4c7af58e0766449205af3c24aab337f74f466fcb698e4b2542047d4e9bdf97",
@@ -31,6 +32,7 @@
     "public/metadata/VOXELLAB_PUBLIC_BUILD_RECEIPT_V1.json": "09ceef7c219af03bde92abddfeb89266e7f209d4b202f10fa26fd5357fc21cd7",
     "public/og.png": "2e486b1a7287592c90507af296aa74a97bd6b185859015d7f1e156302ecf45df",
     "public/packets/R14_V2B3B_BROWSER_PACKET_V1.json": "9399f2a9f88c38340605b09e18c5dc4410c0ac260d3db37002e9ac9839a1419b",
+    "public/receipts/VOXELLAB_SCENE_LAB_V2_PREREGISTRATION.json": "4b168e1cfbb251c1a87efe147f1552468698df13a6924a6a4e78ae59067142aa",
     "public/scenes/index.json": "52fd3a9f0e5d50cdf5209bc44ba85d94d793b80acb780114ec7b2a9a3285fd24",
     "src/cpu.worker.ts": "5b00d2629a6e938364d464690962a90cb43be7c0d355e24f2a6a15d73f01802e",
     "src/cpuClient.ts": "bb147b11d93e523d4f0fad30919c4aea99a5637e5e5e75a0429f2a92b2a8d5d9",
