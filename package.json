@@ -10,7 +10,10 @@
     "test": "vitest run",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --host 0.0.0.0",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "suite:build": "vite build --ssr scripts/runSceneSuite.ts --outDir .suite-build --emptyOutDir",
+    "suite": "pnpm suite:build && node .suite-build/runSceneSuite.js",
+    "benchmark:browser": "node scripts/runBrowserPerformance.mjs"
   },
   "dependencies": {
     "three": "^0.179.1"

@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0",
+  "task_id": "CODEX_WEB_VOXELLAB_SCENE_LAB_V2_FULL_SCENE_SUITE_V1",
+  "generated_utc": "2026-08-04T16:59:40.9675542Z",
+  "commit": "LOCAL_IMPLEMENTATION_TREE_PENDING_FINAL_COMMIT",
+  "owner_browser_context": "CODEX_IN_APP_CHROMIUM_ON_OWNER_DESKTOP",
+  "render_backend_evidence": {
+    "webgpu_adapter": true,
+    "frozen_v1_cpu_webgpu_parity": "PASS",
+    "relative_delta": 5.543e-8,
+    "scene_lab_v2_compute_backend": "CPU_PREVIEW_EXPLICIT"
+  },
+  "targets": {
+    "minimum_fps": 30,
+    "maximum_stop_latency_ms": 250,
+    "memory_window_ms": 300000
+  },
+  "hardware_browser_benchmarks": [
+    {
+      "id": "B1",
+      "scene_id": "S02",
+      "configured": "2 bodies / 512+512 compute elements",
+      "visible_instances": 1026,
+      "measured_fps": 59.9341,
+      "target_met": true
+    },
+    {
+      "id": "B2",
+      "scene_id": "S03",
+      "visible_instances": 22528,
+      "measured_fps": 59.952,
+      "target_met": true
+    },
+    {
+      "id": "B3",
+      "scene_id": "S05",
+      "kou_bodies": 180,
+      "total_bodies": 181,
+      "visible_instances": 457,
+      "measured_fps": 59.946,
+      "target_met": true
+    },
+    {
+      "id": "B4",
+      "scene_id": "S04",
+      "simultaneously_movable_bodies": 50,
+      "visible_instances": 1050,
+      "measured_fps": 59.9401,
+      "target_met": true
+    },
+    {
+      "id": "B5",
+      "scene_id": "S09",
+      "direction_count": 16384,
+      "coverage_fraction": 1.0,
+      "visible_instances": 16744,
+      "measured_fps": 59.958,
+      "target_met": true
+    }
+  ],
+  "responsiveness_and_memory": {
+    "measurement_context": "PLAYWRIGHT_CHROMIUM_HEADLESS_SAME_LOCAL_BUILD",
+    "stop_latency_ms_max": 0.5,
+    "five_minute_heap_first_bytes": 22811072,
+    "five_minute_heap_last_bytes": 32204423,
+    "five_minute_heap_growth_bytes": 9393351,
+    "five_minute_heap_peak_bytes": 39117547,
+    "bounded_growth": true,
+    "tab_crash": false,
+    "console_errors": 0,
+    "source_receipt": "VOXELLAB_SCENE_LAB_V2_PERFORMANCE.json"
+  },
+  "secondary_headless_rendering_note": "The software-rendered headless browser measured B2=4.0562 FPS and B5=3.1383 FPS. These are retained as portability diagnostics and are not substituted for the task's owner-desktop hardware-browser target.",
+  "all_owner_hardware_targets_met": true,
+  "authority": "LOCAL_BROWSER_ENGINEERING_BENCHMARK_NOT_SCIENTIFIC_VALIDATION"
+}

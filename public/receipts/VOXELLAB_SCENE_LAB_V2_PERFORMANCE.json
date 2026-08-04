@@ -1,0 +1,125 @@
+{
+  "schema_version": "1.0",
+  "task_id": "CODEX_WEB_VOXELLAB_SCENE_LAB_V2_FULL_SCENE_SUITE_V1",
+  "generated_utc": "2026-08-04T16:55:20.583Z",
+  "environment": "LOCAL_DESKTOP_PLAYWRIGHT_CHROMIUM_HEADLESS",
+  "base_url": "http://127.0.0.1:4173/voxellab-web/",
+  "duration_ms": 300000,
+  "targets": {
+    "minimum_fps": 30,
+    "maximum_stop_latency_ms": 250,
+    "memory_window_ms": 300000
+  },
+  "cpu_webgpu_parity": "Frozen V1 CPU/WebGPU parity: NOT_AVAILABLE · adapter=false · CPU Worker fallback active. Scene Lab V2 CPU preview remains explicit.",
+  "benchmarks": [
+    {
+      "id": "B1",
+      "scene_id": "S02",
+      "configured": "2 bodies / 512+512 compute elements",
+      "measured_fps": 35.590706870957476,
+      "stop_latency_ms": 0.19999999925494194,
+      "target_met": true
+    },
+    {
+      "id": "B2",
+      "scene_id": "S03",
+      "configured_visible_instances": 22528,
+      "measured_fps": 4.056246619795845,
+      "target_met": false
+    },
+    {
+      "id": "B3",
+      "scene_id": "S05",
+      "configured_bodies": 181,
+      "measured_fps": 34.2737929664216,
+      "target_met": true
+    },
+    {
+      "id": "B4",
+      "scene_id": "S04",
+      "simultaneously_movable_bodies": 50,
+      "measured_fps": 30.867270735813005,
+      "stop_latency_ms": 0.09999999776482582,
+      "target_met": true
+    },
+    {
+      "id": "B5",
+      "scene_id": "S09",
+      "direction_count": 16384,
+      "compute_latency_ms": 2344.6051000000007,
+      "measured_fps": 3.1383097960067206,
+      "closure_status": "coverage convergence 192:1.0000 · 768:1.0000 · 3072:1.0000 · 16384:1.0000 · uncovered Ω=0.0000 · largest sampled hole=0.0000 rad · max hit=4.4572 · click map to inspect first-hit ID/distance",
+      "target_met": false
+    }
+  ],
+  "memory": {
+    "samples": [
+      {
+        "elapsed_ms": 30217.6954,
+        "used_js_heap_bytes": 22811072,
+        "total_js_heap_bytes": 45605936,
+        "fps": 4.968944099378882
+      },
+      {
+        "elapsed_ms": 61821.643800000005,
+        "used_js_heap_bytes": 21419935,
+        "total_js_heap_bytes": 45126031,
+        "fps": 4.885993485333103
+      },
+      {
+        "elapsed_ms": 93490.6813,
+        "used_js_heap_bytes": 20552031,
+        "total_js_heap_bytes": 78680463,
+        "fps": 4.832085044696798
+      },
+      {
+        "elapsed_ms": 125219.47709999999,
+        "used_js_heap_bytes": 21224363,
+        "total_js_heap_bytes": 78418303,
+        "fps": 4.878048780478918
+      },
+      {
+        "elapsed_ms": 156790.9585,
+        "used_js_heap_bytes": 20295559,
+        "total_js_heap_bytes": 78418303,
+        "fps": 4.887585532737877
+      },
+      {
+        "elapsed_ms": 188408.8448,
+        "used_js_heap_bytes": 25027984,
+        "total_js_heap_bytes": 77631188,
+        "fps": 4.941199723285596
+      },
+      {
+        "elapsed_ms": 219789.88760000002,
+        "used_js_heap_bytes": 9591572,
+        "total_js_heap_bytes": 77631188,
+        "fps": 4.992511233154047
+      },
+      {
+        "elapsed_ms": 251281.75950000001,
+        "used_js_heap_bytes": 36301200,
+        "total_js_heap_bytes": 77631188,
+        "fps": 4.906370103854443
+      },
+      {
+        "elapsed_ms": 282998.9445,
+        "used_js_heap_bytes": 39117547,
+        "total_js_heap_bytes": 77630891,
+        "fps": 4.830528942916398
+      },
+      {
+        "elapsed_ms": 300191.7619,
+        "used_js_heap_bytes": 32204423,
+        "total_js_heap_bytes": 77630891,
+        "fps": 4.965736418703603
+      }
+    ],
+    "growth_bytes": 9393351,
+    "bounded_growth": true,
+    "stop_latency_ms": 0.5
+  },
+  "console_errors": [],
+  "all_targets_met": false,
+  "authority": "LOCAL_BROWSER_ENGINEERING_BENCHMARK_NOT_SCIENTIFIC_VALIDATION"
+}

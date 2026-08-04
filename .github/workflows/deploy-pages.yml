@@ -45,6 +45,11 @@ jobs:
       - name: Unit tests
         run: pnpm test
 
+      - name: Complete deterministic scene suite
+        run: pnpm suite
+        env:
+          VITE_COMMIT_SHA: ${{ github.sha }}
+
       - name: Production build
         run: pnpm build
         env:
