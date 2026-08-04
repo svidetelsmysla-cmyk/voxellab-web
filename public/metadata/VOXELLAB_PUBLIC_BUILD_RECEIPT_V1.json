@@ -1,6 +1,6 @@
 {
   "browser_packet_sha256": "9399f2a9f88c38340605b09e18c5dc4410c0ac260d3db37002e9ac9839a1419b",
-  "deployment_status": "PENDING_GITHUB_PAGES_RUN",
+  "deployment_status": "PAGES_ENABLED_RUN_PENDING",
   "expected_url": "https://svidetelsmysla-cmyk.github.io/voxellab-web/",
   "local_build_sha256": "f02843a53ec78ffd291fbb03bbe71189089021d4ec711948e70df126a7acad75",
   "local_checks": {
@@ -9,6 +9,11 @@
     "production_build": "PASS",
     "typecheck": "PASS",
     "vitest": "8 PASSED"
+  },
+  "pages_build_type": "workflow",
+  "pre_enablement_run": {
+    "run_id": 30919183994,
+    "status": "BUILD_AND_TEST_PASS_CONFIGURE_PAGES_FAILED_BEFORE_ENABLEMENT"
   },
   "source_head": "5a88048355ca34743023f0dbca21ce3869e2956c",
   "source_repository_visibility_change": "NONE",
