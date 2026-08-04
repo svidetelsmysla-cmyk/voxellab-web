@@ -1,0 +1,48 @@
+{
+  "scene_version": "1.0",
+  "scene_id": "3DSMAX_RIGID_GROUP_EXAMPLE_V1",
+  "display_name": "3ds Max rigid-group mapping example",
+  "description": "One already formed positive rigid volume exported in group-local coordinates.",
+  "does_not_claim": "No physical scale, cohesion law or validation.",
+  "coefficient_c": 1.0,
+  "objects": [
+    {
+      "object_id": "max_node_1042",
+      "group_id": "formed_body_A",
+      "parent_id": null,
+      "display_name": "Formed body A",
+      "body_role": "FORMED_BODY",
+      "representation_mode": "RIGID_VOLUME",
+      "transform": {
+        "position": [1.25, -0.5, 0.75],
+        "rotation": [0.0, 0.0, 0.0, 1.0],
+        "scale": [1.0, 1.0, 1.0]
+      },
+      "geometry_type": "VOXEL_GROUP",
+      "outer_radius": 0.25,
+      "amount": 1.0,
+      "density": 2.0,
+      "k_v": 1.0,
+      "world_locked": false,
+      "movable_translation": true,
+      "movable_rotation": false,
+      "fixed_far": false,
+      "visible": true,
+      "voxel_level": "V0",
+      "voxel_elements": [
+        { "local_position": [-0.1, 0.0, 0.0], "amount": 0.5, "volume": 0.25 },
+        { "local_position": [0.1, 0.0, 0.0], "amount": 0.5, "volume": 0.25 }
+      ],
+      "provenance": {
+        "source": "3DSMAX_EXPORT_CONTRACT_EXAMPLE",
+        "producer_commit": "UNCOMMITTED_EXAMPLE",
+        "claim_ceiling": "INTERFACE_EXAMPLE_NOT_PHYSICS"
+      }
+    }
+  ],
+  "provenance": {
+    "source": "3DSMAX_EXPORT_CONTRACT_V1",
+    "producer_commit": "UNCOMMITTED_EXAMPLE",
+    "claim_ceiling": "INTERFACE_EXAMPLE_NOT_PHYSICS"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "scene_manifest_version": "1.0",
+  "implementation": "src/scenes.ts",
+  "scenes": [
+    {
+      "scene_id": "SCENE_01_CM_CONTROL",
+      "role": "CENTRE_MASS_NEGATIVE_CONTROL_ONLY"
+    },
+    {
+      "scene_id": "SCENE_02_WORLD_LOCKED_RIGID_VOLUME",
+      "role": "DISTRIBUTED_FORCE_TORQUE_LEDGER_WITHOUT_MOTION"
+    },
+    {
+      "scene_id": "SCENE_03_MOVABLE_RIGID_VOLUME",
+      "role": "DEFAULT_INTERACTIVE_RIGID_GROUP_PREVIEW"
+    },
+    {
+      "scene_id": "SCENE_04_ANTIPODAL_KOU_DEMO",
+      "role": "SMALL_UNCONVERGED_ANTIPODAL_GEOMETRY_DEMO"
+    },
+    {
+      "scene_id": "SCENE_05_PACKET_VIEWER_DEMO",
+      "role": "READ_ONLY_GOVERNED_PACKET_INSPECTION"
+    }
+  ],
+  "claim_ceiling": "ENGINEERING_PREVIEW_NOT_SCIENTIFIC_VALIDATION"
+}

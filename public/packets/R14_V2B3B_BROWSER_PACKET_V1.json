@@ -1,0 +1,801 @@
+{
+  "amount_ledger": [
+    8.0,
+    0.0
+  ],
+  "body_forces": [
+    [
+      30.862878538404644,
+      5.310422240834001e-16,
+      6.678685382510707e-16
+    ]
+  ],
+  "body_torques": [
+    [
+      8.836247705756861e-18,
+      4.727121472036799e-16,
+      -4.2240516640035253e-16
+    ]
+  ],
+  "body_transforms": [
+    [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  ],
+  "claim_ceiling": "RUNTIME_DIAGNOSTIC_NOT_VALIDATION",
+  "diagnostics": {
+    "canon_promotion_status": "NONE",
+    "conversion_policy": "VALUE_PRESERVING_JSON_EXPORT_NO_RECOMPUTATION",
+    "nonfinite_json_encoding": "SOURCE_NAN_OR_INFINITY_IS_JSON_NULL_WITHOUT_NUMERIC_SUBSTITUTION",
+    "representation_gate": {
+      "P0": {
+        "action_reaction_component_abs": 8.881784197001252e-16,
+        "amount_residual": 0.0,
+        "cpu_backend": "CPU_FLOAT64",
+        "cupy_version": "14.1.1",
+        "gpu_backend": "CUPY_FLOAT64",
+        "gpu_device": "NVIDIA GeForce RTX 4090",
+        "max_element_force_component_abs": 5.551115123125783e-17,
+        "max_force_component_abs": 5.637851296924623e-18,
+        "max_torque_component_abs": 3.122502256758253e-17,
+        "status": "PASS"
+      },
+      "P1": {
+        "exact_centre": {
+          "cm_is_singular": true,
+          "sh_a2_norm": 0.0,
+          "volume_v2_norm": 0.0
+        },
+        "far_field_a2_cm_relative_delta": 0.014130046911880004,
+        "far_field_v2_cm_relative_delta": 2.1388031431466458e-05,
+        "interpretation": "CM_CONTROL_SINGULAR_AT_CENTRE_VOLUME_AND_SH_FINITE",
+        "radius_over_source_radius": [
+          0.0,
+          0.25,
+          0.5,
+          0.75,
+          1.0,
+          1.25,
+          1.5,
+          2.0,
+          3.0,
+          4.0
+        ],
+        "status": "REPORTED",
+        "volume_receipts": [
+          {
+            "amount_residual": 0.0,
+            "centroid_norm": 2.943923360032078e-17,
+            "element_count": 8,
+            "level": "V0",
+            "second_moment": [
+              [
+                0.018925897959183664,
+                -8.673617379884035e-19,
+                0.0
+              ],
+              [
+                -8.673617379884035e-19,
+                0.018925897959183657,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.01892589795918366
+              ]
+            ]
+          },
+          {
+            "amount_residual": 0.0,
+            "centroid_norm": 3.6704367118783115e-17,
+            "element_count": 27,
+            "level": "V1",
+            "second_moment": [
+              [
+                0.022436842105263168,
+                3.0357660829594124e-18,
+                3.0899761915836876e-18
+              ],
+              [
+                3.2526065174565133e-18,
+                0.022436842105263168,
+                2.9815559743351372e-18
+              ],
+              [
+                2.7647155398380363e-18,
+                3.144186300207963e-18,
+                0.02243684210526317
+              ]
+            ]
+          },
+          {
+            "amount_residual": 0.0,
+            "centroid_norm": 9.552013042069424e-17,
+            "element_count": 64,
+            "level": "V2",
+            "second_moment": [
+              [
+                0.023986868431777206,
+                -8.866740891858016e-18,
+                -8.541480240112365e-18
+              ],
+              [
+                -8.866740891858016e-18,
+                0.023986868431777216,
+                -7.701223556436099e-18
+              ],
+              [
+                -8.433060022863814e-18,
+                -7.701223556436099e-18,
+                0.023986868431777206
+              ]
+            ]
+          }
+        ]
+      },
+      "P2": {
+        "amount_ledger_exact": true,
+        "angular_a1_a2_relative_delta_max": 0.03191445581616681,
+        "frame_covariance_residual_max": 0.020107923424243366,
+        "main_verdict_if_blocked": "RIGID_VOLUME_AND_SOLID_ANGLE_SH_PARITY_BLOCKER",
+        "refined_v2_a2_force_relative_delta_max": 0.01189384161820066,
+        "refined_v2_a2_torque_normalized_delta_max": 0.003207054868211216,
+        "status": "BLOCKER",
+        "threshold": 0.001,
+        "two_finest_matched_level_force_relative_delta_max": 0.03463393270895276,
+        "volume_v1_v2_relative_delta_max": 0.005094165855259005
+      },
+      "P3": {
+        "h0_world_locked": true,
+        "h1_world_locked": false,
+        "identical_initial_transform_force_delta": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "recoil_verdict": "NOT_ISSUED_BEFORE_AUTHORIZED_GROUP_MOTION",
+        "status": "ROLE_SPLIT_REPORTED_NO_GROUP_MOTION_EXECUTED"
+      },
+      "main_verdict": "RIGID_VOLUME_AND_SOLID_ANGLE_SH_PARITY_BLOCKER",
+      "program_a_s0_s8_status": "CLOSED_P2_BLOCKER",
+      "status": "BLOCKER",
+      "task_id": "R14_CODEX_V2B3B_VIKTOR_F0_RIGID_VOLUME_SOLID_ANGLE_GLOBAL_INVENTORY_V1"
+    },
+    "scale_binding_status": "NOT_OPENED",
+    "validation_status": "NOT_VALIDATION"
+  },
+  "manifest_sha256": "8626ea2d8c065eb25b9c3408dd8631096d286ad2a7c75a252c6a4b1f5a562611",
+  "packet_sha256": "d37f11598839964f3b87a3104d56afe6c945ebe4510206a70802dbceff356eb3",
+  "packet_version": "1.0",
+  "producer_commit": "96b790f72db2f52d36b0ad6a2aaa26b4a1ec9626",
+  "scene": {
+    "entities": [
+      {
+        "angular_settings": {
+          "levels": [
+            "A0",
+            "A1",
+            "A2"
+          ]
+        },
+        "body_role": "P_GATE_SOURCE",
+        "density": 40.9349133466809,
+        "display_name": "source-volume",
+        "fixed_far": false,
+        "geometry_type": "UNIFORM_SPHERE",
+        "group_id": "p-gate-source",
+        "k_v": 1.0,
+        "mesh_reference": null,
+        "movable_rotation": false,
+        "movable_translation": false,
+        "object_id": "source-volume",
+        "parent_id": null,
+        "provenance": {
+          "authority": "GOVERNED_AUTHORITATIVE_SOLVER",
+          "task_id": "R14_CODEX_V2B3B_VIKTOR_F0_RIGID_VOLUME_SOLID_ANGLE_GLOBAL_INVENTORY_V1"
+        },
+        "representation_mode": "RIGID_DISTRIBUTED_VOLUME",
+        "scene_version": "VOXELLAB_SCENE_V1",
+        "total_amount": 8.0,
+        "transform": {
+          "rotation_matrix": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "translation": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "voxelization_settings": {
+          "levels": [
+            "V0",
+            "V1",
+            "V2"
+          ]
+        },
+        "world_locked": true
+      },
+      {
+        "angular_settings": {
+          "levels": [
+            "A0",
+            "A1",
+            "A2"
+          ]
+        },
+        "body_role": "P_GATE_SOURCE",
+        "density": 40.9349133466809,
+        "display_name": "source-sh",
+        "fixed_far": false,
+        "geometry_type": "UNIFORM_SPHERE",
+        "group_id": "p-gate-source",
+        "k_v": 1.0,
+        "mesh_reference": null,
+        "movable_rotation": false,
+        "movable_translation": false,
+        "object_id": "source-sh",
+        "parent_id": null,
+        "provenance": {
+          "authority": "GOVERNED_AUTHORITATIVE_SOLVER",
+          "task_id": "R14_CODEX_V2B3B_VIKTOR_F0_RIGID_VOLUME_SOLID_ANGLE_GLOBAL_INVENTORY_V1"
+        },
+        "representation_mode": "SOLID_ANGLE_SH",
+        "scene_version": "VOXELLAB_SCENE_V1",
+        "total_amount": 8.0,
+        "transform": {
+          "rotation_matrix": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "translation": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "voxelization_settings": {
+          "levels": [
+            "V0",
+            "V1",
+            "V2"
+          ]
+        },
+        "world_locked": true
+      },
+      {
+        "angular_settings": {
+          "levels": [
+            "A0",
+            "A1",
+            "A2"
+          ]
+        },
+        "body_role": "P_GATE_SOURCE",
+        "density": 40.9349133466809,
+        "display_name": "source-cm-control",
+        "fixed_far": false,
+        "geometry_type": "UNIFORM_SPHERE",
+        "group_id": "p-gate-source",
+        "k_v": 1.0,
+        "mesh_reference": null,
+        "movable_rotation": false,
+        "movable_translation": false,
+        "object_id": "source-cm-control",
+        "parent_id": null,
+        "provenance": {
+          "authority": "GOVERNED_AUTHORITATIVE_SOLVER",
+          "task_id": "R14_CODEX_V2B3B_VIKTOR_F0_RIGID_VOLUME_SOLID_ANGLE_GLOBAL_INVENTORY_V1"
+        },
+        "representation_mode": "CM_CONTROL",
+        "scene_version": "VOXELLAB_SCENE_V1",
+        "total_amount": 8.0,
+        "transform": {
+          "rotation_matrix": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "translation": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "voxelization_settings": {
+          "levels": [
+            "V0",
+            "V1",
+            "V2"
+          ]
+        },
+        "world_locked": true
+      }
+    ],
+    "physics_authority": "GOVERNED_AUTHORITATIVE_SOLVER",
+    "scene_version": "VOXELLAB_SCENE_V1",
+    "task_id": "R14_CODEX_V2B3B_VIKTOR_F0_RIGID_VOLUME_SOLID_ANGLE_GLOBAL_INVENTORY_V1",
+    "three_ds_max_role": "AUTHORING_AND_EXPORT_ONLY",
+    "webgpu_role": "PREVIEW_AND_INSPECTION_ONLY"
+  },
+  "verdict": "RIGID_VOLUME_AND_SOLID_ANGLE_SH_PARITY_BLOCKER",
+  "visual_arrays": {
+    "force_cm": [
+      [
+        null,
+        null,
+        null
+      ],
+      [
+        987.6543209876544,
+        0.0,
+        0.0
+      ],
+      [
+        246.9135802469136,
+        0.0,
+        0.0
+      ],
+      [
+        109.73936899862825,
+        0.0,
+        0.0
+      ],
+      [
+        61.7283950617284,
+        0.0,
+        0.0
+      ],
+      [
+        39.506172839506185,
+        0.0,
+        0.0
+      ],
+      [
+        27.434842249657063,
+        0.0,
+        0.0
+      ],
+      [
+        15.4320987654321,
+        0.0,
+        0.0
+      ],
+      [
+        6.858710562414266,
+        0.0,
+        0.0
+      ],
+      [
+        3.858024691358025,
+        0.0,
+        0.0
+      ]
+    ],
+    "force_rigid_volume": [
+      [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          15.4320987654321,
+          0.0,
+          0.0
+        ],
+        [
+          30.8641975308642,
+          0.0,
+          0.0
+        ],
+        [
+          46.296296296296305,
+          0.0,
+          0.0
+        ],
+        [
+          61.7283950617284,
+          0.0,
+          0.0
+        ],
+        [
+          34.97768784122874,
+          1.7763568394002505e-15,
+          -4.440892098500626e-16
+        ],
+        [
+          25.760521627821127,
+          6.661338147750939e-16,
+          2.220446049250313e-16
+        ],
+        [
+          15.106043586786072,
+          2.220446049250313e-16,
+          1.1102230246251565e-16
+        ],
+        [
+          6.828387830068259,
+          5.551115123125783e-17,
+          5.551115123125783e-17
+        ],
+        [
+          3.8525264300130355,
+          2.7755575615628914e-17,
+          2.0816681711721685e-17
+        ]
+      ],
+      [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          15.4320987654321,
+          0.0,
+          0.0
+        ],
+        [
+          30.8641975308642,
+          0.0,
+          0.0
+        ],
+        [
+          46.296296296296305,
+          0.0,
+          0.0
+        ],
+        [
+          61.7283950617284,
+          0.0,
+          0.0
+        ],
+        [
+          40.98297013904238,
+          -2.55351295663786e-15,
+          -2.3314683517128287e-15
+        ],
+        [
+          27.702220509732385,
+          -1.6930901125533637e-15,
+          -1.3600232051658168e-15
+        ],
+        [
+          15.45681129299972,
+          -6.522560269672795e-16,
+          -6.800116025829084e-16
+        ],
+        [
+          6.860433308692479,
+          -1.0061396160665481e-16,
+          -1.8041124150158794e-16
+        ],
+        [
+          3.8583404691040015,
+          -5.117434254131581e-17,
+          -6.071532165918825e-17
+        ]
+      ],
+      [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          15.4320987654321,
+          0.0,
+          0.0
+        ],
+        [
+          30.8641975308642,
+          0.0,
+          0.0
+        ],
+        [
+          46.296296296296305,
+          0.0,
+          0.0
+        ],
+        [
+          61.7283950617284,
+          0.0,
+          0.0
+        ],
+        [
+          38.608419400255364,
+          7.232062171347309e-15,
+          7.95370713735366e-15
+        ],
+        [
+          27.272458871862124,
+          4.430483757644765e-15,
+          4.472117121068209e-15
+        ],
+        [
+          15.418582862552928,
+          2.0192181260370035e-15,
+          1.97758476261356e-15
+        ],
+        [
+          6.8581058451430605,
+          4.744468706796567e-16,
+          5.421010862427522e-16
+        ],
+        [
+          3.857942175804663,
+          2.1049785178806069e-16,
+          1.9922214919421144e-16
+        ]
+      ]
+    ],
+    "force_solid_angle_sh": [
+      [
+        [
+          -0.0,
+          -0.0,
+          -0.0
+        ],
+        [
+          15.554828613086158,
+          -0.13219533433412697,
+          0.007577971528186289
+        ],
+        [
+          31.109657226172345,
+          -0.26439066866825395,
+          0.015155943056371579
+        ],
+        [
+          46.66448583925849,
+          -0.39658600300238045,
+          0.022733914584557313
+        ],
+        [
+          62.21931445234466,
+          -0.5287813373365072,
+          0.030311886112743956
+        ],
+        [
+          40.17241871933244,
+          -0.7417860454494425,
+          0.15443740644169784
+        ],
+        [
+          27.998922169043666,
+          -0.1210055332620266,
+          -0.22082655509711852
+        ],
+        [
+          15.764260643473657,
+          0.0073782259656994115,
+          -0.33738802743208063
+        ],
+        [
+          7.470130449036751,
+          0.1110570220654133,
+          0.08958322347250702
+        ],
+        [
+          4.503580191752976,
+          0.1805520272783904,
+          -0.2863920778635871
+        ]
+      ],
+      [
+        [
+          -0.0,
+          -0.0,
+          -0.0
+        ],
+        [
+          15.462377064760167,
+          -0.03292770640516691,
+          0.0008928971805073349
+        ],
+        [
+          30.924754129520295,
+          -0.06585541281033318,
+          0.0017857943610152804
+        ],
+        [
+          46.3871311942805,
+          -0.09878311921550043,
+          0.0026786915415219215
+        ],
+        [
+          61.84950825904058,
+          -0.13171082562066766,
+          0.003571588722029658
+        ],
+        [
+          39.62210155264768,
+          -0.22440058521658487,
+          -0.005396405426307906
+        ],
+        [
+          27.658988725743555,
+          0.05468149227559062,
+          -0.12324187078022945
+        ],
+        [
+          15.493260251523889,
+          0.0026430919988986844,
+          0.050784041404721016
+        ],
+        [
+          7.14708185697016,
+          0.05829819645614783,
+          -0.018736707038307286
+        ],
+        [
+          4.026326599337606,
+          0.0004997659632121117,
+          0.015253505443175858
+        ]
+      ],
+      [
+        [
+          -0.0,
+          -0.0,
+          -0.0
+        ],
+        [
+          15.439642669893676,
+          -0.00822460118471567,
+          7.55897054408941e-05
+        ],
+        [
+          30.87928533978725,
+          -0.01644920236943118,
+          0.00015117941088247516
+        ],
+        [
+          46.31892800968121,
+          -0.02467380355414704,
+          0.00022676911632336233
+        ],
+        [
+          61.75857067957472,
+          -0.03289840473886275,
+          0.00030235882176463634
+        ],
+        [
+          39.542505911768366,
+          -0.02608871371981075,
+          0.00404388652184519
+        ],
+        [
+          27.462278336621196,
+          0.01404396047951057,
+          -0.02700946516430367
+        ],
+        [
+          15.48656598519937,
+          0.0012692755482554118,
+          0.0004114338050126079
+        ],
+        [
+          6.848910280326829,
+          0.007839561429782003,
+          0.0027695005174780477
+        ],
+        [
+          3.9114914971841293,
+          0.012298173346856114,
+          -0.0066946869328415965
+        ]
+      ]
+    ],
+    "radius_over_source_radius": [
+      0.0,
+      0.25,
+      0.5,
+      0.75,
+      1.0,
+      1.25,
+      1.5,
+      2.0,
+      3.0,
+      4.0
+    ],
+    "representation_parity_metrics": [
+      0.01189384161820066,
+      0.03463393270895276,
+      0.003207054868211216,
+      0.020107923424243366,
+      0.005094165855259005,
+      0.03191445581616681
+    ]
+  }
+}
