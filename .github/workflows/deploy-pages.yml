@@ -2,7 +2,7 @@ name: Deploy VoxelLab Web to Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, agent/web/voxellab-scene-lab-v2-full-suite-v1]
   workflow_dispatch:
 
 permissions:

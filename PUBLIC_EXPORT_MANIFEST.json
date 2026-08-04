@@ -16,7 +16,7 @@
                                ],
     "file_count_excluding_manifest":  71,
     "files":  {
-                  ".github/workflows/deploy-pages.yml":  "f8e627583c37ef75b3009163443b93248931bb584eaaaffde22484fde50d2d9d",
+                  ".github/workflows/deploy-pages.yml":  "fe1018b4fa815688d1dbc613ac7545f0cb5869aef0310e643b55d17ee24b29a3",
                   ".gitignore":  "cb2380f4a5e3448ae049f6f1a7d6ec87f3c977f5062043606d10b2adc8411eb1",
                   "docs/assets/VOXELLAB_WEB_PUBLIC_DEPLOYMENT_DESKTOP.png":  "b483b8924edd05dcf91d51e65ea3ff8a0e12f20f38a8c7fce68cef21367217ec",
                   "docs/interfaces/3DSMAX_EXPORT_CONTRACT_V1.md":  "414b8df0b6f2e70573d092df46262f516758da4de70ba8b9ac528376bc819f9f",
