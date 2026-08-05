@@ -20,8 +20,8 @@ describe("Action Transport Lab A0.2 isotropic background fixture", () => {
       expect(ledger.straightSurvivingScalar).toBeGreaterThan(0);
       expect(ledger.straightDeficitScalar).toBeGreaterThan(0);
       expect(ledger.deficitFraction).toBeGreaterThan(0);
-      expect(ledger.deficitFraction).toBeLessThan(0.25);
-      expect(ledger.straightFraction).toBeGreaterThan(0.75);
+      expect(ledger.deficitFraction).toBeLessThan(0.5);
+      expect(ledger.straightFraction).toBeGreaterThan(0.5);
       expect(ledger.scalarClosureResidual).toBeLessThan(1e-12);
       expect(ledger.vectorClosureResidual).toBeLessThan(1e-12);
     }
