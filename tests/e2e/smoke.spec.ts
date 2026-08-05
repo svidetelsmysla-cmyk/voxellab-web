@@ -54,27 +54,35 @@ test("3ds Max fixture loads and scene catalogue opens", async ({ page }) => {
   await expect(page.getByTestId("scene-catalogue").locator("tbody tr")).toHaveCount(17);
 });
 
-test("governed G4 ActionTally playback preserves the cadence blocker", async ({ page }) => {
+test("governed G4 ActionTally exposes a dimensionless resultant and defers only SI binding", async ({ page }) => {
   await expect(page.locator("#action-tally-packet-status")).toContainText("ACTION_TALLY_RESOLVED_MINUS_HOMOGENIZED_BRIDGE_PASS");
   await page.getByTestId("action-tally-branch").selectOption("R2_SPECULAR_REDIRECTION");
   await page.getByTestId("action-tally-body").selectOption("structure");
   await expect(page.locator("#action-tally-status")).toContainText("R2_SPECULAR_REDIRECTION · structure");
-  await expect(page.getByTestId("action-tally-metadata")).toContainText("CADENCE_TO_FORCE_BLOCKER");
+  await expect(page.getByTestId("action-tally-metadata")).toContainText("SI_TIME_AND_FORCE_UNIT_BINDING_DEFERRED_NOT_CURRENT_BLOCKER");
   await expect(page.getByTestId("action-tally-metadata")).toContainText("CELL_INTEGRATED_NO_SECOND_SOLID_ANGLE_WEIGHT");
   await expect(page.getByTestId("action-tally-map")).toBeVisible();
+  await expect(page.getByTestId("relational-time-status")).toContainText("Dimensionless resultant and torque are available");
 });
 
-test("MR and DL governed catalogue keeps its two source lanes separate", async ({ page }) => {
+test("scene-faithful MR V2 and legacy DL catalogue keep status namespaces separate", async ({ page }) => {
   await expect(page.locator("#matched-packet-status")).toContainText("NOT_REPLAYED_ON_CURRENT_ACTION_TALLY");
   await expect(page.getByTestId("matched-case-table").locator("tbody tr")).toHaveCount(16);
-  await page.getByTestId("matched-case").selectOption("MR02");
-  await expect(page.locator("#matched-case-status")).toContainText("CURRENT_G4_ACTION_TALLY_REPLAY");
-  await expect(page.getByTestId("matched-case-metadata")).toContainText("standard-matched rotation pair");
-  await expect(page.getByTestId("matched-case-metadata")).toContainText("0.0562");
+  await page.getByTestId("matched-case").selectOption("MR04");
+  await expect(page.locator("#matched-case-status")).toContainText("CURRENT_G4_SCENE_FAITHFUL_MR_V2");
+  await expect(page.locator("#matched-case-status")).toContainText("NONZERO_SPECULAR_CONTROL_RESIDUAL");
+  await expect(page.getByTestId("matched-case-metadata")).toContainText("three-body overlapping-sphere first-hit order pair");
+  await expect(page.getByTestId("matched-case-metadata")).toContainText("0.8013");
+  await page.getByTestId("matched-case").selectOption("MR07");
+  await expect(page.locator("#matched-case-status")).toContainText("REPRESENTATION_CONVERGENCE_PASS");
   await page.getByTestId("matched-case").selectOption("DL07");
   await expect(page.locator("#matched-case-status")).toContainText("current ActionTally replay=NOT AVAILABLE");
   await expect(page.getByTestId("matched-case-metadata")).toContainText("standard Dzhanibekov/gyroscope exclusion control");
-  await expect(page.getByTestId("matched-case-metadata")).toContainText("Physical force");
+});
+
+test("Action Transport Lab A0 remains a separate route", async ({ page }) => {
+  await expect(page.getByTestId("action-lab-link")).toHaveAttribute("href", /action-lab\/$/);
+  await expect(page.getByTestId("action-lab-link")).toContainText("Action Transport Lab A0");
 });
 
 test("capture required public engineering screenshots", async ({ page }) => {
