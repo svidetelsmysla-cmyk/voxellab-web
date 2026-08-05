@@ -12,7 +12,7 @@ const PACKET_FILE = "R12_G4_ACTION_TALLY_BROWSER_PLAYBACK_V1.json";
 const EXPECTED_VERDICT = "ACTION_TALLY_RESOLVED_MINUS_HOMOGENIZED_BRIDGE_PASS";
 const EXPECTED_CLAIM_CEILING = "DIMENSIONLESS_ACTION_TALLY_RESIDUAL_DIAGNOSTIC_NOT_PHYSICAL_FORCE";
 const EXPECTED_SECONDARY = "CADENCE_TO_FORCE_BLOCKER";
-const EXPECTED_PROJECTION_STATUS = "BOUNDED_SUMMARY_FROM_GOVERNED_PACKET_NO_CELL_ARRAYS";
+const EXPECTED_PROJECTION = "BOUNDED_SUMMARY_FROM_GOVERNED_PACKET_NO_CELL_ARRAYS";
 const HASH40 = /^[0-9a-f]{40}$/;
 const HASH64 = /^[0-9a-f]{64}$/;
 const EPS = 1e-12;
@@ -78,38 +78,38 @@ export interface ActionTallyAudit {
   channel_coverage: ActionTallyChannelCoverage[];
 }
 
-function assertCondition(condition: unknown, message: string): asserts condition {
+function requireCondition(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
-function asRecord(value: unknown, name: string): Record<string, unknown> {
-  assertCondition(value !== null && typeof value === "object" && !Array.isArray(value), `${name} must be an object`);
+function record(value: unknown, name: string): Record<string, unknown> {
+  requireCondition(value !== null && typeof value === "object" && !Array.isArray(value), `${name} must be an object`);
   return value as Record<string, unknown>;
 }
 
-function finiteNumber(value: unknown, name: string): number {
-  assertCondition(typeof value === "number" && Number.isFinite(value), `${name} must be finite`);
+function finite(value: unknown, name: string): number {
+  requireCondition(typeof value === "number" && Number.isFinite(value), `${name} must be finite`);
   return value;
 }
 
-function stringValue(value: unknown, name: string): string {
-  assertCondition(typeof value === "string" && value.length > 0, `${name} must be a non-empty string`);
+function nonempty(value: unknown, name: string): string {
+  requireCondition(typeof value === "string" && value.length > 0, `${name} must be a non-empty string`);
   return value;
 }
 
-function vectorAdd(left: Vec3, right: Vec3): Vec3 {
+function add(left: Vec3, right: Vec3): Vec3 {
   return [left[0] + right[0], left[1] + right[1], left[2] + right[2]];
 }
 
-function branchRow(branchId: ActionTallyBranchId, branch: ActionTallyBranchPlayback): ActionTallyBranchAuditRow {
-  assertCondition(Number.isInteger(branch.event_count) && branch.event_count >= 0, `${branchId}.event_count must be a non-negative integer`);
-  assertCondition(Number.isFinite(branch.incident_m0) && branch.incident_m0 > 0, `${branchId}.incident_m0 must be finite positive`);
-  assertCondition(Number.isFinite(branch.m0_residual), `${branchId}.m0_residual must be finite`);
-  assertCondition(Number.isFinite(branch.deficit_route_residual), `${branchId}.deficit_route_residual must be finite`);
-  assertCondition(HASH64.test(branch.package_hash), `${branchId}.package_hash must be SHA256`);
-  assertCondition(HASH64.test(branch.event_ledger_hash), `${branchId}.event_ledger_hash must be SHA256`);
-  assertCondition(Math.abs(branch.m0_residual) <= EPS, `${branchId}.m0_residual exceeds audit tolerance`);
-  assertCondition(Math.abs(branch.deficit_route_residual) <= EPS, `${branchId}.deficit_route_residual exceeds audit tolerance`);
+function auditBranch(branchId: ActionTallyBranchId, branch: ActionTallyBranchPlayback): ActionTallyBranchAuditRow {
+  requireCondition(Number.isInteger(branch.event_count) && branch.event_count >= 0, `${branchId}.event_count invalid`);
+  requireCondition(Number.isFinite(branch.incident_m0) && branch.incident_m0 > 0, `${branchId}.incident_m0 invalid`);
+  requireCondition(Number.isFinite(branch.m0_residual), `${branchId}.m0_residual invalid`);
+  requireCondition(Number.isFinite(branch.deficit_route_residual), `${branchId}.deficit_route_residual invalid`);
+  requireCondition(HASH64.test(branch.package_hash), `${branchId}.package_hash invalid`);
+  requireCondition(HASH64.test(branch.event_ledger_hash), `${branchId}.event_ledger_hash invalid`);
+  requireCondition(Math.abs(branch.m0_residual) <= EPS, `${branchId}.m0_residual exceeds tolerance`);
+  requireCondition(Math.abs(branch.deficit_route_residual) <= EPS, `${branchId}.deficit_route_residual exceeds tolerance`);
   return {
     branch_id: branchId,
     event_count: branch.event_count,
@@ -128,43 +128,41 @@ function branchRow(branchId: ActionTallyBranchId, branch: ActionTallyBranchPlayb
 
 export function buildActionTallyAudit(packet: BrowserPacketV2): ActionTallyAudit {
   const playback = parseActionTallyPlayback(packet);
-  assertCondition(packet.verdict === EXPECTED_VERDICT, "ActionTally audit: unexpected verdict");
-  assertCondition(packet.claim_ceiling === EXPECTED_CLAIM_CEILING, "ActionTally audit: claim ceiling mismatch");
-  assertCondition(HASH40.test(packet.producer_commit), "ActionTally audit: producer commit must be a full SHA");
-  assertCondition(HASH64.test(packet.packet_sha256), "ActionTally audit: source packet hash must be SHA256");
-  assertCondition(HASH64.test(packet.manifest_sha256), "ActionTally audit: source manifest hash must be SHA256");
+  requireCondition(packet.verdict === EXPECTED_VERDICT, "ActionTally audit: unexpected verdict");
+  requireCondition(packet.claim_ceiling === EXPECTED_CLAIM_CEILING, "ActionTally audit: claim ceiling mismatch");
+  requireCondition(HASH40.test(packet.producer_commit), "ActionTally audit: producer commit must be a full SHA");
+  requireCondition(HASH64.test(packet.packet_sha256), "ActionTally audit: source packet hash must be SHA256");
+  requireCondition(HASH64.test(packet.manifest_sha256), "ActionTally audit: source manifest hash must be SHA256");
 
   const diagnostics = packet.diagnostics;
-  assertCondition(diagnostics.secondary_verdict === EXPECTED_SECONDARY, "ActionTally audit: cadence blocker missing");
-  assertCondition(diagnostics.physical_force_available === false, "ActionTally audit: physical force must remain unavailable");
-  assertCondition(diagnostics.public_projection_status === EXPECTED_PROJECTION_STATUS, "ActionTally audit: public projection boundary mismatch");
-  assertCondition(diagnostics.no_private_corpus === true, "ActionTally audit: private-corpus firewall missing");
-  const incidentPacketHash = stringValue(diagnostics.incident_packet_hash, "incident_packet_hash");
-  assertCondition(HASH64.test(incidentPacketHash), "ActionTally audit: incident packet hash must be SHA256");
+  requireCondition(diagnostics.secondary_verdict === EXPECTED_SECONDARY, "ActionTally audit: cadence blocker missing");
+  requireCondition(diagnostics.physical_force_available === false, "ActionTally audit: physical force must remain unavailable");
+  requireCondition(diagnostics.public_projection_status === EXPECTED_PROJECTION, "ActionTally audit: public projection boundary mismatch");
+  requireCondition(diagnostics.no_private_corpus === true, "ActionTally audit: private-corpus firewall missing");
+  const incidentPacketHash = nonempty(diagnostics.incident_packet_hash, "incident_packet_hash");
+  requireCondition(HASH64.test(incidentPacketHash), "ActionTally audit: incident packet hash must be SHA256");
 
-  const gateMatrix = asRecord(diagnostics.gate_matrix, "gate_matrix");
+  const gateMatrix = record(diagnostics.gate_matrix, "gate_matrix");
   const gates = ACTION_TALLY_GATE_ORDER.map(gate => {
-    assertCondition(gateMatrix[gate] === "PASS", `ActionTally audit: ${gate} is not PASS`);
+    requireCondition(gateMatrix[gate] === "PASS", `ActionTally audit: ${gate} is not PASS`);
     return { gate, status: "PASS" as const };
   });
-  assertCondition(Object.keys(gateMatrix).length === ACTION_TALLY_GATE_ORDER.length, "ActionTally audit: unexpected gate-matrix width");
+  requireCondition(Object.keys(gateMatrix).length === ACTION_TALLY_GATE_ORDER.length, "ActionTally audit: unexpected gate-matrix width");
 
-  const metricRecord = asRecord(diagnostics.metrics, "metrics");
-  const metrics = ACTION_TALLY_METRIC_ORDER.map(metric => ({
-    metric,
-    value: finiteNumber(metricRecord[metric], `metrics.${metric}`),
-  }));
-  for (const metric of metrics) assertCondition(Math.abs(metric.value) <= EPS, `ActionTally audit: ${metric.metric} exceeds tolerance`);
+  const rawMetrics = record(diagnostics.metrics, "metrics");
+  const metrics = ACTION_TALLY_METRIC_ORDER.map(metric => ({ metric, value: finite(rawMetrics[metric], `metrics.${metric}`) }));
+  for (const item of metrics) requireCondition(Math.abs(item.value) <= EPS, `ActionTally audit: ${item.metric} exceeds tolerance`);
 
-  const branches = ACTION_TALLY_BRANCH_ORDER.map(branchId => branchRow(branchId, playback.branches[branchId]));
-  const incidentM0 = branches[0].incident_m0;
-  for (const row of branches) assertCondition(Math.abs(row.incident_m0 - incidentM0) <= EPS, `${row.branch_id}: incident packet scalar mismatch`);
+  const branches = ACTION_TALLY_BRANCH_ORDER.map(branchId => auditBranch(branchId, playback.branches[branchId]));
+  const firstBranch = branches.at(0);
+  requireCondition(firstBranch !== undefined, "ActionTally audit: no branches exported");
+  for (const row of branches) requireCondition(Math.abs(row.incident_m0 - firstBranch.incident_m0) <= EPS, `${row.branch_id}: incident M0 mismatch`);
 
   const h0 = playback.branches.H0_HOMOGENIZED;
   const r0 = playback.branches.R0_FORWARD_PRESERVING;
-  assertCondition(h0.event_count === 0, "ActionTally audit: H0 must contain no redirection events");
-  assertCondition(r0.event_count > 0, "ActionTally audit: R0 must exercise the first-hit route");
-  for (const vector of [
+  requireCondition(h0.event_count === 0, "ActionTally audit: H0 must contain no redirection events");
+  requireCondition(r0.event_count > 0, "ActionTally audit: R0 must exercise first-hit routing");
+  for (const value of [
     h0.receiver_resultant_delta,
     h0.structure_resultant_delta,
     h0.receiver_torque_delta,
@@ -173,11 +171,11 @@ export function buildActionTallyAudit(packet: BrowserPacketV2): ActionTallyAudit
     r0.structure_resultant_delta,
     r0.receiver_torque_delta,
     r0.structure_torque_delta,
-  ]) assertCondition(vectorNorm(vector) <= EPS, "ActionTally audit: H0/R0 null residual failed");
+  ]) requireCondition(vectorNorm(value) <= EPS, "ActionTally audit: H0/R0 null residual failed");
 
   for (const branchId of ACTION_TALLY_BRANCH_ORDER.slice(2)) {
     const branch = playback.branches[branchId];
-    assertCondition(vectorNorm(vectorAdd(branch.receiver_resultant_delta, branch.structure_resultant_delta)) <= EPS, `${branchId}: resultant action-reaction closure failed`);
+    requireCondition(vectorNorm(add(branch.receiver_resultant_delta, branch.structure_resultant_delta)) <= EPS, `${branchId}: action-reaction closure failed`);
   }
 
   const channelCoverage: ActionTallyChannelCoverage[] = [
@@ -201,7 +199,7 @@ export function buildActionTallyAudit(packet: BrowserPacketV2): ActionTallyAudit
     verdict: packet.verdict,
     claim_ceiling: packet.claim_ceiling,
     secondary_verdict: EXPECTED_SECONDARY,
-    public_projection_status: EXPECTED_PROJECTION_STATUS,
+    public_projection_status: EXPECTED_PROJECTION,
     incident_packet_hash: incidentPacketHash,
     gates,
     metrics,
