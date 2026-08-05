@@ -65,3 +65,36 @@ test("A0.3 shows exact one-body W0/W1 closure and no invented finite equilibrium
   expect(download.suggestedFilename()).toBe("VOXELLAB_ACTION_TRANSPORT_A0_3_ONE_BODY_CLOSURE_RECEIPT.json");
   expect(errors).toEqual([]);
 });
+
+test("A1 integrates a second extended receiver without inventing a finite crossing", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("console", message => { if (message.type() === "error") errors.push(message.text()); });
+  await page.goto("./action-lab/");
+  await expect(page.getByTestId("extended-a1-panel")).toBeVisible();
+  await expect(page.getByTestId("a1-receiver-map")).toBeVisible();
+  await expect(page.getByTestId("a1-w0-chart")).toBeVisible();
+  await expect(page.getByTestId("a1-w1-chart")).toBeVisible();
+  await expect(page.getByTestId("a1-parity")).toContainText("PASS");
+  await expect(page.getByTestId("a1-verdict")).toContainText("каждой точке приёмника");
+  await expect(page.getByTestId("a1-conclusion")).toContainText("Протяжённость сферы сама по себе");
+
+  await page.locator("#a1-gap").evaluate((element: HTMLInputElement) => {
+    element.value = "0";
+    element.dispatchEvent(new Event("input", { bubbles: true }));
+  });
+  await expect(page.locator("#a1-gap-value")).toHaveText("0.00");
+  await expect(page.getByTestId("a1-parity")).toContainText("PASS");
+
+  await page.locator("#a1-kappa").evaluate((element: HTMLInputElement) => {
+    element.value = "0.7";
+    element.dispatchEvent(new Event("input", { bubbles: true }));
+  });
+  await expect(page.locator("#a1-kappa-value")).toHaveText("0.70");
+  await expect(page.getByTestId("a1-verdict")).toContainText("внешний residual доминирует");
+
+  const downloadPromise = page.waitForEvent("download");
+  await page.locator("#a1-export").click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toBe("VOXELLAB_ACTION_TRANSPORT_A1_EXTENDED_RECEIVER_RECEIPT.json");
+  expect(errors).toEqual([]);
+});
