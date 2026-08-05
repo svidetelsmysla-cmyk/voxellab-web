@@ -41,3 +41,27 @@ test("A0.2 probe, channel, renderer and receipt controls remain interactive", as
   const download = await downloadPromise;
   expect(download.suggestedFilename()).toBe("VOXELLAB_ACTION_TRANSPORT_A0_2_RECEIPT.json");
 });
+
+test("A0.3 shows exact one-body W0/W1 closure and no invented finite equilibrium", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("console", message => { if (message.type() === "error") errors.push(message.text()); });
+  await page.goto("./action-lab/");
+  await expect(page.getByTestId("closure-a03-panel")).toBeVisible();
+  await expect(page.getByTestId("closure-scalar-chart")).toBeVisible();
+  await expect(page.getByTestId("closure-vector-chart")).toBeVisible();
+  await expect(page.getByTestId("closure-readout")).toContainText("нет: равны при всех r ≥ R");
+  await expect(page.getByTestId("closure-conclusion")).toContainText("не отдельная граница упора");
+
+  await page.locator("#closure-ratio").evaluate((element: HTMLInputElement) => {
+    element.value = "0.7";
+    element.dispatchEvent(new Event("input", { bubbles: true }));
+  });
+  await expect(page.locator("#closure-ratio-value")).toHaveValue("0.70");
+  await expect(page.getByTestId("closure-readout")).toContainText("знак один при всех r ≥ R");
+
+  const downloadPromise = page.waitForEvent("download");
+  await page.locator("#closure-export").click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toBe("VOXELLAB_ACTION_TRANSPORT_A0_3_ONE_BODY_CLOSURE_RECEIPT.json");
+  expect(errors).toEqual([]);
+});
