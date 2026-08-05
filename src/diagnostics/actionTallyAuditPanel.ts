@@ -10,8 +10,8 @@ import { parseBrowserPacketV2 } from "../packets/authority";
 
 const PACKET_FILE = "R12_G4_ACTION_TALLY_BROWSER_PLAYBACK_V1.json";
 const EXPECTED_VERDICT = "ACTION_TALLY_RESOLVED_MINUS_HOMOGENIZED_BRIDGE_PASS";
-const EXPECTED_CLAIM_CEILING = "DIMENSIONLESS_ACTION_TALLY_RESIDUAL_DIAGNOSTIC_NOT_PHYSICAL_FORCE";
-const EXPECTED_SECONDARY = "CADENCE_TO_FORCE_BLOCKER";
+const EXPECTED_CLAIM_CEILING = "DIMENSIONLESS_ACTION_TALLY_RESULTANT_NOT_SI_FORCE_NOT_VALIDATION";
+const EXPECTED_SECONDARY = "SI_TIME_AND_FORCE_UNIT_BINDING_DEFERRED_NOT_CURRENT_BLOCKER";
 const EXPECTED_PROJECTION = "BOUNDED_SUMMARY_FROM_GOVERNED_PACKET_NO_CELL_ARRAYS";
 const HASH40 = /^[0-9a-f]{40}$/;
 const HASH64 = /^[0-9a-f]{64}$/;
@@ -29,6 +29,19 @@ export const ACTION_TALLY_GATE_ORDER = [
   "G9_MIRROR_ROTATION_COVARIANCE",
   "G10_MATCHED_STANDARD_NULL",
 ] as const;
+
+const EXPECTED_GATE_STATUS: Record<(typeof ACTION_TALLY_GATE_ORDER)[number], string> = {
+  G1_PROVENANCE: "PASS",
+  G2_COMMON_TYPED_PACKAGE: "PASS",
+  G3_IDENTICAL_INCIDENT_PACKETS: "PASS",
+  G4_SCALAR_M0_CLOSURE: "PASS",
+  G5_RESULTANT_PARITY: "PASS",
+  G6_TORQUE_PARITY: "PASS",
+  G7_NO_DOUBLE_DELTA_OMEGA: "PASS",
+  G8_FORWARD_ZERO_RESIDUAL: "PASS",
+  G9_MIRROR_ROTATION_COVARIANCE: "R2_SPECULAR_CONTROL_ONLY_PASS",
+  G10_MATCHED_STANDARD_NULL: "ONE_POINT_SYMMETRY_CONTROL_ONLY",
+};
 
 export const ACTION_TALLY_METRIC_ORDER = [
   "maximum_m0_residual",
@@ -63,7 +76,7 @@ export interface ActionTallyChannelCoverage {
 }
 
 export interface ActionTallyAudit {
-  status: "PACKET_AUDIT_PASS";
+  status: "PACKET_AUDIT_PASS_WITH_SCOPED_CONTROLS";
   producer_commit: string;
   packet_sha256: string;
   manifest_sha256: string;
@@ -72,7 +85,7 @@ export interface ActionTallyAudit {
   secondary_verdict: string;
   public_projection_status: string;
   incident_packet_hash: string;
-  gates: Array<{ gate: string; status: "PASS" }>;
+  gates: Array<{ gate: string; status: string }>;
   metrics: Array<{ metric: string; value: number }>;
   branches: ActionTallyBranchAuditRow[];
   channel_coverage: ActionTallyChannelCoverage[];
@@ -135,8 +148,10 @@ export function buildActionTallyAudit(packet: BrowserPacketV2): ActionTallyAudit
   requireCondition(HASH64.test(packet.manifest_sha256), "ActionTally audit: source manifest hash must be SHA256");
 
   const diagnostics = packet.diagnostics;
-  requireCondition(diagnostics.secondary_verdict === EXPECTED_SECONDARY, "ActionTally audit: cadence blocker missing");
-  requireCondition(diagnostics.physical_force_available === false, "ActionTally audit: physical force must remain unavailable");
+  requireCondition(diagnostics.secondary_verdict === EXPECTED_SECONDARY, "ActionTally audit: SI-binding status missing");
+  requireCondition(diagnostics.dimensionless_resultant_available === true, "ActionTally audit: dimensionless resultant missing");
+  requireCondition(diagnostics.current_research_blocked_by_cadence === false, "ActionTally audit: cadence incorrectly blocks current research");
+  requireCondition(diagnostics.physical_force_available === false, "ActionTally audit: SI force units must remain unbound");
   requireCondition(diagnostics.public_projection_status === EXPECTED_PROJECTION, "ActionTally audit: public projection boundary mismatch");
   requireCondition(diagnostics.no_private_corpus === true, "ActionTally audit: private-corpus firewall missing");
   const incidentPacketHash = nonempty(diagnostics.incident_packet_hash, "incident_packet_hash");
@@ -144,8 +159,9 @@ export function buildActionTallyAudit(packet: BrowserPacketV2): ActionTallyAudit
 
   const gateMatrix = record(diagnostics.gate_matrix, "gate_matrix");
   const gates = ACTION_TALLY_GATE_ORDER.map(gate => {
-    requireCondition(gateMatrix[gate] === "PASS", `ActionTally audit: ${gate} is not PASS`);
-    return { gate, status: "PASS" as const };
+    const expected = EXPECTED_GATE_STATUS[gate];
+    requireCondition(gateMatrix[gate] === expected, `ActionTally audit: ${gate} has unexpected scope/status`);
+    return { gate, status: expected };
   });
   requireCondition(Object.keys(gateMatrix).length === ACTION_TALLY_GATE_ORDER.length, "ActionTally audit: unexpected gate-matrix width");
 
@@ -192,7 +208,7 @@ export function buildActionTallyAudit(packet: BrowserPacketV2): ActionTallyAudit
   ];
 
   return {
-    status: "PACKET_AUDIT_PASS",
+    status: "PACKET_AUDIT_PASS_WITH_SCOPED_CONTROLS",
     producer_commit: packet.producer_commit,
     packet_sha256: packet.packet_sha256,
     manifest_sha256: packet.manifest_sha256,
@@ -232,19 +248,20 @@ function renderAudit(panel: HTMLElement, audit: ActionTallyAudit): void {
     <h3>Common ActionTallyPackage · public coverage</h3>
     <div class="audit-status-row">
       <span class="audit-badge pass" data-testid="action-tally-audit-status">${audit.status}</span>
-      <span class="audit-badge pass">G1–G10 PASS</span>
-      <span class="audit-badge blocker">${escapeHtml(audit.secondary_verdict)}</span>
+      <span class="audit-badge pass">G1–G8 PASS</span>
+      <span class="audit-badge pass">G9/G10 SCOPED CONTROLS</span>
+      <span class="audit-badge blocker">SI UNITS DEFERRED</span>
     </div>
-    <p class="claim-note">The browser verifies the bounded summary only. Missing cell/channel arrays are not reconstructed. Physical force remains closed until cadence is bound.</p>
+    <p class="claim-note">The browser verifies the bounded summary only. Missing cell/channel arrays are not reconstructed. Dimensionless resultants are available per a common relational cycle; physical seconds and SI force units remain unbound.</p>
     <div class="audit-source-grid" data-testid="action-tally-audit-source">
       <div><span>Producer</span><code title="${escapeHtml(audit.producer_commit)}">${escapeHtml(shortHash(audit.producer_commit))}</code></div>
       <div><span>Source NPZ</span><code title="${escapeHtml(audit.packet_sha256)}">${escapeHtml(shortHash(audit.packet_sha256))}</code></div>
       <div><span>Manifest</span><code title="${escapeHtml(audit.manifest_sha256)}">${escapeHtml(shortHash(audit.manifest_sha256))}</code></div>
       <div><span>Incident packet</span><code title="${escapeHtml(audit.incident_packet_hash)}">${escapeHtml(shortHash(audit.incident_packet_hash))}</code></div>
     </div>
-    <div class="audit-section-title">Gate matrix</div>
+    <div class="audit-section-title">Gate and scope matrix</div>
     <div class="audit-gate-grid" data-testid="action-tally-gates">
-      ${audit.gates.map(item => `<div><span>${escapeHtml(item.gate)}</span><strong>${item.status}</strong></div>`).join("")}
+      ${audit.gates.map(item => `<div><span>${escapeHtml(item.gate)}</span><strong>${escapeHtml(item.status)}</strong></div>`).join("")}
     </div>
     <div class="audit-section-title">Global residuals</div>
     <div class="audit-metric-grid" data-testid="action-tally-metrics">
@@ -258,7 +275,7 @@ function renderAudit(panel: HTMLElement, audit: ActionTallyAudit): void {
     <div class="audit-table-wrap"><table class="audit-table" data-testid="action-tally-channel-table"><thead><tr><th>Channel</th><th>Sign class</th><th>Public V1 projection</th></tr></thead><tbody>
       ${audit.channel_coverage.map(item => `<tr><td>${escapeHtml(item.channel)}</td><td>${escapeHtml(item.physical_sign)}</td><td>${escapeHtml(item.public_projection)}</td></tr>`).join("")}
     </tbody></table></div>
-    <p class="claim-note"><strong>Verdict:</strong> ${escapeHtml(audit.verdict)}. <strong>Projection:</strong> ${escapeHtml(audit.public_projection_status)}.</p>
+    <p class="claim-note"><strong>Verdict:</strong> ${escapeHtml(audit.verdict)}. <strong>Unit status:</strong> ${escapeHtml(audit.secondary_verdict)}. <strong>Projection:</strong> ${escapeHtml(audit.public_projection_status)}.</p>
   `;
 }
 
