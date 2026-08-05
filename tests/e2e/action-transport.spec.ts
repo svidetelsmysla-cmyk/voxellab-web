@@ -56,7 +56,7 @@ test("A0.3 shows exact one-body W0/W1 closure and no invented finite equilibrium
     element.value = "0.7";
     element.dispatchEvent(new Event("input", { bubbles: true }));
   });
-  await expect(page.locator("#closure-ratio-value")).toHaveValue("0.70");
+  await expect(page.locator("#closure-ratio-value")).toHaveText("0.70");
   await expect(page.getByTestId("closure-readout")).toContainText("знак один при всех r ≥ R");
 
   const downloadPromise = page.waitForEvent("download");
