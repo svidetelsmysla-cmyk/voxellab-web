@@ -89,7 +89,6 @@ export function equalSphereOverlapVolume(radius: number, separation: number): nu
 }
 
 export function equalSphereOverlapFirstMomentX(radius: number, separation: number): number {
-  // Equal-sphere intersection is mirror-symmetric about x=d/2.
   return 0.5 * separation * equalSphereOverlapVolume(radius, separation);
 }
 
@@ -100,7 +99,6 @@ export function overlapLedger(model: EqualSphereOverlapModel): OverlapLedger {
   const overlapFirstMomentX = equalSphereOverlapFirstMomentX(model.radius, model.separation);
   const unionOccupiedVolume = 2 * sphereVolume - overlapVolume;
   const compensationAmount = overlapVolume;
-  const amountClosureResidual = unionOccupiedVolume + compensationAmount - 2 * sphereVolume;
   return {
     sphereVolume,
     overlapVolume,
@@ -110,7 +108,7 @@ export function overlapLedger(model: EqualSphereOverlapModel): OverlapLedger {
     receiverExclusiveVolume: sphereVolume - overlapVolume,
     overlapFirstMomentX,
     overlapCentroidX: overlapVolume > 0 ? overlapFirstMomentX / overlapVolume : 0,
-    amountClosureResidual,
+    amountClosureResidual: unionOccupiedVolume + compensationAmount - 2 * sphereVolume,
   };
 }
 
@@ -124,10 +122,9 @@ export function overlapContactReference(model: EqualSphereOverlapModel): number 
 export function exactDualMembershipNetMagnitude(model: EqualSphereOverlapModel): number {
   requireModel(model);
   const coefficient = matchedOutgoingCoefficient(model.radius, model.backgroundIntensityPerSteradian);
-  return coefficient * model.receiverDensity * equalSphereOverlapFirstMomentX(
-    model.radius,
-    model.separation,
-  ) / model.radius ** 3;
+  return coefficient * model.receiverDensity
+    * equalSphereOverlapFirstMomentX(model.radius, model.separation)
+    / model.radius ** 3;
 }
 
 export function normalizedDualMembershipCurve(separationRatio: number): number {
@@ -145,22 +142,13 @@ interface CapMoments {
   axialFirstMoment: number;
 }
 
-function receiverCapMoments(radiusFromSource: number, model: EqualSphereOverlapModel): CapMoments {
+function receiverCapMoments(r: number, model: EqualSphereOverlapModel): CapMoments {
   const R = model.radius;
   const d = model.separation;
-  if (radiusFromSource < 0) throw new Error("radiusFromSource must be non-negative");
-  if (d <= EPS) {
-    return radiusFromSource <= R ? { solidAngle: FOUR_PI, axialFirstMoment: 0 } : { solidAngle: 0, axialFirstMoment: 0 };
-  }
-  if (radiusFromSource + d <= R + EPS) return { solidAngle: FOUR_PI, axialFirstMoment: 0 };
-  if (radiusFromSource >= d + R - EPS || d >= radiusFromSource + R - EPS) {
-    return { solidAngle: 0, axialFirstMoment: 0 };
-  }
-  const denominator = 2 * radiusFromSource * d;
-  if (!(denominator > 0)) return { solidAngle: 0, axialFirstMoment: 0 };
-  const mu = Math.max(-1, Math.min(1,
-    (radiusFromSource ** 2 + d ** 2 - R ** 2) / denominator,
-  ));
+  if (d <= EPS) return r <= R ? { solidAngle: FOUR_PI, axialFirstMoment: 0 } : { solidAngle: 0, axialFirstMoment: 0 };
+  if (r + d <= R + EPS) return { solidAngle: FOUR_PI, axialFirstMoment: 0 };
+  if (r >= d + R - EPS || d >= r + R - EPS) return { solidAngle: 0, axialFirstMoment: 0 };
+  const mu = Math.max(-1, Math.min(1, (r ** 2 + d ** 2 - R ** 2) / (2 * r * d)));
   return {
     solidAngle: 2 * Math.PI * (1 - mu),
     axialFirstMoment: Math.PI * (1 - mu ** 2),
@@ -185,21 +173,14 @@ function integrateGauss(
   }
 }
 
-export function shellIntegratedOverlap(
-  model: EqualSphereOverlapModel,
-  order = 96,
-): OverlapReadout {
+export function shellIntegratedOverlap(model: EqualSphereOverlapModel, order = 96): OverlapReadout {
   requireModel(model);
   const R = model.radius;
   const d = model.separation;
   const I = model.backgroundIntensityPerSteradian;
   const qr = model.receiverDensity;
   const coefficient = matchedOutgoingCoefficient(R, I);
-  const sourceSphere = {
-    radius: R,
-    density: matchedUniformSourceDensity(R, I),
-  };
-
+  const sourceSphere = { radius: R, density: matchedUniformSourceDensity(R, I) };
   let directX = 0;
   let backgroundX = 0;
   let bodyW0 = 0;
@@ -213,27 +194,20 @@ export function shellIntegratedOverlap(
     .filter((value, index, values) => index === 0 || Math.abs(value - (values[index - 1] ?? 0)) > EPS);
 
   for (let interval = 0; interval + 1 < boundaries.length; interval += 1) {
-    const start = boundaries[interval] ?? 0;
-    const end = boundaries[interval + 1] ?? start;
-    integrateGauss(start, end, order, (r, radialWeight) => {
+    integrateGauss(boundaries[interval] ?? 0, boundaries[interval + 1] ?? 0, order, (r, radialWeight) => {
       const cap = receiverCapMoments(r, model);
       if (cap.solidAngle === 0) return;
       const volumeScale = qr * r ** 2 * radialWeight;
-      const directMagnitude = r < R
-        ? coefficient * r / R ** 3
-        : coefficient / Math.max(r ** 2, Number.MIN_VALUE);
-      const backgroundMagnitude = r < R
-        ? 0
-        : coefficient / Math.max(r ** 2, Number.MIN_VALUE);
+      const directMagnitude = r < R ? coefficient * r / R ** 3 : coefficient / Math.max(r ** 2, Number.MIN_VALUE);
+      const backgroundMagnitude = r < R ? 0 : coefficient / Math.max(r ** 2, Number.MIN_VALUE);
       directX += directMagnitude * volumeScale * cap.axialFirstMoment;
       backgroundX -= backgroundMagnitude * volumeScale * cap.axialFirstMoment;
-
       bodyW0 += bodyW0UniformSphere(r, sourceSphere) * volumeScale * cap.solidAngle;
+
       const incidentAtPoint = FOUR_PI * I;
       let deficitAtPoint: number;
       let survivingAtPoint: number;
       if (r < R) {
-        // Opaque first-hit limiting control: all external straight directions are unavailable.
         deficitAtPoint = incidentAtPoint;
         survivingAtPoint = 0;
       } else {
@@ -264,8 +238,8 @@ export function shellIntegratedOverlap(
 
 export function cubatureOverlap(
   model: EqualSphereOverlapModel,
-  radialShells = 20,
-  angularSamples = 1536,
+  radialShells = 24,
+  angularSamples = 2048,
 ): OverlapReadout {
   requireModel(model);
   const R = model.radius;
@@ -273,15 +247,12 @@ export function cubatureOverlap(
   const I = model.backgroundIntensityPerSteradian;
   const qr = model.receiverDensity;
   const coefficient = matchedOutgoingCoefficient(R, I);
-  const sourceSphere = {
-    radius: R,
-    density: matchedUniformSourceDensity(R, I),
-  };
-  const receiverCubature = createVolumeCubature({ radius: R, density: 1 }, radialShells, angularSamples);
-  const weightedVolume = qr * receiverCubature.sampleVolume;
+  const sourceSphere = { radius: R, density: matchedUniformSourceDensity(R, I) };
+  const cubature = createVolumeCubature({ radius: R, density: 1 }, radialShells, angularSamples);
+  const weightedVolume = qr * cubature.sampleVolume;
   let directW1: Vec3 = [0, 0, 0];
   let backgroundW1: Vec3 = [0, 0, 0];
-  let netTorque: Vec3 = [0, 0, 0];
+  let torque: Vec3 = [0, 0, 0];
   let bodyW0 = 0;
   let incidentW0 = 0;
   let survivingW0 = 0;
@@ -289,7 +260,7 @@ export function cubatureOverlap(
   let overlapVolumeEstimate = 0;
   let overlapFirstMomentEstimate = 0;
 
-  for (const local of receiverCubature.points) {
+  for (const local of cubature.points) {
     const world: Vec3 = [d + local[0], local[1], local[2]];
     const r = norm(world);
     const insideSource = r < R;
@@ -302,17 +273,17 @@ export function cubatureOverlap(
     const net = add(direct, background);
     directW1 = add(directW1, scale(direct, weightedVolume));
     backgroundW1 = add(backgroundW1, scale(background, weightedVolume));
-    netTorque = add(netTorque, scale(cross(local, net), weightedVolume));
-
+    torque = add(torque, scale(cross(local, net), weightedVolume));
     bodyW0 += bodyW0UniformSphere(r, sourceSphere) * weightedVolume;
+
     const incidentAtPoint = FOUR_PI * I;
     let deficitAtPoint: number;
     let survivingAtPoint: number;
     if (insideSource) {
       deficitAtPoint = incidentAtPoint;
       survivingAtPoint = 0;
-      overlapVolumeEstimate += receiverCubature.sampleVolume;
-      overlapFirstMomentEstimate += world[0] * receiverCubature.sampleVolume;
+      overlapVolumeEstimate += cubature.sampleVolume;
+      overlapFirstMomentEstimate += world[0] * cubature.sampleVolume;
     } else {
       const channels = backgroundExteriorChannels(r, R, I);
       if (!channels) throw new Error("Missing cubature exterior background channels");
@@ -328,7 +299,7 @@ export function cubatureOverlap(
     directW1,
     backgroundW1,
     dualMembershipNetW1: add(directW1, backgroundW1),
-    dualMembershipTorque: netTorque,
+    dualMembershipTorque: torque,
     bodyW0,
     incidentW0,
     survivingW0,
@@ -341,8 +312,7 @@ export function cubatureOverlap(
 }
 
 function relativeError(value: number, reference: number): number {
-  if (Math.abs(reference) <= 1e-15) return Math.abs(value);
-  return Math.abs(value - reference) / Math.abs(reference);
+  return Math.abs(reference) <= 1e-15 ? Math.abs(value) : Math.abs(value - reference) / Math.abs(reference);
 }
 
 export function overlapParity(model: EqualSphereOverlapModel): OverlapParity {
@@ -360,10 +330,7 @@ export function overlapParity(model: EqualSphereOverlapModel): OverlapParity {
     shellRelativeError: relativeError(shellMagnitude, exact),
     cubatureRelativeError: relativeError(cubatureMagnitude, exact),
     overlapVolumeRelativeError: relativeError(cubature.overlapVolumeEstimate ?? 0, ledger.overlapVolume),
-    overlapFirstMomentRelativeError: relativeError(
-      cubature.overlapFirstMomentEstimate ?? 0,
-      ledger.overlapFirstMomentX,
-    ),
+    overlapFirstMomentRelativeError: relativeError(cubature.overlapFirstMomentEstimate ?? 0, ledger.overlapFirstMomentX),
     normalizedTorque: norm(cubature.dualMembershipTorque) / torqueScale,
   };
 }
@@ -380,18 +347,15 @@ export function localOverlapChannels(point: Vec3, model: EqualSphereOverlapModel
   requireModel(model);
   const R = model.radius;
   const d = model.separation;
-  const I = model.backgroundIntensityPerSteradian;
-  const coefficient = matchedOutgoingCoefficient(R, I);
+  const coefficient = matchedOutgoingCoefficient(R, model.backgroundIntensityPerSteradian);
   const rSource = norm(point);
   const receiverLocal: Vec3 = [point[0] - d, point[1], point[2]];
-  const rReceiver = norm(receiverLocal);
   const insideSource = rSource <= R;
-  const insideReceiver = rReceiver <= R;
-  let membership: "OUTSIDE" | "SOURCE_ONLY" | "RECEIVER_ONLY" | "SHARED_OCCUPIED" = "OUTSIDE";
-  if (insideSource && insideReceiver) membership = "SHARED_OCCUPIED";
-  else if (insideSource) membership = "SOURCE_ONLY";
-  else if (insideReceiver) membership = "RECEIVER_ONLY";
-
+  const insideReceiver = norm(receiverLocal) <= R;
+  const membership = insideSource && insideReceiver ? "SHARED_OCCUPIED"
+    : insideSource ? "SOURCE_ONLY"
+      : insideReceiver ? "RECEIVER_ONLY"
+        : "OUTSIDE";
   const direct = insideSource
     ? scale(point, coefficient / R ** 3)
     : scale(point, coefficient / Math.max(rSource ** 3, Number.MIN_VALUE));
