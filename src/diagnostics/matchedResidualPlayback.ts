@@ -122,7 +122,11 @@ export function parseMatchedResidualPlayback(packet: BrowserPacketV2): MatchedRe
 
   const mrSignatures = MATCHED_RESIDUAL_CASE_ORDER
     .filter(caseId => caseId.startsWith("MR"))
-    .map(caseId => cases[caseId].scene_signature);
+    .map(caseId => {
+      const item = cases[caseId];
+      if (!item) throw new Error(`matched residual packet: missing ${caseId}`);
+      return item.scene_signature;
+    });
   if (mrSignatures.some(signature => !signature) || new Set(mrSignatures).size !== 8) {
     throw new Error("matched residual packet: MR scene signatures are missing or duplicated");
   }
