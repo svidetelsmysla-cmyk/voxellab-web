@@ -46,23 +46,49 @@ const vectorFields = [
 ] as const;
 
 function isVec3(value: unknown): value is Vec3 {
-  return Array.isArray(value) && value.length === 3 && value.every(component => typeof component === "number" && Number.isFinite(component));
+  return Array.isArray(value)
+    && value.length === 3
+    && value.every(component => typeof component === "number" && Number.isFinite(component));
 }
 
 export function parseActionTallyPlayback(packet: BrowserPacketV2): ActionTallyPlayback {
-  if (packet.verdict !== "ACTION_TALLY_RESOLVED_MINUS_HOMOGENIZED_BRIDGE_PASS") throw new Error("action tally packet: unexpected verdict");
-  if (packet.diagnostics.secondary_verdict !== "CADENCE_TO_FORCE_BLOCKER") throw new Error("action tally packet: cadence firewall missing");
-  if (packet.diagnostics.physical_force_available !== false) throw new Error("action tally packet: physical force must remain unavailable");
+  if (packet.verdict !== "ACTION_TALLY_RESOLVED_MINUS_HOMOGENIZED_BRIDGE_PASS") {
+    throw new Error("action tally packet: unexpected verdict");
+  }
+  if (packet.diagnostics.dimensionless_resultant_available !== true) {
+    throw new Error("action tally packet: dimensionless resultant is not available");
+  }
+  if (packet.diagnostics.current_research_blocked_by_cadence !== false) {
+    throw new Error("action tally packet: cadence incorrectly blocks the dimensionless gate");
+  }
+  if (packet.diagnostics.secondary_verdict !== "SI_TIME_AND_FORCE_UNIT_BINDING_DEFERRED_NOT_CURRENT_BLOCKER") {
+    throw new Error("action tally packet: SI-binding status missing");
+  }
+  if (packet.diagnostics.physical_force_available !== false) {
+    throw new Error("action tally packet: SI force units must remain unbound");
+  }
   const visual = packet.visual_arrays as { branch_order?: unknown; branches?: unknown };
-  if (JSON.stringify(visual.branch_order) !== JSON.stringify(ACTION_TALLY_BRANCH_ORDER)) throw new Error("action tally packet: branch order mismatch");
-  if (!visual.branches || typeof visual.branches !== "object") throw new Error("action tally packet: branches missing");
+  if (JSON.stringify(visual.branch_order) !== JSON.stringify(ACTION_TALLY_BRANCH_ORDER)) {
+    throw new Error("action tally packet: branch order mismatch");
+  }
+  if (!visual.branches || typeof visual.branches !== "object") {
+    throw new Error("action tally packet: branches missing");
+  }
   const branches = visual.branches as Record<string, ActionTallyBranchPlayback>;
   for (const branchId of ACTION_TALLY_BRANCH_ORDER) {
     const branch = branches[branchId];
-    if (!branch || typeof branch.event_count !== "number" || !Number.isFinite(branch.incident_m0)) throw new Error(`action tally packet: invalid ${branchId}`);
-    for (const field of vectorFields) if (!isVec3(branch[field])) throw new Error(`action tally packet: invalid ${branchId}.${field}`);
+    if (!branch || typeof branch.event_count !== "number" || !Number.isFinite(branch.incident_m0)) {
+      throw new Error(`action tally packet: invalid ${branchId}`);
+    }
+    for (const field of vectorFields) {
+      if (!isVec3(branch[field])) throw new Error(`action tally packet: invalid ${branchId}.${field}`);
+    }
   }
-  return { packet: structuredClone(packet), branch_order: ACTION_TALLY_BRANCH_ORDER, branches: structuredClone(branches) as Record<ActionTallyBranchId, ActionTallyBranchPlayback> };
+  return {
+    packet: structuredClone(packet),
+    branch_order: ACTION_TALLY_BRANCH_ORDER,
+    branches: structuredClone(branches) as Record<ActionTallyBranchId, ActionTallyBranchPlayback>,
+  };
 }
 
 export function vectorNorm(vector: Vec3): number {
