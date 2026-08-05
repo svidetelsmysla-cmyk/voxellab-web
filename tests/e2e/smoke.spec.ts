@@ -53,6 +53,16 @@ test("3ds Max fixture loads and scene catalogue opens", async ({ page }) => {
   await expect(page.getByTestId("scene-catalogue").locator("tbody tr")).toHaveCount(17);
 });
 
+test("governed G4 ActionTally playback preserves the cadence blocker", async ({ page }) => {
+  await expect(page.locator("#action-tally-packet-status")).toContainText("ACTION_TALLY_RESOLVED_MINUS_HOMOGENIZED_BRIDGE_PASS");
+  await page.getByTestId("action-tally-branch").selectOption("R2_SPECULAR_REDIRECTION");
+  await page.getByTestId("action-tally-body").selectOption("structure");
+  await expect(page.locator("#action-tally-status")).toContainText("R2_SPECULAR_REDIRECTION · structure");
+  await expect(page.getByTestId("action-tally-metadata")).toContainText("CADENCE_TO_FORCE_BLOCKER");
+  await expect(page.getByTestId("action-tally-metadata")).toContainText("CELL_INTEGRATED_NO_SECOND_SOLID_ANGLE_WEIGHT");
+  await expect(page.getByTestId("action-tally-map")).toBeVisible();
+});
+
 test("capture required public engineering screenshots", async ({ page }) => {
   test.setTimeout(60_000);
   await page.setViewportSize({ width: 1600, height: 1050 });
