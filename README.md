@@ -3,6 +3,20 @@
 Scene Lab V2 is a public interactive preview and scene-authoring tool for
 browser-safe VoxelLab scenes and read-only governed result packets.
 
+The diagnostics deck now includes governed G4 ActionTally playback for the
+H0 and R0–R3 resolved-versus-homogenized branches. It displays dimensionless
+resultant/torque readouts while keeping physical force cadence-blocked.
+
+A separate G4 bridge audit panel verifies the bounded public packet contract:
+source hashes, G1–G10, global residuals, H0/R0–R3 closure, and the exact boundary
+between exported summaries and positive per-cell channels that are not present
+in the public V1 projection. Missing arrays are never reconstructed in the
+browser.
+
+The governed MR/DL catalogue publishes all MR00–MR07 current ActionTally
+replays and all DL00–DL07 available matched-residual diagnostics. The two
+source lanes remain visibly separate.
+
 Live site: <https://svidetelsmysla-cmyk.github.io/voxellab-web/>
 
 ## Preview and authority boundary
@@ -41,6 +55,9 @@ The production Vite base is `/voxellab-web/` for GitHub Pages.
 - `docs/interfaces/VOXELLAB_BROWSER_PACKET_SCHEMA_V1.md`
 - `docs/interfaces/3DSMAX_EXPORT_CONTRACT_V1.md`
 - `docs/interfaces/VOXELLAB_SCENE_LAB_V2.md`
+- `docs/interfaces/VOXELLAB_G4_ACTION_TALLY_PLAYBACK_V1.md`
+- `docs/interfaces/VOXELLAB_G4_ACTION_TALLY_AUDIT_PANEL_V1.md`
+- `docs/interfaces/VOXELLAB_MR_DL_MATCHED_RESIDUAL_PLAYBACK_V1.md`
 - `docs/interfaces/3DSMAX_EXPORTER_V2.md`
 
 ## Credits and scope
