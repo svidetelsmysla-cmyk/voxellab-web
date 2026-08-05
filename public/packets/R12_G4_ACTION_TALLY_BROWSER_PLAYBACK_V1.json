@@ -4,7 +4,7 @@
   "packet_sha256": "952c35c79940150860e03acf7cb3c5206242d554d999ad9b6ba91e3b4b6df7af",
   "manifest_sha256": "9829c1c8b48a26a900149a48b3d8e0cd03700938721d914f601b0bf83581af9b",
   "verdict": "ACTION_TALLY_RESOLVED_MINUS_HOMOGENIZED_BRIDGE_PASS",
-  "claim_ceiling": "DIMENSIONLESS_ACTION_TALLY_RESIDUAL_DIAGNOSTIC_NOT_PHYSICAL_FORCE",
+  "claim_ceiling": "DIMENSIONLESS_ACTION_TALLY_RESULTANT_NOT_SI_FORCE_NOT_VALIDATION",
   "scene": "H0_R0_R1_R2_R3_READ_ONLY_ACTION_TALLY_PLAYBACK",
   "receipts": [],
   "diagnostics": {
@@ -13,9 +13,13 @@
     "source_base_sha": "586a891e408fdf595702278c80f55da7d871d8de",
     "source_preregistration_sha": "8b4afb4584f77c78503e590e75d1ba57b991c3e5",
     "source_amendment_sha": "a05a173f3ba3ff735065ddd8a75c8a07174acee9",
-    "secondary_verdict": "CADENCE_TO_FORCE_BLOCKER",
+    "secondary_verdict": "SI_TIME_AND_FORCE_UNIT_BINDING_DEFERRED_NOT_CURRENT_BLOCKER",
+    "dimensionless_resultant_available": true,
+    "current_research_blocked_by_cadence": false,
+    "physical_time_binding_status": "NOT_BOUND_NOT_REQUIRED_FOR_CURRENT_GATE",
+    "physical_force_unit_binding_status": "NOT_BOUND_DEFERRED",
     "physical_force_available": false,
-    "cadence_contract": "SYMBOLIC_COMMON_CADENCE_UNBOUND",
+    "cadence_contract": "COMMON_RELATIONAL_COMPARISON_CYCLE_NO_SI_SECONDS",
     "path_depth_role": "GEOMETRY_TOPOLOGY_ONLY_NOT_ACTION",
     "weighting_contract": "CELL_INTEGRATED_NO_SECOND_SOLID_ANGLE_WEIGHT",
     "historical_bridge_contract": "N33A_N41_N42_N43_ACTION_EVENT_RECEIVER_BRIDGE_V1",
@@ -31,8 +35,8 @@
       "G6_TORQUE_PARITY": "PASS",
       "G7_NO_DOUBLE_DELTA_OMEGA": "PASS",
       "G8_FORWARD_ZERO_RESIDUAL": "PASS",
-      "G9_MIRROR_ROTATION_COVARIANCE": "PASS",
-      "G10_MATCHED_STANDARD_NULL": "PASS"
+      "G9_MIRROR_ROTATION_COVARIANCE": "R2_SPECULAR_CONTROL_ONLY_PASS",
+      "G10_MATCHED_STANDARD_NULL": "ONE_POINT_SYMMETRY_CONTROL_ONLY"
     },
     "metrics": {
       "maximum_m0_residual": 0.0,
