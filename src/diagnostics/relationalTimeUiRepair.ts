@@ -14,7 +14,9 @@ function relabelActionTallyControls(): void {
     R3_SOURCE_COMPATIBLE_CANDIDATE: "R3 FIXED-ROTATION PLACEHOLDER",
   };
   for (const option of Array.from(select.options)) {
-    option.textContent = labels[option.value] ?? option.textContent;
+    const contractValue = option.value;
+    option.value = contractValue;
+    option.textContent = labels[contractValue] ?? option.textContent;
   }
 }
 
