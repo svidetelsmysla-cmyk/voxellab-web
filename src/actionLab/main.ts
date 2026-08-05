@@ -2,10 +2,12 @@ import "./styles.css";
 import "./stylesA02.css";
 import "./closurePanel.css";
 import "./extendedReceiver.css";
+import "./overlapGeometry.css";
 import { ActionTransportAppA02 } from "./AppA02";
 import { installA02DisplaySemanticsRepair } from "./a02DisplaySemanticsRepair";
 import { OneBodyClosurePanel } from "./ClosurePanel";
 import { ExtendedReceiverPanel } from "./ExtendedReceiverPanel";
+import { OverlapGeometryPanel } from "./OverlapPanel";
 
 installA02DisplaySemanticsRepair();
 
@@ -22,3 +24,8 @@ const extendedReceiverRoot = document.createElement("div");
 extendedReceiverRoot.id = "extended-a1-root";
 root.append(extendedReceiverRoot);
 new ExtendedReceiverPanel(extendedReceiverRoot);
+
+const overlapRoot = document.createElement("div");
+overlapRoot.id = "overlap-a2-root";
+root.append(overlapRoot);
+new OverlapGeometryPanel(overlapRoot);
