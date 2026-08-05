@@ -98,3 +98,31 @@ test("A1 integrates a second extended receiver without inventing a finite crossi
   expect(download.suggestedFilename()).toBe("VOXELLAB_ACTION_TRANSPORT_A1_EXTENDED_RECEIVER_RECEIPT.json");
   expect(errors).toEqual([]);
 });
+
+test("A2 derives the overlap control but blocks double occupancy from becoming physical upor", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("console", message => { if (message.type() === "error") errors.push(message.text()); });
+  await page.goto("./action-lab/");
+  await expect(page.getByTestId("overlap-a2-panel")).toBeVisible();
+  await expect(page.getByTestId("a2-overlap-map")).toBeVisible();
+  await expect(page.getByTestId("a2-w1-chart")).toBeVisible();
+  await expect(page.getByTestId("a2-volume-chart")).toBeVisible();
+  await expect(page.getByTestId("a2-parity")).toContainText("PASS");
+  await expect(page.getByTestId("a2-ledger")).toContainText("BLOCKED · compensation placement");
+  await expect(page.getByTestId("a2-conclusion")).toContainText("dual-membership control");
+
+  await page.locator("#a2-peak").click();
+  await expect(page.locator("#a2-separation-value")).toHaveText("0.732");
+  await expect(page.getByTestId("a2-parity")).toContainText("PASS");
+
+  await page.locator("#a2-contact").click();
+  await expect(page.locator("#a2-separation-value")).toHaveText("2.000");
+  await expect(page.getByTestId("a2-ledger")).toContainText("0 · no overlap");
+
+  await page.locator("#a2-peak").click();
+  const downloadPromise = page.waitForEvent("download");
+  await page.locator("#a2-export").click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toBe("VOXELLAB_ACTION_TRANSPORT_A2_OVERLAP_RECEIPT.json");
+  expect(errors).toEqual([]);
+});
