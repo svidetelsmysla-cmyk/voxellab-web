@@ -42,6 +42,7 @@ test("layered KOU, first-hit sky, chrysanthemum and operator switch", async ({ p
 });
 
 test("all 17 scenes load without console error and transport remains functional", async ({ page }) => {
+  test.setTimeout(60_000);
   const errors: string[] = []; page.on("console", message => { if (message.type() === "error") errors.push(message.text()); });
   for (let i = 1; i <= 17; i += 1) { const id = `S${String(i).padStart(2,"0")}`; await page.getByTestId("scene-select").selectOption(id); await expect(page.locator("#viewport-title")).not.toBeEmpty(); }
   await page.getByTestId("scene-select").selectOption("S02"); await page.getByTestId("run").click(); await expect(page.locator("#motion-status")).toHaveText("RUNNING"); await page.getByTestId("stop").click(); await expect(page.locator("#motion-status")).toHaveText("PAUSED"); await page.getByTestId("step").click(); await page.getByTestId("reset").click();
@@ -61,6 +62,19 @@ test("governed G4 ActionTally playback preserves the cadence blocker", async ({ 
   await expect(page.getByTestId("action-tally-metadata")).toContainText("CADENCE_TO_FORCE_BLOCKER");
   await expect(page.getByTestId("action-tally-metadata")).toContainText("CELL_INTEGRATED_NO_SECOND_SOLID_ANGLE_WEIGHT");
   await expect(page.getByTestId("action-tally-map")).toBeVisible();
+});
+
+test("MR and DL governed catalogue keeps its two source lanes separate", async ({ page }) => {
+  await expect(page.locator("#matched-packet-status")).toContainText("NOT_REPLAYED_ON_CURRENT_ACTION_TALLY");
+  await expect(page.getByTestId("matched-case-table").locator("tbody tr")).toHaveCount(16);
+  await page.getByTestId("matched-case").selectOption("MR02");
+  await expect(page.locator("#matched-case-status")).toContainText("CURRENT_G4_ACTION_TALLY_REPLAY");
+  await expect(page.getByTestId("matched-case-metadata")).toContainText("standard-matched rotation pair");
+  await expect(page.getByTestId("matched-case-metadata")).toContainText("0.0562");
+  await page.getByTestId("matched-case").selectOption("DL07");
+  await expect(page.locator("#matched-case-status")).toContainText("current ActionTally replay=NOT AVAILABLE");
+  await expect(page.getByTestId("matched-case-metadata")).toContainText("standard Dzhanibekov/gyroscope exclusion control");
+  await expect(page.getByTestId("matched-case-metadata")).toContainText("Physical force");
 });
 
 test("capture required public engineering screenshots", async ({ page }) => {

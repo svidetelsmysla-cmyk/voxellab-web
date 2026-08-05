@@ -7,6 +7,10 @@ The diagnostics deck now includes governed G4 ActionTally playback for the
 H0 and R0–R3 resolved-versus-homogenized branches. It displays dimensionless
 resultant/torque readouts while keeping physical force cadence-blocked.
 
+The governed MR/DL catalogue publishes all MR00–MR07 current ActionTally
+replays and all DL00–DL07 available matched-residual diagnostics. The two
+source lanes remain visibly separate.
+
 Live site: <https://svidetelsmysla-cmyk.github.io/voxellab-web/>
 
 ## Preview and authority boundary
@@ -46,6 +50,7 @@ The production Vite base is `/voxellab-web/` for GitHub Pages.
 - `docs/interfaces/3DSMAX_EXPORT_CONTRACT_V1.md`
 - `docs/interfaces/VOXELLAB_SCENE_LAB_V2.md`
 - `docs/interfaces/VOXELLAB_G4_ACTION_TALLY_PLAYBACK_V1.md`
+- `docs/interfaces/VOXELLAB_MR_DL_MATCHED_RESIDUAL_PLAYBACK_V1.md`
 - `docs/interfaces/3DSMAX_EXPORTER_V2.md`
 
 ## Credits and scope
