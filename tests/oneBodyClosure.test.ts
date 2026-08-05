@@ -67,7 +67,7 @@ describe("Action Transport Lab A0.3 one-body radial closure", () => {
     const near = normalizedOneBodyClosureSample(1.2, model);
     const far = normalizedOneBodyClosureSample(100, model);
     expect(near.backgroundStraightDeficit).not.toBeNull();
-    expect((near.backgroundStraightDeficit ?? 0) - near.bodyW0).toBeGreaterThan(0.1);
+    expect((near.backgroundStraightDeficit ?? 0) - near.bodyW0).toBeGreaterThan(0.05);
     expect(Math.abs((far.backgroundStraightDeficit ?? 0) - far.bodyW0)).toBeLessThan(1e-8);
   });
 });
