@@ -1,0 +1,132 @@
+{
+  "verdict": "D0S_STATIC_MICROBODY_REPRESENTATION_PARITY_PASS",
+  "d0mStatus": "OPEN_AFTER_D0S_PASS",
+  "gateCount": 17,
+  "passedGates": 17,
+  "levels": [
+    {
+      "id": "N48",
+      "count": 48,
+      "shellCounts": [4, 12, 32],
+      "maxW0RelativeError": 0.0754662253834952,
+      "maxW1MagnitudeRelativeError": 0.08488057559568102,
+      "maxW1VectorRelativeError": 0.08855750570745731,
+      "maxW0OrientationSpread": 0.12106861810921213,
+      "maxW1OrientationSpread": 0.13552444328685473,
+      "centreOfAmountResidualOverR": 0,
+      "equalWeightSpreadOverMean": 0,
+      "permutationDelta": 6.318157286114553e-16,
+      "rotationDelta": 5.046497788474363e-16,
+      "multipoles": {
+        "l1": 2.6250395867345035e-17,
+        "l2": 0.08552198021282399,
+        "l3": 1.338708987127939e-16,
+        "l4": 0.22483634241069492
+      },
+      "worstVectorProbe": {
+        "radiusRatio": 1.2,
+        "directionId": "21-1",
+        "analyticW0": 3.5210082437092005,
+        "discreteW0": 3.2552910420122974,
+        "analyticW1Magnitude": 2.908882086657216,
+        "discreteW1Magnitude": 2.6619745008017857,
+        "w0RelativeError": 0.0754662253834952,
+        "w1MagnitudeRelativeError": 0.08488057559568102,
+        "w1VectorRelativeError": 0.08855750570745731
+      }
+    },
+    {
+      "id": "N192",
+      "count": 192,
+      "shellCounts": [2, 12, 30, 56, 92],
+      "maxW0RelativeError": 0.020180399642160764,
+      "maxW1MagnitudeRelativeError": 0.02415022828261327,
+      "maxW1VectorRelativeError": 0.02783456501735385,
+      "maxW0OrientationSpread": 0.02242228915621855,
+      "maxW1OrientationSpread": 0.027710849311865834,
+      "centreOfAmountResidualOverR": 0,
+      "equalWeightSpreadOverMean": 0,
+      "permutationDelta": 1.4317635259305945e-15,
+      "rotationDelta": 1.0918749339656363e-15,
+      "multipoles": {
+        "l1": 2.5933356547209712e-17,
+        "l2": 0.01999885359726159,
+        "l3": 4.34804740398261e-17,
+        "l4": 0.039487744085873897
+      },
+      "worstVectorProbe": {
+        "radiusRatio": 1.2,
+        "directionId": "-121",
+        "analyticW0": 3.5210082437092005,
+        "discreteW0": 3.4499528902078063,
+        "analyticW1Magnitude": 2.908882086657216,
+        "discreteW1Magnitude": 2.848956348378496,
+        "w0RelativeError": 0.020180399642160764,
+        "w1MagnitudeRelativeError": 0.020600951325457216,
+        "w1VectorRelativeError": 0.02783456501735385
+      }
+    },
+    {
+      "id": "N768",
+      "count": 768,
+      "shellCounts": [4, 12, 30, 56, 92, 136, 188, 250],
+      "maxW0RelativeError": 0.005723786871990933,
+      "maxW1MagnitudeRelativeError": 0.005364045374125608,
+      "maxW1VectorRelativeError": 0.008087731661230774,
+      "maxW0OrientationSpread": 0.00681122729742457,
+      "maxW1OrientationSpread": 0.007180945945597133,
+      "centreOfAmountResidualOverR": 0,
+      "equalWeightSpreadOverMean": 0,
+      "permutationDelta": 2.6095774568404474e-15,
+      "rotationDelta": 2.9480454880997795e-15,
+      "multipoles": {
+        "l1": 2.487508798567228e-17,
+        "l2": 0.006626281540976582,
+        "l3": 5.3819523995759783e-17,
+        "l4": 0.013097932548952388
+      },
+      "worstVectorProbe": {
+        "radiusRatio": 1.2,
+        "directionId": "1-11",
+        "analyticW0": 3.5210082437091987,
+        "discreteW0": 3.500854742947684,
+        "analyticW1Magnitude": 2.908882086657215,
+        "discreteW1Magnitude": 2.8932787111564044,
+        "w0RelativeError": 0.005723786871990933,
+        "w1MagnitudeRelativeError": 0.005364045374125608,
+        "w1VectorRelativeError": 0.008087731661230774
+      }
+    },
+    {
+      "id": "N3072",
+      "count": 3072,
+      "shellCounts": [4, 14, 36, 66, 110, 162, 226, 300, 384, 480, 586, 704],
+      "maxW0RelativeError": 0.0018585239060959968,
+      "maxW1MagnitudeRelativeError": 0.0020839303970447125,
+      "maxW1VectorRelativeError": 0.002430701254337989,
+      "maxW0OrientationSpread": 0.0019130419469106867,
+      "maxW1OrientationSpread": 0.002468007628293521,
+      "centreOfAmountResidualOverR": 0,
+      "equalWeightSpreadOverMean": 0,
+      "permutationDelta": 5.5867274082160885e-15,
+      "rotationDelta": 3.3811997224029554e-15,
+      "multipoles": {
+        "l1": 2.0643989751274493e-17,
+        "l2": 0.0020360309048299947,
+        "l3": 5.867981371904615e-17,
+        "l4": 0.004160995816996301
+      },
+      "worstVectorProbe": {
+        "radiusRatio": 1.2,
+        "directionId": "21-1",
+        "analyticW0": 3.5210082437092005,
+        "discreteW0": 3.514464365714706,
+        "analyticW1Magnitude": 2.908882086657216,
+        "discreteW1Magnitude": 2.902820178855412,
+        "w0RelativeError": 0.0018585239060959968,
+        "w1MagnitudeRelativeError": 0.0020839303970447125,
+        "w1VectorRelativeError": 0.002430701254337989
+      }
+    }
+  ]
+}
