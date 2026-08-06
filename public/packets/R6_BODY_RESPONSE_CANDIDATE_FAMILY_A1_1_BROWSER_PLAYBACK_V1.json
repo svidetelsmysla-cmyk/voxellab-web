@@ -1,0 +1,124 @@
+{
+  "schema_version": "1.0",
+  "packet_id": "R6_BODY_RESPONSE_CANDIDATE_FAMILY_A1_1_BROWSER_PLAYBACK_V1",
+  "authority": "READ_ONLY_GOVERNED_PUBLIC_PROJECTION",
+  "scientific_head": "0aea06528f638dc702c210776947c916e93c2266",
+  "pull_request": 45,
+  "workflow_run": 31085172957,
+  "artifact_id": 8961091423,
+  "artifact_sha256": "ca852e06a94c4de22bf40dc4cec9707427e7bf0ed1e3629bf61d287c6db6751a",
+  "packet_npz_sha256": "17bee9ad2e4649db0660171798a1bf6916255aa833ee4ef3e829aeb901e94d00",
+  "summary_sha256": "db800787d5e604c384ad66d43a41f056955c09a341afff42c0f61afba67ceca0",
+  "manifest_sha256": "e769e93c2e4eb5ce3c295da000f298ed38ab50a72045251156be309158e47e67",
+  "main_verdict": "MINIMAL_CONTROL_FAMILY_CONTAINS_EXACT_ZERO",
+  "secondary_verdict": "NONFORWARD_CONTROL_HULL_EXCLUDES_ZERO",
+  "candidate_source_class": "PROJECT_CONSTITUTIVE_CANDIDATES_NOT_VIKTOR_LAW",
+  "candidate_order": [
+    "C0_FORWARD_TRANSMISSION",
+    "C1_GLOBAL_ISOTROPIC_REEMISSION",
+    "C2_UNIFORM_OUTWARD_HEMISPHERE",
+    "C3_OUTWARD_NORMAL",
+    "C4_SPECULAR"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "C0_FORWARD_TRANSMISSION",
+      "formula": "outgoing_mean_equals_incoming",
+      "role": "SOURCE_COMPATIBLE_PASS_THROUGH_ZERO_CONTROL",
+      "realization": "DETERMINISTIC",
+      "resultant": [2.2870594307278225e-14, -2.252972114424878e-16, 1.5897656455154952e-15],
+      "resultant_norm": 2.2926888092570525e-14,
+      "torque": [0.0, 0.0, 0.0],
+      "torque_norm": 0.0
+    },
+    {
+      "candidate_id": "C1_GLOBAL_ISOTROPIC_REEMISSION",
+      "formula": "outgoing_mean_zero",
+      "role": "POSITIVE_ISOTROPIC_DISTRIBUTION_CONTROL",
+      "realization": "STOCHASTIC_MEAN",
+      "resultant": [-0.42115407231468827, 0.05798257873607615, 0.007070833134297599],
+      "resultant_norm": 0.4251855227372447,
+      "torque": [7.61050631825842e-06, -0.0025539632669389777, 0.02168553737059955],
+      "torque_norm": 0.021835414292848892
+    },
+    {
+      "candidate_id": "C2_UNIFORM_OUTWARD_HEMISPHERE",
+      "formula": "outgoing_mean_half_surface_normal",
+      "role": "POSITIVE_OUTWARD_HEMISPHERE_CONTROL",
+      "realization": "STOCHASTIC_MEAN",
+      "resultant": [-0.6832726352534813, 0.04526319429037476, 0.0065390074723554945],
+      "resultant_norm": 0.6848014379820829,
+      "torque": [7.6105063182587665e-06, -0.0025539632669389655, 0.02168553737059955],
+      "torque_norm": 0.02183541429284889
+    },
+    {
+      "candidate_id": "C3_OUTWARD_NORMAL",
+      "formula": "outgoing_mean_surface_normal",
+      "role": "DETERMINISTIC_GEOMETRIC_CONTROL",
+      "realization": "DETERMINISTIC",
+      "resultant": [-0.945391198192274, 0.03254380984467336, 0.00600718181041339],
+      "resultant_norm": 0.9459702444643453,
+      "torque": [7.610506318258311e-06, -0.002553963266938964, 0.021685537370599542],
+      "torque_norm": 0.02183541429284888
+    },
+    {
+      "candidate_id": "C4_SPECULAR",
+      "formula": "outgoing_mean_specular_reflection",
+      "role": "DETERMINISTIC_NUMERICAL_REFLECTION_CONTROL",
+      "realization": "DETERMINISTIC",
+      "resultant": [-0.7396123254592318, -0.028140986788509355, -0.0018453713093638312],
+      "resultant_norm": 0.7401497905856038,
+      "torque": [-6.720134203593851e-20, -8.362063938069e-19, -3.4617922225650485e-20],
+      "torque_norm": 8.396163135350532e-19
+    }
+  ],
+  "hulls": {
+    "all_resultant": {
+      "contains_zero": true,
+      "minimum_distance": 3.501360284228689e-15,
+      "weights": [0.9999999999999466, 5.343172031268231e-14, 0.0, 0.0, 0.0]
+    },
+    "all_joint": {
+      "contains_zero": true,
+      "minimum_distance": 3.688676452920279e-15,
+      "weights": [0.9999999999999469, 5.316475406916824e-14, 0.0, 0.0, 0.0]
+    },
+    "nonforward_resultant": {
+      "contains_zero": false,
+      "minimum_distance": 0.4251855227372447,
+      "weights": [1.0, 0.0, 0.0, 0.0]
+    },
+    "nonforward_joint": {
+      "contains_zero": false,
+      "minimum_distance": 0.42574583270148914,
+      "weights": [1.0, 0.0, 0.0, 0.0]
+    }
+  },
+  "metrics": {
+    "maximum_scalar_conservation_residual": 1.7763568394002505e-15,
+    "maximum_action_reaction_residual": 2.96060876495416e-14,
+    "rotation_resultant_residual": 2.29502424371833e-15,
+    "rotation_torque_residual": 8.100233699838238e-16,
+    "mirror_resultant_residual": 0.0,
+    "mirror_torque_residual": 0.0,
+    "resultant_middle_to_fine_max_change": 0.002885443569696246,
+    "torque_middle_to_fine_max_change": 0.0005238776181464599
+  },
+  "logical_delta": {
+    "forward_transmission_reaches_exact_zero": true,
+    "nonzero_full_residual_forced_by_minimal_principles": false,
+    "interpretation": "The minimal positive conservative family contains an exact zero full response. A narrower source or empirical body-response law is required."
+  },
+  "claim_ceiling": {
+    "candidate_family_is_project_level": true,
+    "routing_law_selected": false,
+    "first_scientific_viktor_residual": false,
+    "physical_seconds_required": false,
+    "si_time_force_binding": "DEFERRED",
+    "upor": false,
+    "dipole": false,
+    "scale_binding": false,
+    "validation": false,
+    "canon_promotion": false
+  }
+}
