@@ -12,7 +12,7 @@ test("D0S displays the preregistered static equal-microbody parity gate", async 
   await expect(page.getByTestId("d0s-gates")).not.toContainText("FAIL");
   await expect(page.getByTestId("d0s-conclusion")).toContainText("D0S_STATIC_MICROBODY_REPRESENTATION_PARITY_PASS");
   await expect(page.getByTestId("d0s-conclusion")).toContainText("D0M");
-  await expect(page.getByTestId("d0s-conclusion")).toContainText("никакой физический упор");
+  await expect(page.getByTestId("d0s-conclusion")).toContainText("Никакой физический упор");
 
   await page.locator("#d0s-level").selectOption("N48");
   await expect(page.getByTestId("d0s-metrics")).toContainText("N48 fixed microbodies");
