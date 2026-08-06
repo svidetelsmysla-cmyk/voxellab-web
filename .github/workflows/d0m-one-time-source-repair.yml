@@ -1,0 +1,56 @@
+name: D0M One-Time Source Repair
+
+on:
+  push:
+    branches: [r13/d0m-isolated-independent-microbody-normalized-shape-v1]
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    if: github.event.head_commit.message != 'Repair D0M typed arrays and tau guard'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: r13/d0m-isolated-independent-microbody-normalized-shape-v1
+      - name: Apply exact registered source repair
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('src/actionLab/d0mDynamics.ts')
+          text = path.read_text()
+          replacements = {
+              'accelerations[leftOffset] += ax;': 'accelerations[leftOffset] = accelerations[leftOffset]! + ax;',
+              'accelerations[leftOffset + 1] += ay;': 'accelerations[leftOffset + 1] = accelerations[leftOffset + 1]! + ay;',
+              'accelerations[leftOffset + 2] += az;': 'accelerations[leftOffset + 2] = accelerations[leftOffset + 2]! + az;',
+              'accelerations[rightOffset] -= ax;': 'accelerations[rightOffset] = accelerations[rightOffset]! - ax;',
+              'accelerations[rightOffset + 1] -= ay;': 'accelerations[rightOffset + 1] = accelerations[rightOffset + 1]! - ay;',
+              'accelerations[rightOffset + 2] -= az;': 'accelerations[rightOffset + 2] = accelerations[rightOffset + 2]! - az;',
+              'state.velocities[index] += accelerations[index]! * dt;': 'state.velocities[index] = state.velocities[index]! + accelerations[index]! * dt;',
+              'state.positions[index] += state.velocities[index]! * dt;': 'state.positions[index] = state.positions[index]! + state.velocities[index]! * dt;',
+              'for (let step = 1; step <= D0M_MAXIMUM_STEPS && nextMilestoneIndex < D0M_MILESTONES.length; step += 1) {': 'const maximumSteps = Math.floor(D0M_TAU_MAX / options.dt + 1e-12);\n  for (let step = 1; step <= maximumSteps && nextMilestoneIndex < D0M_MILESTONES.length; step += 1) {',
+              'maximumSteps: D0M_MAXIMUM_STEPS,': 'maximumSteps,',
+          }
+          for old, new in replacements.items():
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f'Expected exactly one occurrence of {old!r}, found {count}')
+              text = text.replace(old, new)
+          path.write_text(text)
+          PY
+      - name: Verify strict typecheck
+        run: |
+          corepack enable
+          corepack prepare pnpm@11.9.0 --activate
+          pnpm install --frozen-lockfile
+          pnpm typecheck
+      - name: Commit exact repair
+        run: |
+          git config user.name 'VoxelLab governed repair'
+          git config user.email 'actions@users.noreply.github.com'
+          git add src/actionLab/d0mDynamics.ts
+          git commit -m 'Repair D0M typed arrays and tau guard'
+          git push origin HEAD:r13/d0m-isolated-independent-microbody-normalized-shape-v1
