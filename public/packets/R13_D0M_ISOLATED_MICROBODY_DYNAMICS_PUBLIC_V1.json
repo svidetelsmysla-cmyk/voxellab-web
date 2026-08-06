@@ -6,7 +6,7 @@
     "repository": "svidetelsmysla-cmyk/voxellab-web",
     "branch": "r13/d0m-isolated-independent-microbody-normalized-shape-v1",
     "sourceCommit": "d68e6e16954c21b19a32d0c7a90a5944d779fc44",
-    "projectionCommit": "032829adf4400575ca2ba67fb31ca7b9c5f1135b",
+    "projectionCommit": "0b5ea9cf12e3cf1ade1a4c4dd52665d399882de4",
     "preregistration": "docs/tasks/R13_D0M_ISOLATED_INDEPENDENT_MICROBODY_NORMALIZED_SHAPE_DYNAMICS_V1_PREREGISTRATION.md"
   },
   "verdict": "D0M_DIRECT_PAIRWISE_NORMALIZED_SPHERE_PRESERVATION_PASS",
