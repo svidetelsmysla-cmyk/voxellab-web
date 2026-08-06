@@ -1,0 +1,68 @@
+name: D0S Full Browser CI
+
+on:
+  push:
+    branches: [r13/d0s-static-microbody-representation-parity-v1]
+  workflow_dispatch:
+
+concurrency:
+  group: d0s-full-browser-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-browser-receipt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.9.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - name: Typecheck
+        run: pnpm typecheck
+      - name: Unit tests
+        run: pnpm test
+      - name: Deterministic scene regression
+        run: pnpm suite
+        env:
+          VITE_COMMIT_SHA: ${{ github.sha }}
+      - name: Production build
+        run: pnpm build
+        env:
+          VITE_COMMIT_SHA: ${{ github.sha }}
+      - name: Produce exact D0S receipt
+        run: |
+          pnpm exec vite build --ssr scripts/runD0SParity.ts --outDir .d0s-build --emptyOutDir
+          node .d0s-build/runD0SParity.js
+        env:
+          VITE_COMMIT_SHA: ${{ github.sha }}
+      - name: Install Playwright Chromium
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Browser tests
+        run: pnpm test:e2e
+      - name: Hash D0S receipt
+        run: |
+          sha256sum outputs/D0S_STATIC_MICROBODY_REPRESENTATION_PARITY_V1/*.json | tee outputs/D0S_STATIC_MICROBODY_REPRESENTATION_PARITY_V1/SHA256SUMS.txt
+      - name: Upload D0S receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: d0s-static-microbody-parity-${{ github.sha }}
+          path: outputs/D0S_STATIC_MICROBODY_REPRESENTATION_PARITY_V1
+          if-no-files-found: error
+          retention-days: 90
+      - name: Upload browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: d0s-browser-evidence-${{ github.sha }}
+          path: test-results
+          if-no-files-found: warn
+          retention-days: 30
