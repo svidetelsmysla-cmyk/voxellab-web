@@ -4,12 +4,14 @@ import "./closurePanel.css";
 import "./extendedReceiver.css";
 import "./overlapGeometry.css";
 import "./freeBoundaryBounds.css";
+import "./d0sParity.css";
 import { ActionTransportAppA02 } from "./AppA02";
 import { installA02DisplaySemanticsRepair } from "./a02DisplaySemanticsRepair";
 import { OneBodyClosurePanel } from "./ClosurePanel";
 import { ExtendedReceiverPanel } from "./ExtendedReceiverPanel";
 import { OverlapGeometryPanel } from "./OverlapPanel";
 import { FreeBoundaryBoundsPanel } from "./FreeBoundaryBoundsPanel";
+import { D0SParityPanel } from "./D0SParityPanel";
 
 installA02DisplaySemanticsRepair();
 
@@ -39,3 +41,8 @@ const freeBoundaryRoot = document.createElement("div");
 freeBoundaryRoot.id = "free-boundary-a2b-root";
 root.append(freeBoundaryRoot);
 new FreeBoundaryBoundsPanel(freeBoundaryRoot);
+
+const d0sRoot = document.createElement("div");
+d0sRoot.id = "d0s-static-microbody-parity-root";
+root.append(d0sRoot);
+new D0SParityPanel(d0sRoot);
