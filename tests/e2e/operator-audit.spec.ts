@@ -26,7 +26,7 @@ test("Operator Audit A1 states the source and claim boundaries visibly", async (
   await expect(page.locator("body")).toContainText("SOURCE ADDITIVE A−B");
   await expect(page.locator("body")).toContainText("PROJECT FIRST-HIT A−B");
   await expect(page.locator("body")).toContainText("first-hit direct-channel termination");
-  await expect(page.locator("body")).toContainText("Dimensionless operator delta available");
+  await expect(page.locator(".firewall-box")).toContainText("Dimensionless operator delta available");
   await expect(page.locator("body")).toContainText("NO FIRST-HIT PROMOTION");
   await expect(page.getByRole("link", { name: /Scene Lab/ })).toHaveAttribute("href", "/voxellab-web/");
   await expect(page.getByRole("link", { name: /Action Transport Lab/ })).toHaveAttribute("href", "/voxellab-web/action-lab/");
