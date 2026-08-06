@@ -3,11 +3,13 @@ import "./stylesA02.css";
 import "./closurePanel.css";
 import "./extendedReceiver.css";
 import "./overlapGeometry.css";
+import "./freeBoundaryBounds.css";
 import { ActionTransportAppA02 } from "./AppA02";
 import { installA02DisplaySemanticsRepair } from "./a02DisplaySemanticsRepair";
 import { OneBodyClosurePanel } from "./ClosurePanel";
 import { ExtendedReceiverPanel } from "./ExtendedReceiverPanel";
 import { OverlapGeometryPanel } from "./OverlapPanel";
+import { FreeBoundaryBoundsPanel } from "./FreeBoundaryBoundsPanel";
 
 installA02DisplaySemanticsRepair();
 
@@ -30,8 +32,10 @@ overlapRoot.id = "overlap-a2-root";
 root.append(overlapRoot);
 new OverlapGeometryPanel(overlapRoot);
 
-// The original HTML range step (0.01) rounded the analytic preset
-// sqrt(3)-1 = 0.7320508... to 0.73. This display-only repair keeps the
-// operator and oracle unchanged while allowing the browser control to retain 0.732.
 const overlapSeparation = overlapRoot.querySelector<HTMLInputElement>("#a2-separation");
 if (overlapSeparation) overlapSeparation.step = "0.001";
+
+const freeBoundaryRoot = document.createElement("div");
+freeBoundaryRoot.id = "free-boundary-a2b-root";
+root.append(freeBoundaryRoot);
+new FreeBoundaryBoundsPanel(freeBoundaryRoot);
