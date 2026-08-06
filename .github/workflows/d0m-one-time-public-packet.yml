@@ -1,0 +1,51 @@
+name: D0M One-Time Public Packet
+
+on:
+  push:
+    branches: [r13/d0m-isolated-independent-microbody-normalized-shape-v1]
+
+permissions:
+  contents: write
+
+jobs:
+  project-packet:
+    if: github.event.head_commit.message != 'Publish deterministic D0M read-only packet'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: r13/d0m-isolated-independent-microbody-normalized-shape-v1
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.9.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - name: Build packet projector
+        run: pnpm exec vite build --ssr scripts/generateD0MPublicPacket.ts --outDir .d0m-public-build --emptyOutDir
+      - name: Produce public packet from tested source head
+        run: node .d0m-public-build/generateD0MPublicPacket.js
+        env:
+          D0M_SOURCE_COMMIT: d68e6e16954c21b19a32d0c7a90a5944d779fc44
+          VITE_COMMIT_SHA: ${{ github.sha }}
+      - name: Verify packet verdict and hash
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const path = 'public/packets/R13_D0M_ISOLATED_MICROBODY_DYNAMICS_PUBLIC_V1.json';
+          const packet = JSON.parse(fs.readFileSync(path, 'utf8'));
+          if (packet.verdict !== 'D0M_DIRECT_PAIRWISE_NORMALIZED_SPHERE_PRESERVATION_PASS') throw new Error('Unexpected D0M verdict');
+          if (packet.d0cStatus !== 'OPEN_AFTER_D0M_PASS') throw new Error('D0C gate not open');
+          if (packet.gates.length !== 18 || packet.gates.some(g => !g.pass)) throw new Error('D0M gates not 18/18 PASS');
+          NODE
+          sha256sum public/packets/R13_D0M_ISOLATED_MICROBODY_DYNAMICS_PUBLIC_V1.json
+      - name: Commit public packet only
+        run: |
+          git config user.name 'VoxelLab governed projection'
+          git config user.email 'actions@users.noreply.github.com'
+          git add public/packets/R13_D0M_ISOLATED_MICROBODY_DYNAMICS_PUBLIC_V1.json
+          git commit -m 'Publish deterministic D0M read-only packet'
+          git push origin HEAD:r13/d0m-isolated-independent-microbody-normalized-shape-v1
