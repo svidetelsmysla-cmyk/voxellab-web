@@ -8,6 +8,7 @@ on:
       - agent/web/g4-action-tally-resolved-homogenized-v1
       - r13/action-transport-visualizer-a0-v1
       - r6/web-g4-mr-v2-relational-time-repair
+      - r6/operator-audit-a1-governed-playback-v1
   workflow_dispatch:
 
 permissions:
