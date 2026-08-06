@@ -1,0 +1,36 @@
+.candidate-family-section { margin-top: 12px; }
+.candidate-verdicts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+.candidate-verdicts > div { border: 1px solid #24483f; background: #071512; padding: 10px; }
+.candidate-verdicts span { display: block; color: #718b82; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
+.candidate-verdicts strong { display: block; margin-top: 5px; color: #d8fff2; font: 700 11px/1.35 ui-monospace, monospace; overflow-wrap: anywhere; }
+.candidate-layout { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(440px, .9fr); gap: 12px; }
+.candidate-table-wrap { overflow: auto; border: 1px solid #17332c; }
+.candidate-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.candidate-table th, .candidate-table td { padding: 9px; border-bottom: 1px solid #17332c; text-align: left; vertical-align: top; }
+.candidate-table th { color: #76f6c2; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+.candidate-table td:first-child { color: #d8fff2; font: 700 10px ui-monospace, monospace; }
+.candidate-table td:nth-child(2), .candidate-table td:nth-child(3) { font: 11px ui-monospace, monospace; }
+.candidate-table td:last-child { color: #8fa79e; }
+.hull-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px; }
+.hull-card { border: 1px solid #24483f; background: #071512; padding: 11px; }
+.hull-card span, .hull-card strong, .hull-card small { display: block; }
+.hull-card span { color: #8fa79e; font-size: 9px; line-height: 1.35; }
+.hull-card strong { margin: 8px 0; font: 800 14px ui-monospace, monospace; }
+.hull-card small { font-size: 9px; letter-spacing: .08em; }
+.hull-card.zero { border-color: #2d6656; }
+.hull-card.zero strong, .hull-card.zero small { color: #76f6c2; }
+.hull-card.nonzero { border-color: #70463d; }
+.hull-card.nonzero strong, .hull-card.nonzero small { color: #ff9b7d; }
+.candidate-boundary { margin-top: 12px; padding: 12px; border: 1px solid #5b5141; background: #17140e; }
+.candidate-boundary strong { color: #ffd993; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
+.candidate-boundary p { margin: 7px 0 0; color: #b8ad91; font-size: 12px; line-height: 1.5; }
+.candidate-provenance { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; color: #718b82; font-size: 10px; }
+.candidate-provenance code { color: #9db1aa; }
+.packet-error { color: #ff9b7d; }
+@media (max-width: 1050px) {
+  .candidate-layout { grid-template-columns: 1fr; }
+  .hull-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 650px) {
+  .candidate-verdicts, .hull-grid { grid-template-columns: 1fr; }
+}
