@@ -368,12 +368,12 @@ function evaluateAccelerations(
       const ax = factor * dx;
       const ay = factor * dy;
       const az = factor * dz;
-      accelerations[leftOffset] += ax;
-      accelerations[leftOffset + 1] += ay;
-      accelerations[leftOffset + 2] += az;
-      accelerations[rightOffset] -= ax;
-      accelerations[rightOffset + 1] -= ay;
-      accelerations[rightOffset + 2] -= az;
+      accelerations[leftOffset] = accelerations[leftOffset]! + ax;
+      accelerations[leftOffset + 1] = accelerations[leftOffset + 1]! + ay;
+      accelerations[leftOffset + 2] = accelerations[leftOffset + 2]! + az;
+      accelerations[rightOffset] = accelerations[rightOffset]! - ax;
+      accelerations[rightOffset + 1] = accelerations[rightOffset + 1]! - ay;
+      accelerations[rightOffset + 2] = accelerations[rightOffset + 2]! - az;
     }
   }
   return { minimumPairDistance: Math.sqrt(minimumDistanceSquared), singularEvents };
@@ -385,8 +385,8 @@ function symplecticStep(state: D0MState, accelerations: Float64Array, dt: number
 } {
   const pairResult = evaluateAccelerations(state, accelerations);
   for (let index = 0; index < state.positions.length; index += 1) {
-    state.velocities[index] += accelerations[index]! * dt;
-    state.positions[index] += state.velocities[index]! * dt;
+    state.velocities[index] = state.velocities[index]! + accelerations[index]! * dt;
+    state.positions[index] = state.positions[index]! + state.velocities[index]! * dt;
   }
   return pairResult;
 }
@@ -659,7 +659,8 @@ function simulate(options: SimulationOptions): D0MInternalRun {
     initialMinimumPair,
   ));
 
-  for (let step = 1; step <= D0M_MAXIMUM_STEPS && nextMilestoneIndex < D0M_MILESTONES.length; step += 1) {
+  const maximumSteps = Math.floor(D0M_TAU_MAX / options.dt + 1e-12);
+  for (let step = 1; step <= maximumSteps && nextMilestoneIndex < D0M_MILESTONES.length; step += 1) {
     const pair = symplecticStep(state, accelerations, options.dt);
     singularEventCount += pair.singularEvents;
     minimumPairObserved = Math.min(minimumPairObserved, pair.minimumPairDistance);
@@ -712,7 +713,7 @@ function simulate(options: SimulationOptions): D0MInternalRun {
     level: options.level,
     dt: options.dt,
     tauMax: D0M_TAU_MAX,
-    maximumSteps: D0M_MAXIMUM_STEPS,
+    maximumSteps,
     initialRmsRadius: initialShape.rRms,
     initialMinimumPairDistance: initialMinimumPair,
     initialAnisotropy: initialShape.anisotropy,
