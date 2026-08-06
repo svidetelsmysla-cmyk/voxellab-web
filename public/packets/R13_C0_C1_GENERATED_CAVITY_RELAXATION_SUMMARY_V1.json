@@ -1,0 +1,80 @@
+{
+  "schema": "R13_C0_C1_GENERATED_CAVITY_RELAXATION_SUMMARY_V1",
+  "source_class": "DIRECT_PAIRWISE_DIMENSIONLESS_RELAXATION_CONTROL_ONLY",
+  "verdict": "C0_UNIFORM_BACKGROUND_NOT_OBTAINED",
+  "fixture": {
+    "reservoir_radius": 5,
+    "background_density": 1,
+    "background_particle_count": 96,
+    "body_radius": 0.65,
+    "body_amount": 16,
+    "iteration_cap": 160,
+    "background_amount": 523.5987755982989,
+    "background_amount_destroyed": false
+  },
+  "boundaries": [
+    {
+      "id": "B0_ANALYTIC_ISOTROPIC_RESERVOIR",
+      "c0_bulk_density_rms_relative_error": 0.8217323527480662,
+      "c0_anisotropy": 0.002742603150238887,
+      "c0_boundary_shell_fraction": 0.020833333333333332,
+      "c0_converged": false,
+      "c0_minimum_radius": 0.9635212228681441,
+      "c1_converged": false,
+      "c1_minimum_density_ratio": 0,
+      "c1_cavity_radius_50": 1.3541666666666667,
+      "c1_cavity_radius_90": 2.3958333333333335,
+      "c1_nearest_background_radius": 2.4646628434969537,
+      "background_amount_residual": 0
+    },
+    {
+      "id": "B1_SPHERICAL_REPULSIVE_WALL",
+      "c0_bulk_density_rms_relative_error": 1,
+      "c0_anisotropy": 0.0032456027230405304,
+      "c0_boundary_shell_fraction": 1,
+      "c0_converged": false,
+      "c0_minimum_radius": 4.859165610001665,
+      "c1_converged": false,
+      "c1_minimum_density_ratio": 1,
+      "c1_cavity_radius_50": null,
+      "c1_cavity_radius_90": null,
+      "c1_nearest_background_radius": 4.859170586687618,
+      "background_amount_residual": 0
+    },
+    {
+      "id": "B2_EQUAL_VOLUME_CUBIC_REPULSIVE_WALL",
+      "c0_bulk_density_rms_relative_error": 1,
+      "c0_anisotropy": 0.02450637316161841,
+      "c0_boundary_shell_fraction": 1,
+      "c0_converged": false,
+      "c0_minimum_radius": 3.7849436315036433,
+      "c1_converged": false,
+      "c1_minimum_density_ratio": 1,
+      "c1_cavity_radius_50": 4.270833333333333,
+      "c1_cavity_radius_90": 4.479166666666667,
+      "c1_nearest_background_radius": 3.8816827117560617,
+      "background_amount_residual": 0
+    }
+  ],
+  "logical_delta": {
+    "pure_direct_pair_repulsion_plus_finite_confinement_produces_uniform_volume_background": false,
+    "hard_wall_branches_move_background_to_boundary": true,
+    "analytic_common_mode_generates_body_cavity_but_c0_is_not_uniform": true,
+    "generated_cavity_can_be_interpreted_as_source_locked_physics": false,
+    "next_required_discriminator": "C0_VOLUME_SUPPORT_MECHANISM_DISCRIMINATOR"
+  },
+  "evidence": {
+    "workflow_run": 31102695546,
+    "workflow_artifact_id": 8968162147,
+    "workflow_artifact_sha256": "71db4d8e927548062709fc34faad66500f055a6377c2c6376f09bf0e93ac8310"
+  },
+  "claim_ceiling": {
+    "physical_time": false,
+    "physical_force": false,
+    "upor": false,
+    "scale_binding": false,
+    "validation": false,
+    "canon_promotion": false,
+    "merge": false
+  }
+}
