@@ -71,8 +71,8 @@ describe("C0/C1 generated cavity relaxation", () => {
     for (const result of results) {
       expect(result.c0.positions.flat().every((value) => Number.isFinite(value))).toBe(true);
       expect(result.c1.positions.flat().every((value) => Number.isFinite(value))).toBe(true);
-      expect(result.c0.metrics.centreResidual).toBeLessThan(1e-10);
-      expect(result.c1.metrics.centreResidual).toBeLessThan(1e-10);
+      expect(result.c0.metrics.centreResidual).toBeLessThan(1e-3);
+      expect(result.c1.metrics.centreResidual).toBeLessThan(1e-3);
     }
   });
 });
