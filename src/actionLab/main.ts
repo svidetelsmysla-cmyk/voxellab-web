@@ -5,6 +5,7 @@ import "./extendedReceiver.css";
 import "./overlapGeometry.css";
 import "./freeBoundaryBounds.css";
 import "./d0sParity.css";
+import "./d0mDynamics.css";
 import { ActionTransportAppA02 } from "./AppA02";
 import { installA02DisplaySemanticsRepair } from "./a02DisplaySemanticsRepair";
 import { OneBodyClosurePanel } from "./ClosurePanel";
@@ -12,6 +13,7 @@ import { ExtendedReceiverPanel } from "./ExtendedReceiverPanel";
 import { OverlapGeometryPanel } from "./OverlapPanel";
 import { FreeBoundaryBoundsPanel } from "./FreeBoundaryBoundsPanel";
 import { D0SParityPanel } from "./D0SParityPanel";
+import { D0MDynamicsPanel } from "./D0MDynamicsPanel";
 
 installA02DisplaySemanticsRepair();
 
@@ -46,3 +48,8 @@ const d0sRoot = document.createElement("div");
 d0sRoot.id = "d0s-static-microbody-parity-root";
 root.append(d0sRoot);
 new D0SParityPanel(d0sRoot);
+
+const d0mRoot = document.createElement("div");
+d0mRoot.id = "d0m-isolated-microbody-dynamics-root";
+root.append(d0mRoot);
+new D0MDynamicsPanel(d0mRoot);
