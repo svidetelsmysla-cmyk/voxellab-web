@@ -9,6 +9,7 @@ on:
       - r13/action-transport-visualizer-a0-v1
       - r6/web-g4-mr-v2-relational-time-repair
       - r6/operator-audit-a1-governed-playback-v1
+      - r6/operator-audit-a1-1-candidate-family-v1
   workflow_dispatch:
 
 permissions:
