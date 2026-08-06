@@ -1,0 +1,769 @@
+{
+  "schema": "VOXELLAB_D0M_ISOLATED_MICROBODY_DYNAMICS_PUBLIC_V1",
+  "sourceClass": "WORKER_METHOD_RESULT_NOT_CANON",
+  "publicRole": "READ_ONLY_GOVERNED_PLAYBACK_NO_BROWSER_PHYSICS_RECOMPUTATION",
+  "producer": {
+    "repository": "svidetelsmysla-cmyk/voxellab-web",
+    "branch": "r13/d0m-isolated-independent-microbody-normalized-shape-v1",
+    "sourceCommit": "d68e6e16954c21b19a32d0c7a90a5944d779fc44",
+    "projectionCommit": "387a576a0f04dc27f40b36b005ae824a7a7fd1a7",
+    "preregistration": "docs/tasks/R13_D0M_ISOLATED_INDEPENDENT_MICROBODY_NORMALIZED_SHAPE_DYNAMICS_V1_PREREGISTRATION.md"
+  },
+  "verdict": "D0M_DIRECT_PAIRWISE_NORMALIZED_SPHERE_PRESERVATION_PASS",
+  "d0cStatus": "OPEN_AFTER_D0M_PASS",
+  "claimCeiling": "DIRECT_PAIRWISE_DIMENSIONLESS_ISOLATED_MICROBODY_DYNAMICS_CONTROL_ONLY",
+  "operatorAudit": {
+    "directPositiveCentralPair": true,
+    "pairedActionReaction": true,
+    "independentStatePerMicrobody": true,
+    "damping": false,
+    "softening": false,
+    "distanceCutoff": false,
+    "forceCap": false,
+    "velocityClipping": false,
+    "contact": false,
+    "upor": false,
+    "radialShellRestoration": false,
+    "neighbourRestLengths": false,
+    "shapeMatching": false,
+    "backgroundScreening": false,
+    "redirection": false,
+    "physicalSeconds": false
+  },
+  "levels": [
+    {
+      "id": "N24",
+      "count": 24,
+      "shellCount": 3,
+      "dt": 0.001,
+      "initial": {
+        "rRms": 0.7788678173461449,
+        "minimumPairDistance": 0.29125435251185205,
+        "anisotropy": 0.09216259518487929,
+        "multipoles": {
+          "l1": 4.9238162772211084e-17,
+          "l2": 0.32908275013041055,
+          "l3": 5.65465693310023e-17,
+          "l4": 0.6643140405155804
+        },
+        "potentialEnergy": 0.510454475722088
+      },
+      "run": {
+        "reachedAllMilestones": true,
+        "finite": true,
+        "singularEventCount": 0,
+        "minimumPairRatioObserved": 1,
+        "maximumCentreDriftOverInitialRms": 1.1136186637468039e-17,
+        "maximumLinearMomentumResidual": 1.471961680016039e-17,
+        "maximumAngularMomentumResidual": 5.399195544803884e-16
+      },
+      "milestones": [
+        {
+          "milestone": 1.1,
+          "step": 495,
+          "tau": 0.495,
+          "expansion": 1.1000900243230063,
+          "overshoot": 0.00009002432300619923,
+          "rRms": 0.8568247161287272,
+          "eigenvalues": [
+            0.3746536914242515,
+            0.34678956524598853,
+            0.27855674332975994
+          ],
+          "anisotropy": 0.08563512990416178,
+          "anisotropyDrift": 0.006527465280717515,
+          "homologousRate": 0.3558814680682832,
+          "homologyResidual": 0.222084557605927,
+          "tangentialKineticFraction": 0.025932698985332157,
+          "outwardAmountFraction": 0.9999999999999996,
+          "multipoles": {
+            "l1": 6.714501792468212e-17,
+            "l2": 0.30340367398103896,
+            "l3": 2.1413418789078357e-16,
+            "l4": 0.6291183090946055
+          },
+          "p2GrowthRatio": 0.9219677235005622,
+          "p4GrowthRatio": 0.9470194376839316,
+          "minimumPairRatio": 1.332581380703913,
+          "kineticEnergy": 0.04890250133472389,
+          "potentialEnergy": 0.4614664052697253,
+          "totalEnergy": 0.5103689066044492,
+          "relativeEnergyDrift": 0.00016763320082118828,
+          "centreOfAmountDriftOverInitialRms": 0,
+          "normalizedLinearMomentumResidual": 2.4532694666933987e-18,
+          "normalizedAngularMomentumResidual": 3.8986843498416845e-17
+        },
+        {
+          "milestone": 1.25,
+          "step": 801,
+          "tau": 0.801,
+          "expansion": 1.2502836138166875,
+          "overshoot": 0.0002836138166875113,
+          "rRms": 0.9738056693570536,
+          "eigenvalues": [
+            0.3682890166252208,
+            0.34980497879967715,
+            0.2819060045751018
+          ],
+          "anisotropy": 0.07878437385020168,
+          "anisotropyDrift": 0.013378221334677615,
+          "homologousRate": 0.4650988006296957,
+          "homologyResidual": 0.17764499276539691,
+          "tangentialKineticFraction": 0.019543174123635983,
+          "outwardAmountFraction": 0.9999999999999996,
+          "multipoles": {
+            "l1": 1.434868075783937e-17,
+            "l2": 0.2728312532108938,
+            "l3": 9.511213884445843e-17,
+            "l4": 0.5839874635221926
+          },
+          "p2GrowthRatio": 0.8290657991121531,
+          "p4GrowthRatio": 0.8790834272732733,
+          "minimumPairRatio": 1.650699386106213,
+          "kineticEnergy": 0.10590862014028324,
+          "potentialEnergy": 0.4044497599805793,
+          "totalEnergy": 0.5103583801208625,
+          "relativeEnergyDrift": 0.00018825498804675948,
+          "centreOfAmountDriftOverInitialRms": 0,
+          "normalizedLinearMomentumResidual": 5.204170427930421e-18,
+          "normalizedAngularMomentumResidual": 1.8501812475345275e-16
+        },
+        {
+          "milestone": 1.5,
+          "step": 1173,
+          "tau": 1.173,
+          "expansion": 1.500117612976979,
+          "overshoot": 0.0001176129769790979,
+          "rRms": 1.1683933309818886,
+          "eigenvalues": [
+            0.36273512193629226,
+            0.3513089265736367,
+            0.2859559514900711
+          ],
+          "anisotropy": 0.07175169094574917,
+          "anisotropyDrift": 0.020410904239130126,
+          "homologousRate": 0.5005878833487857,
+          "homologyResidual": 0.13452824249654044,
+          "tangentialKineticFraction": 0.012992644346859723,
+          "outwardAmountFraction": 0.9999999999999996,
+          "multipoles": {
+            "l1": 0,
+            "l2": 0.23598887363351062,
+            "l3": 1.615194261770638e-16,
+            "l4": 0.5272052197151096
+          },
+          "p2GrowthRatio": 0.7171110413414006,
+          "p4GrowthRatio": 0.7936084254759099,
+          "minimumPairRatio": 2.0941984254716908,
+          "kineticEnergy": 0.17419697059992098,
+          "potentialEnergy": 0.33617253400909586,
+          "totalEnergy": 0.5103695046090169,
+          "relativeEnergyDrift": 0.00016646168681536743,
+          "centreOfAmountDriftOverInitialRms": 6.681711982480823e-18,
+          "normalizedLinearMomentumResidual": 8.498374721940739e-18,
+          "normalizedAngularMomentumResidual": 5.399195544803884e-16
+        }
+      ]
+    },
+    {
+      "id": "N48",
+      "count": 48,
+      "shellCount": 3,
+      "dt": 0.001,
+      "initial": {
+        "rRms": 0.7788678173461446,
+        "minimumPairDistance": 0.3132380310238687,
+        "anisotropy": 0.03477020053998426,
+        "multipoles": {
+          "l1": 1.6526108945393252e-17,
+          "l2": 0.08552198021282396,
+          "l3": 1.159231402873666e-16,
+          "l4": 0.22483634241069492
+        },
+        "potentialEnergy": 0.5363647214371843
+      },
+      "run": {
+        "reachedAllMilestones": true,
+        "finite": true,
+        "singularEventCount": 0,
+        "minimumPairRatioObserved": 0.9999999999999998,
+        "maximumCentreDriftOverInitialRms": 2.2713453188584304e-17,
+        "maximumLinearMomentumResidual": 1.5023145987371592e-17,
+        "maximumAngularMomentumResidual": 1.618661882544946e-16
+      },
+      "milestones": [
+        {
+          "milestone": 1.1,
+          "step": 483,
+          "tau": 0.483,
+          "expansion": 1.100056949860984,
+          "overshoot": 0.00005694986098392363,
+          "rRms": 0.8567989554946819,
+          "eigenvalues": [
+            0.35124111922390777,
+            0.33409332216907145,
+            0.3146655586070212
+          ],
+          "anisotropy": 0.031695871776118746,
+          "anisotropyDrift": 0.0030743287638655137,
+          "homologousRate": 0.364363976575293,
+          "homologyResidual": 0.1140988136892473,
+          "tangentialKineticFraction": 0.008700157116631429,
+          "outwardAmountFraction": 1.0000000000000007,
+          "multipoles": {
+            "l1": 4.125166143682119e-17,
+            "l2": 0.0775986418099527,
+            "l3": 3.454403803229949e-17,
+            "l4": 0.20778302576600152
+          },
+          "p2GrowthRatio": 0.907353192908375,
+          "p4GrowthRatio": 0.9241523124693821,
+          "minimumPairRatio": 1.1504979105368671,
+          "kineticEnergy": 0.049373024542813254,
+          "potentialEnergy": 0.4869019369654078,
+          "totalEnergy": 0.5362749615082211,
+          "relativeEnergyDrift": 0.00016734868155141865,
+          "centreOfAmountDriftOverInitialRms": 0,
+          "normalizedLinearMomentumResidual": 5.981809762858597e-18,
+          "normalizedAngularMomentumResidual": 3.843757108496983e-17
+        },
+        {
+          "milestone": 1.25,
+          "step": 782,
+          "tau": 0.782,
+          "expansion": 1.2502694020802572,
+          "overshoot": 0.00026940208025716395,
+          "rRms": 0.9737946002929192,
+          "eigenvalues": [
+            0.34871195488862045,
+            0.33505412064199064,
+            0.3162339244693892
+          ],
+          "anisotropy": 0.02824498787569333,
+          "anisotropyDrift": 0.00652521266429093,
+          "homologousRate": 0.47592584535900917,
+          "homologyResidual": 0.09475259535478427,
+          "tangentialKineticFraction": 0.0061661294228437845,
+          "outwardAmountFraction": 1.0000000000000007,
+          "multipoles": {
+            "l1": 5.189708298855748e-17,
+            "l2": 0.06903151149923319,
+            "l3": 6.689424200492576e-17,
+            "l4": 0.18861077104222548
+          },
+          "p2GrowthRatio": 0.8071785911346562,
+          "p4GrowthRatio": 0.838880267397793,
+          "minimumPairRatio": 1.3581117810614949,
+          "kineticEnergy": 0.10836774506501823,
+          "potentialEnergy": 0.4278944397528513,
+          "totalEnergy": 0.5362621848178695,
+          "relativeEnergyDrift": 0.00019116958147445296,
+          "centreOfAmountDriftOverInitialRms": 4.454474654987217e-18,
+          "normalizedLinearMomentumResidual": 5.753426884836169e-18,
+          "normalizedAngularMomentumResidual": 5.828656176392001e-17
+        },
+        {
+          "milestone": 1.5,
+          "step": 1146,
+          "tau": 1.1460000000000001,
+          "expansion": 1.5004101363990872,
+          "overshoot": 0.0004101363990871576,
+          "rRms": 1.1686211680611882,
+          "eigenvalues": [
+            0.345831802857165,
+            0.33613337244692193,
+            0.31803482469591265
+          ],
+          "anisotropy": 0.024436540037564975,
+          "anisotropyDrift": 0.010333660502419285,
+          "homologousRate": 0.5120983361182966,
+          "homologyResidual": 0.07334780750959144,
+          "tangentialKineticFraction": 0.0038294301297466912,
+          "outwardAmountFraction": 1.0000000000000007,
+          "multipoles": {
+            "l1": 3.4054026852703403e-17,
+            "l2": 0.06016226590528961,
+            "l3": 7.707945545906207e-17,
+            "l4": 0.16767790488262813
+          },
+          "p2GrowthRatio": 0.7034713854330085,
+          "p4GrowthRatio": 0.7457775868651211,
+          "minimumPairRatio": 1.6994182894676604,
+          "kineticEnergy": 0.18003916918151436,
+          "potentialEnergy": 0.3562340515109432,
+          "totalEnergy": 0.5362732206924575,
+          "relativeEnergyDrift": 0.00017059426369723098,
+          "centreOfAmountDriftOverInitialRms": 1.4773821068740422e-17,
+          "normalizedLinearMomentumResidual": 7.949501638480627e-18,
+          "normalizedAngularMomentumResidual": 1.5411490055374087e-16
+        }
+      ]
+    },
+    {
+      "id": "N96",
+      "count": 96,
+      "shellCount": 4,
+      "dt": 0.001,
+      "initial": {
+        "rRms": 0.7774713912585709,
+        "minimumPairDistance": 0.22771505565307107,
+        "anisotropy": 0.015356275876004622,
+        "multipoles": {
+          "l1": 2.5026385697954477e-17,
+          "l2": 0.062382239367466036,
+          "l3": 9.390340798737419e-17,
+          "l4": 0.096342195593114
+        },
+        "potentialEnergy": 0.5591181159354752
+      },
+      "run": {
+        "reachedAllMilestones": true,
+        "finite": true,
+        "singularEventCount": 0,
+        "minimumPairRatioObserved": 1,
+        "maximumCentreDriftOverInitialRms": 1.411158624311791e-17,
+        "maximumLinearMomentumResidual": 7.505506513705859e-18,
+        "maximumAngularMomentumResidual": 1.3961566804828153e-16
+      },
+      "milestones": [
+        {
+          "milestone": 1.1,
+          "step": 473,
+          "tau": 0.47300000000000003,
+          "expansion": 1.1003735622815052,
+          "overshoot": 0.00037356228150509097,
+          "rRms": 0.8555089643711515,
+          "eigenvalues": [
+            0.34123467544949304,
+            0.33356637760803387,
+            0.325198946942474
+          ],
+          "anisotropy": 0.013891747126965408,
+          "anisotropyDrift": 0.001464528749039214,
+          "homologousRate": 0.37306230070902857,
+          "homologyResidual": 0.09465686243775112,
+          "tangentialKineticFraction": 0.005175775946120162,
+          "outwardAmountFraction": 0.9999999999999986,
+          "multipoles": {
+            "l1": 2.4259110352070482e-17,
+            "l2": 0.055846629448908176,
+            "l3": 4.4631233653882436e-17,
+            "l4": 0.0845150416157017
+          },
+          "p2GrowthRatio": 0.8952328421546478,
+          "p4GrowthRatio": 0.8772380689001276,
+          "minimumPairRatio": 1.215413952992737,
+          "kineticEnergy": 0.051391423092320386,
+          "potentialEnergy": 0.5076312580124107,
+          "totalEnergy": 0.5590226811047311,
+          "relativeEnergyDrift": 0.0001706881390964608,
+          "centreOfAmountDriftOverInitialRms": 2.2312376963075597e-18,
+          "normalizedLinearMomentumResidual": 1.801211927639142e-18,
+          "normalizedAngularMomentumResidual": 1.792691767045732e-17
+        },
+        {
+          "milestone": 1.25,
+          "step": 765,
+          "tau": 0.765,
+          "expansion": 1.2505121198814082,
+          "overshoot": 0.0005121198814082017,
+          "rRms": 0.9722373976299032,
+          "eigenvalues": [
+            0.34022186269193205,
+            0.3336483915921836,
+            0.3261297457158844
+          ],
+          "anisotropy": 0.012213277999354444,
+          "anisotropyDrift": 0.0031429978766501776,
+          "homologousRate": 0.4867816626343727,
+          "homologyResidual": 0.07728755942857593,
+          "tangentialKineticFraction": 0.003544518300142857,
+          "outwardAmountFraction": 0.9999999999999986,
+          "multipoles": {
+            "l1": 2.3305340809291833e-17,
+            "l2": 0.048770568868478054,
+            "l3": 6.913177444094782e-17,
+            "l4": 0.07222483130857185
+          },
+          "p2GrowthRatio": 0.7818021501471327,
+          "p4GrowthRatio": 0.7496697668548264,
+          "minimumPairRatio": 1.4764019316061197,
+          "kineticEnergy": 0.11266396930375532,
+          "potentialEnergy": 0.4463450480574251,
+          "totalEnergy": 0.5590090173611804,
+          "relativeEnergyDrift": 0.000195126165984316,
+          "centreOfAmountDriftOverInitialRms": 4.4624753926151194e-18,
+          "normalizedLinearMomentumResidual": 4.369549976053713e-18,
+          "normalizedAngularMomentumResidual": 6.183428564453929e-17
+        },
+        {
+          "milestone": 1.5,
+          "step": 1121,
+          "tau": 1.121,
+          "expansion": 1.5007544234461418,
+          "overshoot": 0.0007544234461418498,
+          "rRms": 1.1667936295341264,
+          "eigenvalues": [
+            0.33905879296378977,
+            0.33371595395726594,
+            0.32722525307894446
+          ],
+          "anisotropy": 0.010264204614769247,
+          "anisotropyDrift": 0.0050920712612353754,
+          "homologousRate": 0.5236465076050237,
+          "homologyResidual": 0.05859360616923131,
+          "tangentialKineticFraction": 0.002120316437965205,
+          "outwardAmountFraction": 0.9999999999999986,
+          "multipoles": {
+            "l1": 2.3122928092578e-17,
+            "l2": 0.04129480195504524,
+            "l3": 3.504593303169328e-17,
+            "l4": 0.060731683451891866
+          },
+          "p2GrowthRatio": 0.6619640842291012,
+          "p4GrowthRatio": 0.6303747083820107,
+          "minimumPairRatio": 1.8901462270564553,
+          "kineticEnergy": 0.18729583315672632,
+          "potentialEnergy": 0.3717248041312111,
+          "totalEnergy": 0.5590206372879374,
+          "relativeEnergyDrift": 0.00017434356848686035,
+          "centreOfAmountDriftOverInitialRms": 6.310893221992504e-18,
+          "normalizedLinearMomentumResidual": 3.3103694787048736e-18,
+          "normalizedAngularMomentumResidual": 8.080969990852358e-17
+        }
+      ]
+    },
+    {
+      "id": "N192",
+      "count": 192,
+      "shellCount": 5,
+      "dt": 0.001,
+      "initial": {
+        "rRms": 0.7765371276171323,
+        "minimumPairDistance": 0.17988183924729792,
+        "anisotropy": 0.00801584842597309,
+        "multipoles": {
+          "l1": 2.0111735582278092e-17,
+          "l2": 0.019998853597261616,
+          "l3": 4.9912155012012904e-17,
+          "l4": 0.03948774408587389
+        },
+        "potentialEnergy": 0.5738705847058717
+      },
+      "run": {
+        "reachedAllMilestones": true,
+        "finite": true,
+        "singularEventCount": 0,
+        "minimumPairRatioObserved": 0.9999999999999999,
+        "maximumCentreDriftOverInitialRms": 1.0481743804420443e-17,
+        "maximumLinearMomentumResidual": 6.979433064230618e-18,
+        "maximumAngularMomentumResidual": 5.883123989441408e-17
+      },
+      "milestones": [
+        {
+          "milestone": 1.1,
+          "step": 466,
+          "tau": 0.466,
+          "expansion": 1.1002357611152493,
+          "overshoot": 0.00023576111524925558,
+          "rRms": 0.8543739176380851,
+          "eigenvalues": [
+            0.33751523724636673,
+            0.33335108726233004,
+            0.3291336754913034
+          ],
+          "anisotropy": 0.007258694255507909,
+          "anisotropyDrift": 0.0007571541704651805,
+          "homologousRate": 0.37817330600563887,
+          "homologyResidual": 0.07137164300712175,
+          "tangentialKineticFraction": 0.002966867458220151,
+          "outwardAmountFraction": 1.0000000000000027,
+          "multipoles": {
+            "l1": 1.2428963416448929e-17,
+            "l2": 0.019495030958230557,
+            "l3": 5.677845311180081e-17,
+            "l4": 0.03681239108003173
+          },
+          "p2GrowthRatio": 0.9748074240065417,
+          "p4GrowthRatio": 0.932248522477656,
+          "minimumPairRatio": 1.2261877985162564,
+          "kineticEnergy": 0.052464509814284126,
+          "potentialEnergy": 0.5213070615020181,
+          "totalEnergy": 0.5737715713163022,
+          "relativeEnergyDrift": 0.000172536094736886,
+          "centreOfAmountDriftOverInitialRms": 3.532141026845906e-18,
+          "normalizedLinearMomentumResidual": 2.8894547282688643e-18,
+          "normalizedAngularMomentumResidual": 2.7995446969492957e-17
+        },
+        {
+          "milestone": 1.25,
+          "step": 754,
+          "tau": 0.754,
+          "expansion": 1.250358822970961,
+          "overshoot": 0.0003588229709610147,
+          "rRms": 0.9709500488806085,
+          "eigenvalues": [
+            0.33693803545416046,
+            0.33343390715304616,
+            0.3296280573927934
+          ],
+          "anisotropy": 0.006332423975301803,
+          "anisotropyDrift": 0.001683424450671286,
+          "homologousRate": 0.49360257743274644,
+          "homologyResidual": 0.05845524196255003,
+          "tangentialKineticFraction": 0.002046798695894534,
+          "outwardAmountFraction": 1.0000000000000027,
+          "multipoles": {
+            "l1": 1.0312915359205298e-17,
+            "l2": 0.01891675696005805,
+            "l3": 6.534503504915152e-17,
+            "l4": 0.03409677465722502
+          },
+          "p2GrowthRatio": 0.9458920666656746,
+          "p4GrowthRatio": 0.8634774015723679,
+          "minimumPairRatio": 1.4320985599137035,
+          "kineticEnergy": 0.11524050423226156,
+          "potentialEnergy": 0.4585166408625427,
+          "totalEnergy": 0.5737571450948042,
+          "relativeEnergyDrift": 0.00019767455257461758,
+          "centreOfAmountDriftOverInitialRms": 3.362498079796447e-18,
+          "normalizedLinearMomentumResidual": 1.7482234731686756e-18,
+          "normalizedAngularMomentumResidual": 2.6267506000085705e-17
+        },
+        {
+          "milestone": 1.5,
+          "step": 1105,
+          "tau": 1.105,
+          "expansion": 1.5005219183562843,
+          "overshoot": 0.0005219183562843455,
+          "rRms": 1.1652109804069382,
+          "eigenvalues": [
+            0.3362292632687763,
+            0.3335108458556621,
+            0.33025989087556124
+          ],
+          "anisotropy": 0.005176480864614633,
+          "anisotropyDrift": 0.002839367561358456,
+          "homologousRate": 0.5310300643672365,
+          "homologyResidual": 0.044582360039027,
+          "tangentialKineticFraction": 0.00124349450198449,
+          "outwardAmountFraction": 1.0000000000000027,
+          "multipoles": {
+            "l1": 8.513506713175852e-18,
+            "l2": 0.018241244242756093,
+            "l3": 8.373334122509439e-17,
+            "l4": 0.03170896167153038
+          },
+          "p2GrowthRatio": 0.9121144946655249,
+          "p4GrowthRatio": 0.8030076775865693,
+          "minimumPairRatio": 1.7721477691546936,
+          "kineticEnergy": 0.19181449259866828,
+          "potentialEnergy": 0.38195458586240094,
+          "totalEnergy": 0.5737690784610692,
+          "relativeEnergyDrift": 0.00017688002749708103,
+          "centreOfAmountDriftOverInitialRms": 9.644911915940109e-18,
+          "normalizedLinearMomentumResidual": 4.677173277611464e-18,
+          "normalizedAngularMomentumResidual": 5.883123989441408e-17
+        }
+      ]
+    }
+  ],
+  "gates": [
+    {
+      "id": "G01",
+      "label": "all runs finite and reach expansion 1.50",
+      "value": true,
+      "threshold": true,
+      "pass": true
+    },
+    {
+      "id": "G02",
+      "label": "maximum amount closure residual",
+      "value": 0,
+      "threshold": 1e-15,
+      "pass": true
+    },
+    {
+      "id": "G03",
+      "label": "maximum COM drift / initial RMS",
+      "value": 6.330584044324988e-17,
+      "threshold": 1e-11,
+      "pass": true
+    },
+    {
+      "id": "G04",
+      "label": "maximum normalized linear momentum",
+      "value": 2.9949110328212394e-17,
+      "threshold": 1e-11,
+      "pass": true
+    },
+    {
+      "id": "G05",
+      "label": "maximum normalized angular momentum",
+      "value": 5.399195544803884e-16,
+      "threshold": 1e-10,
+      "pass": true
+    },
+    {
+      "id": "G06",
+      "label": "N192 relative total-energy drift at 1.50",
+      "value": 0.00017688002749708103,
+      "threshold": 0.005,
+      "pass": true
+    },
+    {
+      "id": "G07",
+      "label": "minimum pair ratio and no singular events",
+      "value": 0.9999999999999998,
+      "threshold": 0.75,
+      "pass": true
+    },
+    {
+      "id": "G08",
+      "label": "N192 minimum outward amount fraction",
+      "value": 1.0000000000000027,
+      "threshold": 0.95,
+      "pass": true
+    },
+    {
+      "id": "G09",
+      "label": "N192 maximum anisotropy drift",
+      "value": 0.002839367561358456,
+      "threshold": 0.05,
+      "pass": true
+    },
+    {
+      "id": "G10",
+      "label": "N192 tangential kinetic fraction at 1.50",
+      "value": 0.00124349450198449,
+      "threshold": 0.08,
+      "pass": true
+    },
+    {
+      "id": "G11",
+      "label": "N192 homology residual at 1.50",
+      "value": 0.044582360039027,
+      "threshold": 0.12,
+      "pass": true
+    },
+    {
+      "id": "G12",
+      "label": "N192 P2/P4 growth ratios",
+      "value": 0.9121144946655249,
+      "threshold": 1.5,
+      "pass": true
+    },
+    {
+      "id": "G13",
+      "label": "N192 improves A-drift, T and H versus N24",
+      "value": true,
+      "threshold": true,
+      "pass": true
+    },
+    {
+      "id": "G14",
+      "label": "rotation covariance",
+      "value": 1.8966512568913997e-15,
+      "threshold": 1e-8,
+      "pass": true
+    },
+    {
+      "id": "G15",
+      "label": "permutation covariance",
+      "value": 1.6292901739535346e-16,
+      "threshold": 1e-8,
+      "pass": true
+    },
+    {
+      "id": "G16",
+      "label": "time refinement",
+      "value": 0.000030322737332055816,
+      "threshold": 0.01,
+      "pass": true
+    },
+    {
+      "id": "G17",
+      "label": "maximum primary milestone overshoot",
+      "value": 0.0007544234461418498,
+      "threshold": 0.005,
+      "pass": true
+    },
+    {
+      "id": "G18",
+      "label": "operator provenance audit",
+      "value": true,
+      "threshold": true,
+      "pass": true
+    }
+  ],
+  "rotationCovariance": {
+    "control": "ROTATION",
+    "maximumPositionStateRms": 1.8966512568913997e-15,
+    "maximumVelocityStateRms": 1.7604865939313222e-15,
+    "maximumStateRms": 1.8966512568913997e-15,
+    "maximumScalarDelta": 2.220446049250313e-16,
+    "comparedMilestones": 3
+  },
+  "permutationCovariance": {
+    "control": "PERMUTATION",
+    "maximumPositionStateRms": 7.401322604713772e-17,
+    "maximumVelocityStateRms": 1.6292901739535346e-16,
+    "maximumStateRms": 1.6292901739535346e-16,
+    "maximumScalarDelta": 2.7799214753071455e-15,
+    "comparedMilestones": 3
+  },
+  "timeRefinement": {
+    "level": "N96",
+    "coarseDt": 0.004,
+    "mediumDt": 0.002,
+    "fineDt": 0.001,
+    "anisotropyDeltaMediumFine": 0.00000247849257285597,
+    "tangentialDeltaMediumFine": 0.000001950987159341812,
+    "homologyDeltaMediumFine": 0.000030322737332055816,
+    "energyDriftCoarse": 0.0006962570087034005,
+    "energyDriftMedium": 0.0003486240126602647,
+    "energyDriftFine": 0.00017434356848686035
+  },
+  "receipt": {
+    "workflowRunId": 31081181415,
+    "jobId": 92550136008,
+    "artifactId": 8959521137,
+    "fullReceiptSha256": "3a5df4536699d244eafe3bd0d9ef85809bddf1b71928ce17967b6fcd34176078",
+    "summarySha256": "195332c33a1bee1b39b44af9ca60cd11be38479fff03f8a38a0a39fe011a9e6c",
+    "artifactZipSha256": "b6fc4e7ff58db7a860772150763a4cf879f71848d1809d121383edabfe30ef15",
+    "ci": "TYPECHECK_PASS_84_UNIT_TESTS_13_FILES_BUILD_PASS_DETERMINISTIC_RECEIPT_PASS"
+  },
+  "interpretation": {
+    "size": "R_RMS_GROWS_BY_DIRECT_REPULSION",
+    "shape": "NORMALIZED_ANISOTROPY_AND_NONRADIAL_RESIDUAL_DECREASE_WITH_REFINEMENT",
+    "notEstablished": [
+      "SELF_HELD_CLUMP",
+      "FULL_VIKTOR_DYNAMIC_OPERATOR",
+      "BACKGROUND_SCREENING_MOTION",
+      "REDIRECTION_MOTION",
+      "CONTACT_OR_UPOR",
+      "PHYSICAL_TIME_OR_FORCE",
+      "DIPOLE_STABILITY",
+      "SCALE_BINDING",
+      "VALIDATION",
+      "CANON_PROMOTION"
+    ]
+  },
+  "firewalls": [
+    "NO_RIGID_PARENT_MICROBODY_MOTION",
+    "NO_SOFTENING_OR_FORCE_CAP",
+    "NO_DAMPING",
+    "NO_CONTACT_OR_UPOR_IN_D0M",
+    "NO_SHAPE_TARGET",
+    "NO_INTERPOLATED_VERDICT_STATE",
+    "NO_TOLERANCE_FITTING",
+    "NO_DIRECT_PAIRWISE_CONTROL_AS_FULL_VIKTOR_LAW",
+    "NO_PHYSICAL_FORCE",
+    "NO_UPOR_CLAIM",
+    "NO_DIPOLE_VALIDATION",
+    "NO_SCALE_BINDING",
+    "NO_VALIDATION",
+    "NO_CANON_PROMOTION",
+    "NO_MERGE"
+  ]
+}
