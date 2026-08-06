@@ -3,6 +3,7 @@ import { defineConfig } from "vite";
 const browserInputs = {
   main: new URL("./index.html", import.meta.url).pathname,
   actionLab: new URL("./action-lab/index.html", import.meta.url).pathname,
+  operatorAudit: new URL("./operator-audit/index.html", import.meta.url).pathname,
 };
 
 export default defineConfig(({ isSsrBuild }) => ({
