@@ -98,6 +98,8 @@ jobs:
       - name: Deploy Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          timeout: 1200000
 
       - name: Publish deployment summary
         run: |
