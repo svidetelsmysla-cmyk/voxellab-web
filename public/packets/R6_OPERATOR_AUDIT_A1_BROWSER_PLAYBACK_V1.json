@@ -1,0 +1,141 @@
+{
+  "schema_version": "1.0",
+  "packet_id": "R6_OPERATOR_AUDIT_A1_BROWSER_PLAYBACK_V1",
+  "authority": "READ_ONLY_GOVERNED_PUBLIC_PROJECTION",
+  "scientific_sources": {
+    "source_additive_vs_first_hit": {
+      "head": "5f2db76664780a3a02e9a6c59a067619bcd114df",
+      "pull_request": 44,
+      "workflow_run": 31082447999,
+      "artifact_id": 8960017174,
+      "artifact_sha256": "eac3cecbd2cf5b001bc4983d50623876df2592b7e414232129a756ff5d7e21d8",
+      "public_projection_sha256": "5b2d81c630ba813aaf5425a20e5f6de33cbc90775e6c61ba277cc6481a88d7f4",
+      "manifest_sha256": "e1af0b0d514e35c27dda70113b894db2ba10743fcce5b9e33328b2c37352b989"
+    },
+    "event_geometry_reachable_set": {
+      "head": "3c2ef9bb62dfa46389cf117277eb86f4551b5ee7",
+      "pull_request": 43,
+      "workflow_run": 31081143202,
+      "artifact_id": 8959504022,
+      "artifact_sha256": "2f387c8e229d18aa3d4d06a66217f016a24ae85209f511ecd54004c233be4ce1"
+    },
+    "source_audit": {
+      "report_commit": "afb8691a1f6be99829dd7449a0aa9e80a793d915",
+      "decision_commit": "4d994128b473cd2a224f3d991bd70134cc2ca8a4",
+      "context_commit": "d57642ea5536e3b669995010af0753d5bdbf60fb"
+    }
+  },
+  "main_verdict": "ADDITIVE_SOURCE_ZERO_FIRST_HIT_NONZERO_OPERATOR_DELTA_PASS",
+  "secondary_verdict": "FIRST_HIT_DIRECT_SUPPORT_IS_BINARY_ANGULAR_COVERAGE_NOT_WQN_ACTION",
+  "source_audit_verdict": "SOURCE_REDIRECTION_CONSTITUTIVE_LAW_NOT_FOUND",
+  "event_geometry_verdict": "FIRST_HIT_EVENT_GEOMETRY_EXPORT_PASS_SOURCE_KERNEL_UNDERDETERMINED",
+  "matched_pair": {
+    "receiver": [0.0, 0.0, 0.0],
+    "centres": [
+      [0.45, 0.0, 0.0],
+      [0.62, 0.12, 0.02],
+      [0.62, -0.10, -0.04]
+    ],
+    "amounts": [0.4, 0.3, 0.3],
+    "radii_a": [0.28, 0.22, 0.20],
+    "radii_b": [0.20, 0.28, 0.22],
+    "densities_a": [4.350080441651658, 6.726119871464398, 8.952465548919111],
+    "densities_b": [11.93662073189215, 3.2625603312387432, 6.726119871464398],
+    "standard_isofield_null": 0.0
+  },
+  "lanes": [
+    {
+      "id": "S0",
+      "name": "SOURCE ADDITIVE POINT W=QN",
+      "a_minus_b_norm": 0.0,
+      "source_class": "SOURCE_LOCKED_FORMED_BODY_WQN_ADDITIVE_BASELINE",
+      "status": "EXACT_ZERO"
+    },
+    {
+      "id": "S1",
+      "name": "SOURCE ADDITIVE UNIFORM FINITE SPHERES",
+      "a_minus_b_norm": 0.0,
+      "source_class": "EXACT_EXTERIOR_FINITE_BODY_REFERENCE",
+      "status": "EXACT_ZERO"
+    },
+    {
+      "id": "S2",
+      "name": "PROJECT FIRST-HIT BINARY ANGULAR COVERAGE",
+      "a_minus_b_norm": 0.42518552273726734,
+      "source_class": "PROJECT_OPERATOR_CANDIDATE",
+      "status": "NONZERO_OPERATOR_DELTA"
+    },
+    {
+      "id": "S3",
+      "name": "POSITIVE CONSERVATIVE ROUTING FAMILY",
+      "a_minus_b_norm": null,
+      "source_class": "HELD_SOURCE_UNDERDETERMINED",
+      "status": "NOT_OPENED"
+    }
+  ],
+  "first_hit": {
+    "direction_count": 49152,
+    "delta_d0": 0.5069806503962043,
+    "delta_d1": [0.42115407231471114, -0.05798257873607638, -0.00707083313429598],
+    "delta_d1_norm": 0.42518552273726734,
+    "owner_change_fraction": 0.056498209635416664,
+    "amount_scale_parity_residual": 5.39489072295022e-15,
+    "consumes_source_amount": false,
+    "consumes_source_distance": false,
+    "consumes_chord_length": false,
+    "consumes_density": false,
+    "consumes": ["finite radius", "centre", "nearest hit", "uniform incident angular weight"]
+  },
+  "refinement": [
+    {"directions": 192, "delta_d0": 0.39269908169872414, "delta_d1_norm": 0.33917153667658545, "owner_change_fraction": 0.052083333333333336},
+    {"directions": 768, "delta_d0": 0.45814892864851164, "delta_d1_norm": 0.3830727387195252, "owner_change_fraction": 0.053385416666666664},
+    {"directions": 3072, "delta_d0": 0.5031456984264902, "delta_d1_norm": 0.42409772506865484, "owner_change_fraction": 0.055989583333333336},
+    {"directions": 12288, "delta_d0": 0.505191006143671, "delta_d1_norm": 0.42367598832807557, "owner_change_fraction": 0.056396484375},
+    {"directions": 49152, "delta_d0": 0.5069806503962043, "delta_d1_norm": 0.42518552273726734, "owner_change_fraction": 0.056498209635416664}
+  ],
+  "volume_cubature_control": {
+    "authority": "LOW_ORDER_NONMONOTONIC_NUMERICAL_CONTROL",
+    "rows": [
+      {"samples_per_sphere": 96, "branch_a_error": 0.017241618451113164, "branch_b_error": 0.012606249307564456, "a_minus_b_norm": 0.004639695819135424},
+      {"samples_per_sphere": 384, "branch_a_error": 0.019213272866691635, "branch_b_error": 0.012843573122232404, "a_minus_b_norm": 0.006374496276990287},
+      {"samples_per_sphere": 1536, "branch_a_error": 0.01922802843015633, "branch_b_error": 0.012853210696591566, "a_minus_b_norm": 0.006379774641512304},
+      {"samples_per_sphere": 6144, "branch_a_error": 0.019229283413912442, "branch_b_error": 0.012854041052953236, "a_minus_b_norm": 0.0063802111905951414}
+    ]
+  },
+  "reachable_set": {
+    "joint_source_constrained_zero_membership": "NOT_IDENTIFIED",
+    "reason": "COMMON_BRANCH_BLIND_KERNEL_REGULARITY_NOT_SOURCE_LOCKED",
+    "projection_rows": [
+      {"axis": "U0_DELTA_D1", "universal": [-2.64664536706, 1.79627432159], "outward_hemisphere_outer": [-2.19651748815, 0.933456100392], "contains_zero": true},
+      {"axis": "U1_TRANSVERSE", "universal": [-2.22145984432, 2.22145984432], "outward_hemisphere_outer": [-2.16325862332, 2.15120659295], "contains_zero": true},
+      {"axis": "U2_TRANSVERSE", "universal": [-2.22145984432, 2.22145984432], "outward_hemisphere_outer": [-2.16045569751, 2.16295535572], "contains_zero": true}
+    ]
+  },
+  "source_classes": {
+    "source_locked": [
+      "W=Q*N_source formed-body grammar",
+      "angular projection and receiver role",
+      "uniform common-mode vector cancellation",
+      "additive superposition of contributions"
+    ],
+    "not_source_locked": [
+      "first-hit direct-channel termination",
+      "specular routing",
+      "isotropic outgoing routing",
+      "outward-normal routing",
+      "phase function or smoothness law"
+    ]
+  },
+  "claim_ceiling": {
+    "dimensionless_operator_delta": true,
+    "first_scientific_viktor_residual": false,
+    "routing_law_selected": false,
+    "physical_seconds_required": false,
+    "si_time_force_binding": "DEFERRED",
+    "upor": false,
+    "dipole": false,
+    "scale_binding": false,
+    "validation": false,
+    "canon_promotion": false
+  }
+}
