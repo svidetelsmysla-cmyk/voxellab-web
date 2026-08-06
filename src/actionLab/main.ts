@@ -5,6 +5,7 @@ import "./extendedReceiver.css";
 import "./overlapGeometry.css";
 import "./freeBoundaryBounds.css";
 import "./d0sParity.css";
+import "./cavityField.css";
 import { ActionTransportAppA02 } from "./AppA02";
 import { installA02DisplaySemanticsRepair } from "./a02DisplaySemanticsRepair";
 import { OneBodyClosurePanel } from "./ClosurePanel";
@@ -12,6 +13,7 @@ import { ExtendedReceiverPanel } from "./ExtendedReceiverPanel";
 import { OverlapGeometryPanel } from "./OverlapPanel";
 import { FreeBoundaryBoundsPanel } from "./FreeBoundaryBoundsPanel";
 import { D0SParityPanel } from "./D0SParityPanel";
+import { CavityFieldPanel } from "./CavityFieldPanel";
 
 installA02DisplaySemanticsRepair();
 
@@ -46,3 +48,8 @@ const d0sRoot = document.createElement("div");
 d0sRoot.id = "d0s-static-microbody-parity-root";
 root.append(d0sRoot);
 new D0SParityPanel(d0sRoot);
+
+const cavityRoot = document.createElement("div");
+cavityRoot.id = "c1-body-cavity-w-map-root";
+root.append(cavityRoot);
+new CavityFieldPanel(cavityRoot);
