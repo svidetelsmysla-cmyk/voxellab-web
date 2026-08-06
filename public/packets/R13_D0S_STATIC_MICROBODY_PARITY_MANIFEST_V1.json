@@ -1,0 +1,40 @@
+{
+  "schema": "VOXELLAB_D0S_STATIC_MICROBODY_PARITY_PUBLIC_MANIFEST_V1",
+  "sourceClass": "STATIC_EQUAL_MICROBODY_REPRESENTATION_METHOD_RESULT",
+  "producerCommit": "f0d4fdb481b3ef13603390ae8709f860e0dfd193",
+  "producerBranch": "r13/d0s-static-microbody-representation-parity-v1",
+  "baseBranch": "r13/action-transport-visualizer-a2b-free-boundary-v1",
+  "preregistration": "docs/tasks/R13_D0S_STATIC_MICROBODY_REPRESENTATION_PARITY_V1_PREREGISTRATION.md",
+  "verdict": "D0S_STATIC_MICROBODY_REPRESENTATION_PARITY_PASS",
+  "d0mStatus": "OPEN_AFTER_D0S_PASS",
+  "claimCeiling": "STATIC_EQUAL_MICROBODY_REPRESENTATION_METHOD_PARITY_ONLY",
+  "publicSummaryPath": "public/packets/R13_D0S_STATIC_MICROBODY_PARITY_SUMMARY_V1.json",
+  "publicSummaryBlobSha": "5160b840bbcb3fa05ddfcdef704922bf75949144",
+  "fullReceiptSha256": "314aa3e296df868f4ade823832ff3826703156829314a9b6523735b0e0285855",
+  "ciSummarySha256": "1768afb9b9536701399d80538ad6ba31ad68588ba6c907a4a8a1a2e1ce4dca43",
+  "artifactZipSha256": "cfa60921cfcebc15c5ce9fc5be3379f595dd6a68bea2d80f55eca9c7f357213b",
+  "artifactId": 8958901424,
+  "workflowRunId": 31079413701,
+  "ci": {
+    "typecheck": "PASS",
+    "unitTests": "78_PASS_12_FILES",
+    "sceneRegression": "17_SCENES_0_BLOCKED_6_LONG_RUNS",
+    "productionBuild": "PASS",
+    "browserTests": "15_PASS",
+    "registeredGates": "17_OF_17_PASS"
+  },
+  "firewalls": [
+    "NO_DYNAMICS_IN_D0S",
+    "NO_VOXEL_ELEMENT_AS_MOBILE_BODY_CLAIM",
+    "NO_FINITE_SET_AS_EXACT_SO3_SPHERE",
+    "NO_TOLERANCE_FITTING",
+    "NO_BACKGROUND_OR_REDIRECTION_IN_D0S",
+    "NO_PHYSICAL_FORCE",
+    "NO_UPOR_CLAIM",
+    "NO_DIPOLE_VALIDATION",
+    "NO_SCALE_BINDING",
+    "NO_VALIDATION",
+    "NO_CANON_PROMOTION",
+    "NO_MERGE"
+  ]
+}
