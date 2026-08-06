@@ -6,6 +6,7 @@ import "./overlapGeometry.css";
 import "./freeBoundaryBounds.css";
 import "./d0sParity.css";
 import "./cavityField.css";
+import "./cavityRelaxation.css";
 import { ActionTransportAppA02 } from "./AppA02";
 import { installA02DisplaySemanticsRepair } from "./a02DisplaySemanticsRepair";
 import { OneBodyClosurePanel } from "./ClosurePanel";
@@ -14,6 +15,7 @@ import { OverlapGeometryPanel } from "./OverlapPanel";
 import { FreeBoundaryBoundsPanel } from "./FreeBoundaryBoundsPanel";
 import { D0SParityPanel } from "./D0SParityPanel";
 import { CavityFieldPanel } from "./CavityFieldPanel";
+import { CavityRelaxationPanel } from "./CavityRelaxationPanel";
 
 installA02DisplaySemanticsRepair();
 
@@ -53,3 +55,8 @@ const cavityRoot = document.createElement("div");
 cavityRoot.id = "c1-body-cavity-w-map-root";
 root.append(cavityRoot);
 new CavityFieldPanel(cavityRoot);
+
+const relaxationRoot = document.createElement("div");
+relaxationRoot.id = "c0-c1-generated-cavity-relaxation-root";
+root.append(relaxationRoot);
+new CavityRelaxationPanel(relaxationRoot);
