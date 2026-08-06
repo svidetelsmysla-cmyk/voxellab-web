@@ -1,0 +1,52 @@
+name: D0M Fast CI
+
+on:
+  push:
+    branches: [r13/d0m-isolated-independent-microbody-normalized-shape-v1]
+  workflow_dispatch:
+
+concurrency:
+  group: d0m-fast-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-receipt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.9.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - name: Typecheck
+        run: pnpm typecheck
+      - name: Unit tests
+        run: pnpm test
+      - name: Production build
+        run: pnpm build
+        env:
+          VITE_COMMIT_SHA: ${{ github.sha }}
+      - name: Produce deterministic D0M receipt
+        run: |
+          pnpm exec vite build --ssr scripts/runD0MParity.ts --outDir .d0m-build --emptyOutDir
+          node .d0m-build/runD0MParity.js
+        env:
+          VITE_COMMIT_SHA: ${{ github.sha }}
+      - name: Hash D0M receipt
+        run: |
+          sha256sum outputs/D0M_ISOLATED_INDEPENDENT_MICROBODY_DYNAMICS_V1/*.json | tee outputs/D0M_ISOLATED_INDEPENDENT_MICROBODY_DYNAMICS_V1/SHA256SUMS.txt
+      - name: Upload D0M receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: d0m-isolated-microbody-dynamics-${{ github.sha }}
+          path: outputs/D0M_ISOLATED_INDEPENDENT_MICROBODY_DYNAMICS_V1
+          if-no-files-found: error
+          retention-days: 90
