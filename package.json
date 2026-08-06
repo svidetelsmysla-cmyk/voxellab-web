@@ -13,6 +13,8 @@
     "test:e2e": "playwright test",
     "suite:build": "vite build --ssr scripts/runSceneSuite.ts --outDir .suite-build --emptyOutDir",
     "suite": "pnpm suite:build && node .suite-build/runSceneSuite.js",
+    "cavity:build": "vite build --ssr scripts/runCavityRelaxationGate.ts --outDir .cavity-build --emptyOutDir",
+    "cavity:gate": "pnpm cavity:build && node .cavity-build/runCavityRelaxationGate.js",
     "benchmark:browser": "node scripts/runBrowserPerformance.mjs"
   },
   "dependencies": {
