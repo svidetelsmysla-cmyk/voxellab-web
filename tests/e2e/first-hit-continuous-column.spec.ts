@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 test("Action Lab A3 exposes first-owner continuous-column semantics", async ({ page }) => {
-  await page.goto("/action-lab/");
+  await page.goto("./action-lab/");
   const panel = page.getByTestId("a3-first-hit-column");
   await expect(panel).toBeVisible();
   await expect(panel.getByRole("heading", { name: "First-hit continuous column" })).toBeVisible();
