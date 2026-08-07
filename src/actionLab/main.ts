@@ -7,6 +7,7 @@ import "./freeBoundaryBounds.css";
 import "./d0sParity.css";
 import "./cavityField.css";
 import "./cavityRelaxation.css";
+import "./firstHitContinuousColumn.css";
 import { ActionTransportAppA02 } from "./AppA02";
 import { installA02DisplaySemanticsRepair } from "./a02DisplaySemanticsRepair";
 import { OneBodyClosurePanel } from "./ClosurePanel";
@@ -16,6 +17,7 @@ import { FreeBoundaryBoundsPanel } from "./FreeBoundaryBoundsPanel";
 import { D0SParityPanel } from "./D0SParityPanel";
 import { CavityFieldPanel } from "./CavityFieldPanel";
 import { CavityRelaxationPanel } from "./CavityRelaxationPanel";
+import { FirstHitContinuousColumnPanel } from "./FirstHitContinuousColumnPanel";
 
 installA02DisplaySemanticsRepair();
 
@@ -60,3 +62,8 @@ const relaxationRoot = document.createElement("div");
 relaxationRoot.id = "c0-c1-generated-cavity-relaxation-root";
 root.append(relaxationRoot);
 new CavityRelaxationPanel(relaxationRoot);
+
+const firstHitColumnRoot = document.createElement("div");
+firstHitColumnRoot.id = "a3-first-hit-continuous-column-root";
+root.append(firstHitColumnRoot);
+new FirstHitContinuousColumnPanel(firstHitColumnRoot);
