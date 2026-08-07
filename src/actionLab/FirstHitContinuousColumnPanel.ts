@@ -41,9 +41,9 @@ const PRESETS: A3Preset[] = [
     clumps: [
       { id: "A", centre: [-0.5, 0.02, 3], radius: 0.55, density: 1 },
       { id: "B", centre: [0.55, 0.2, 3.5], radius: 0.6, density: 1.2 },
-      { id: "C", centre: [0, -0.45, 4.25], radius: 0.7, density: 0.85 },
+      { id: "C", centre: [0, -0.55, 4.8], radius: 0.7, density: 0.85 },
     ],
-    note: "Three independent formed domains. The atlas makes the owner partition explicit before any W0/W1/W2 readout is taken.",
+    note: "Three disjoint formed domains. The atlas makes the angular owner partition explicit before any W0/W1/W2 readout is taken.",
   },
 ];
 
