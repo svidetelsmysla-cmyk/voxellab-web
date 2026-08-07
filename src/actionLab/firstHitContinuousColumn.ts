@@ -50,6 +50,9 @@ export interface SingleSphereParity {
   relativeW1Error: number;
 }
 
+type MutableVec3 = [number, number, number];
+type MutableMat3 = [MutableVec3, MutableVec3, MutableVec3];
+
 const FOUR_PI = 4 * Math.PI;
 
 function add(a: Vec3, b: Vec3): Vec3 {
@@ -111,14 +114,14 @@ export function raySphereIntervalAt(
   return [Math.max(0, near), far];
 }
 
-function emptyW2(): [number[], number[], number[]] {
+function emptyW2(): MutableMat3 {
   return [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
 }
 
-function addOuterProduct(target: [number[], number[], number[]], direction: Vec3, weight: number): void {
+function addOuterProduct(target: MutableMat3, direction: Vec3, weight: number): void {
   for (let row = 0; row < 3; row += 1) {
     for (let col = 0; col < 3; col += 1) {
-      target[row]![col]! += direction[row]! * direction[col]! * weight;
+      target[row][col] += direction[row] * direction[col] * weight;
     }
   }
 }
@@ -185,7 +188,11 @@ export function integrateFirstHitContinuousColumns(
     w0,
     w1,
     w1Magnitude: norm(w1),
-    w2: [w2Mutable[0] as Vec3, w2Mutable[1] as Vec3, w2Mutable[2] as Vec3],
+    w2: [
+      [w2Mutable[0][0], w2Mutable[0][1], w2Mutable[0][2]],
+      [w2Mutable[1][0], w2Mutable[1][1], w2Mutable[1][2]],
+      [w2Mutable[2][0], w2Mutable[2][1], w2Mutable[2][2]],
+    ],
     cells,
   };
 }
