@@ -119,11 +119,18 @@ function emptyW2(): MutableMat3 {
 }
 
 function addOuterProduct(target: MutableMat3, direction: Vec3, weight: number): void {
-  for (let row = 0; row < 3; row += 1) {
-    for (let col = 0; col < 3; col += 1) {
-      target[row][col] += direction[row] * direction[col] * weight;
-    }
-  }
+  const x = direction[0];
+  const y = direction[1];
+  const z = direction[2];
+  target[0][0] += x * x * weight;
+  target[0][1] += x * y * weight;
+  target[0][2] += x * z * weight;
+  target[1][0] += y * x * weight;
+  target[1][1] += y * y * weight;
+  target[1][2] += y * z * weight;
+  target[2][0] += z * x * weight;
+  target[2][1] += z * y * weight;
+  target[2][2] += z * z * weight;
 }
 
 export function integrateFirstHitContinuousColumns(
