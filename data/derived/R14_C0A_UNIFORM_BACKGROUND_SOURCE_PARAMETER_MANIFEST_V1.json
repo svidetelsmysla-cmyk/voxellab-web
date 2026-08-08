@@ -1,0 +1,55 @@
+{
+  "schema": "R14_C0A_UNIFORM_BACKGROUND_SOURCE_PARAMETER_MANIFEST_V1",
+  "date": "2026-08-08",
+  "task_id": "R14_C0A_UNIFORM_BACKGROUND_CONTINUUM_LIMIT_REPAIR_AND_C1_REPLAY_V1",
+  "sources": {
+    "inherited_r13_repository": "svidetelsmysla-cmyk/voxellab-web",
+    "inherited_r13_pr": 13,
+    "inherited_r13_branch": "r13/c0c1-cavity-relaxation-boundary-v1",
+    "inherited_r13_head": "e0dc4f66ca257a6b5a4f47e45ee67785868370d5",
+    "shared_analytic_repository": "svidetelsmysla-cmyk/ghb-r6-bridge",
+    "shared_analytic_pr": 47,
+    "shared_analytic_head": "0d131532c53b97b4600067945817f51c73df8103",
+    "working_branch": "r14/c0a-uniform-background-continuum-repair-v1"
+  },
+  "frozen_parameters": {
+    "sampler": {"algorithm":"independent Halton","index_offset":1,"radius_base":2,"polar_base":3,"azimuth_base":5,"random_seed":null},
+    "primary_N": [96,192,384,768,1536],
+    "primary_iterations": 160,
+    "primary_softening_over_spacing": 0.32,
+    "iteration_refinement": {"N":384,"iterations":[160,320,640],"softening_over_spacing":0.32},
+    "secondary_softening": {"N":384,"iterations":320,"softening_over_spacing":[0.16,0.08]},
+    "boundary": "B0_ANALYTIC_ISOTROPIC_RESERVOIR",
+    "body_amount": 0,
+    "inherited_relaxation": {
+      "dt": 0.034,
+      "maximum_step_over_spacing": 0.075,
+      "tolerance_over_spacing": 0.00025,
+      "minimum_iterations_before_convergence_check": 41,
+      "mean_displacement_gate": "< tolerance",
+      "maximum_displacement_gate": "< 4*tolerance",
+      "recenter_each_iteration": true
+    }
+  },
+  "preregistration": {"commit":"8c373d85a6524be266cba1d4a6477a9a3013f249","before_repaired_runtime":true},
+  "runtime_evidence": {
+    "head":"f796ab9f6b0f42b484de53315e4365720fdb512e",
+    "workflow_run":31259189945,
+    "artifact_id":9022281065,
+    "artifact_digest_sha256":"1be3a2639ce521bfebd3b71628ffad261444a20570c8e42d4c93bb9fdc8cdd21",
+    "receipt_sha256":"7b683c35cc3d4c04867c412204e66bafc434b01aeb158bb04e62c678bdecb873"
+  },
+  "no_parameter_selected_after_outcome": true,
+  "firewalls": [
+    "NO_NEW_PHYSICS_TO_RESCUE_C0",
+    "NO_HARD_CORE_AS_VIKTOR_LAW",
+    "NO_CONTACT_AS_UPOR",
+    "NO_DAMPING_AS_PHYSICAL_TIME",
+    "NO_TARGET_CAVITY_FITTING",
+    "NO_BACKGROUND_AMOUNT_DESTRUCTION",
+    "NO_SCALE_BINDING",
+    "NO_VALIDATION",
+    "NO_CANON_PROMOTION",
+    "NO_MERGE"
+  ]
+}

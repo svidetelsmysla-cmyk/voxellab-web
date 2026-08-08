@@ -1,0 +1,50 @@
+{
+  "schema": "R14_C0A_UNIFORM_BACKGROUND_REFINEMENT_SUMMARY_V1",
+  "date": "2026-08-08",
+  "source_class": "METHOD_REPAIR_PLUS_INHERITED_R13_NUMERICAL_CONTROL",
+  "primary_verdict": "C0A_NUMERICAL_CONVERGENCE_OR_SAMPLER_BLOCKER",
+  "c1_replay": "BLOCKED",
+  "sampler": {
+    "algorithm": "INDEPENDENT_HALTON_SPHERE_VOLUME_V1",
+    "pass": "5/5",
+    "N": [
+      {"N":96,"pass":true,"com_over_R":0.020356280396058496,"covariance_anisotropy":0.07257679385165616,"P1":0.023319615912208547,"P2":-0.011566664973157961,"P3":0.012521697064917042,"P4":-0.010963767166782629,"radial_cumulative_error":0.015625000000000333},
+      {"N":192,"pass":true,"com_over_R":0.01263927297523287,"covariance_anisotropy":0.02121636672006577,"P1":0.013031550068587175,"P2":-0.0024047824687972075,"P3":0.008343330029713637,"P4":-0.003653918396277416,"radial_cumulative_error":0.007812500000000666},
+      {"N":384,"pass":true,"com_over_R":0.00613670317510781,"covariance_anisotropy":0.02968530073634379,"P1":0.007773205304069574,"P2":-0.002913775941261725,"P3":0.0050333312822459205,"P4":-0.0032235779362071813,"radial_cumulative_error":0.003906250000000555},
+      {"N":768,"pass":true,"com_over_R":0.003516921476639306,"covariance_anisotropy":0.01162411506140848,"P1":0.004067596402987424,"P2":-0.0008495115690694595,"P3":0.0027334394836815296,"P4":-0.0012304037177834567,"radial_cumulative_error":0.001953125000000666},
+      {"N":1536,"pass":true,"com_over_R":0.0016840087439709173,"covariance_anisotropy":0.008098876948095635,"P1":0.0016098917847889654,"P2":-0.0010212276098800774,"P3":0.001081329316881073,"P4":-0.0011782854558185748,"radial_cumulative_error":0.0009765625000006661}
+    ]
+  },
+  "B0_continuum_oracle": {"a_self":"+(4*pi/3)*rho*r","a_reservoir":"-(4*pi/3)*rho*r","maximum_relative_residual":0,"pass":true},
+  "primary_N_ladder": [
+    {"N":96,"iterations":160,"softening_over_spacing":0.32,"legacy_bulk_RMS":0.9715224559733163,"cumulative_amount_max_error":0.3754583333333331,"shell_oscillation":1.6797360969730337,"anisotropy":0.0046499731597504645,"boundary_shell_fraction":0.010416666666666666,"converged":false},
+    {"N":192,"iterations":160,"softening_over_spacing":0.32,"legacy_bulk_RMS":0.3805428870875337,"cumulative_amount_max_error":0.2709999999999999,"shell_oscillation":1.4687053316782333,"anisotropy":0.0010143988132151893,"boundary_shell_fraction":0.5104166666666666,"converged":false},
+    {"N":384,"iterations":160,"softening_over_spacing":0.32,"legacy_bulk_RMS":0.2775133827271722,"cumulative_amount_max_error":0.22152083333333328,"shell_oscillation":1.010045967443133,"anisotropy":0.0007736217536320478,"boundary_shell_fraction":0.4895833333333333,"converged":false},
+    {"N":768,"iterations":160,"softening_over_spacing":0.32,"legacy_bulk_RMS":0.21733661277984748,"cumulative_amount_max_error":0.10269791666666672,"shell_oscillation":0.9385376711800162,"anisotropy":0.00020459978732612072,"boundary_shell_fraction":0.4166666666666667,"converged":false},
+    {"N":1536,"iterations":160,"softening_over_spacing":0.32,"legacy_bulk_RMS":0.07259885438018898,"cumulative_amount_max_error":0.06363541666666672,"shell_oscillation":0.22836062688505931,"anisotropy":0.00021152139132607495,"boundary_shell_fraction":0.3541666666666667,"converged":false}
+  ],
+  "iteration_refinement_N384": [
+    {"iterations":160,"legacy_bulk_RMS":0.2775133827271722,"cumulative_amount_max_error":0.22152083333333328,"converged":false},
+    {"iterations":320,"legacy_bulk_RMS":0.49050687383303404,"cumulative_amount_max_error":0.23714583333333328,"converged":false},
+    {"iterations":640,"legacy_bulk_RMS":0.705331620059766,"cumulative_amount_max_error":0.26579166666666654,"converged":false}
+  ],
+  "secondary_softening_control_N384_iterations320": [
+    {"softening_over_spacing":0.16,"legacy_bulk_RMS":0.36579482866327895,"cumulative_amount_max_error":0.10631250000000025,"converged":false},
+    {"softening_over_spacing":0.08,"legacy_bulk_RMS":0.3648718260384586,"cumulative_amount_max_error":0.10370833333333362,"converged":false}
+  ],
+  "stability": {
+    "N768_to_N1536": {"legacyRmsAbsoluteDelta":0.1447377583996585,"cumulativeAmountErrorAbsoluteDelta":0.0390625,"anisotropyAbsoluteDelta":6.921603999954229e-06,"boundaryShellFractionAbsoluteDelta":0.0625,"pass":false},
+    "iterations320_to640_at_N384": {"legacyRmsAbsoluteDelta":0.21482474622673198,"cumulativeAmountErrorAbsoluteDelta":0.02864583333333326,"anisotropyAbsoluteDelta":0.0001728971585548411,"boundaryShellFractionAbsoluteDelta":0.0078125,"pass":false}
+  },
+  "provenance": {
+    "base_sha":"e0dc4f66ca257a6b5a4f47e45ee67785868370d5",
+    "branch":"r14/c0a-uniform-background-continuum-repair-v1",
+    "preregistration_commit":"8c373d85a6524be266cba1d4a6477a9a3013f249",
+    "runtime_head":"f796ab9f6b0f42b484de53315e4365720fdb512e",
+    "workflow_run":31259189945,
+    "artifact_id":9022281065,
+    "artifact_digest_sha256":"1be3a2639ce521bfebd3b71628ffad261444a20570c8e42d4c93bb9fdc8cdd21",
+    "runtime_receipt_sha256":"7b683c35cc3d4c04867c412204e66bafc434b01aeb158bb04e62c678bdecb873"
+  },
+  "claim_ceiling": {"physical_validation":false,"canon_promotion":false,"scale_binding":false,"upor":false,"merge":false}
+}
