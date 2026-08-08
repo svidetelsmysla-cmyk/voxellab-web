@@ -1,0 +1,32 @@
+{
+  "schema":"R14_C0A_UNIFORM_BACKGROUND_REFINEMENT_RECEIPT_V1",
+  "date":"2026-08-08",
+  "runtime_receipt_sha256":"7b683c35cc3d4c04867c412204e66bafc434b01aeb158bb04e62c678bdecb873",
+  "workflow_run":31259189945,
+  "artifact_id":9022281065,
+  "artifact_digest_sha256":"1be3a2639ce521bfebd3b71628ffad261444a20570c8e42d4c93bb9fdc8cdd21",
+  "primary_verdict":"C0A_NUMERICAL_CONVERGENCE_OR_SAMPLER_BLOCKER",
+  "c1_replay_open":false,
+  "sampler_pass":[{"N":96,"pass":true},{"N":192,"pass":true},{"N":384,"pass":true},{"N":768,"pass":true},{"N":1536,"pass":true}],
+  "continuum_oracle":{"maximum_relative_residual":0,"pass":true},
+  "primary_N_ladder":[
+    {"N":96,"iterations":160,"softening_over_spacing":0.32,"legacy_bulk_RMS":0.9715224559733163,"cumulative_amount_error":0.3754583333333331,"shell_oscillation":1.6797360969730337,"anisotropy":0.0046499731597504645,"boundary_shell_fraction":0.010416666666666666,"mean_displacement_over_spacing":0.0010696305061646864,"maximum_displacement_over_spacing":0.004062199902246079,"converged":false,"relative_amount_residual":0},
+    {"N":192,"iterations":160,"softening_over_spacing":0.32,"legacy_bulk_RMS":0.3805428870875337,"cumulative_amount_error":0.2709999999999999,"shell_oscillation":1.4687053316782333,"anisotropy":0.0010143988132151893,"boundary_shell_fraction":0.5104166666666666,"mean_displacement_over_spacing":0.00102010659465513,"maximum_displacement_over_spacing":0.003661737432677266,"converged":false,"relative_amount_residual":0},
+    {"N":384,"iterations":160,"softening_over_spacing":0.32,"legacy_bulk_RMS":0.2775133827271722,"cumulative_amount_error":0.22152083333333328,"shell_oscillation":1.010045967443133,"anisotropy":0.0007736217536320478,"boundary_shell_fraction":0.4895833333333333,"mean_displacement_over_spacing":0.0010079321579730142,"maximum_displacement_over_spacing":0.0036817834277384836,"converged":false,"relative_amount_residual":0},
+    {"N":768,"iterations":160,"softening_over_spacing":0.32,"legacy_bulk_RMS":0.21733661277984748,"cumulative_amount_error":0.10269791666666672,"shell_oscillation":0.9385376711800162,"anisotropy":0.00020459978732612072,"boundary_shell_fraction":0.4166666666666667,"mean_displacement_over_spacing":0.0009808741024399023,"maximum_displacement_over_spacing":0.0029118424359989192,"converged":false,"relative_amount_residual":0},
+    {"N":1536,"iterations":160,"softening_over_spacing":0.32,"legacy_bulk_RMS":0.07259885438018898,"cumulative_amount_error":0.06363541666666672,"shell_oscillation":0.22836062688505931,"anisotropy":0.00021152139132607495,"boundary_shell_fraction":0.3541666666666667,"mean_displacement_over_spacing":0.000994982540059926,"maximum_displacement_over_spacing":0.0030731067181601025,"converged":false,"relative_amount_residual":0}
+  ],
+  "iteration_refinement":[
+    {"N":384,"iterations":160,"softening_over_spacing":0.32,"legacy_bulk_RMS":0.2775133827271722,"cumulative_amount_error":0.22152083333333328,"converged":false},
+    {"N":384,"iterations":320,"softening_over_spacing":0.32,"legacy_bulk_RMS":0.49050687383303404,"cumulative_amount_error":0.23714583333333328,"converged":false},
+    {"N":384,"iterations":640,"softening_over_spacing":0.32,"legacy_bulk_RMS":0.705331620059766,"cumulative_amount_error":0.26579166666666654,"converged":false}
+  ],
+  "secondary_softening_control":[
+    {"N":384,"iterations":320,"softening_over_spacing":0.16,"legacy_bulk_RMS":0.36579482866327895,"cumulative_amount_error":0.10631250000000025,"converged":false},
+    {"N":384,"iterations":320,"softening_over_spacing":0.08,"legacy_bulk_RMS":0.3648718260384586,"cumulative_amount_error":0.10370833333333362,"converged":false}
+  ],
+  "n_refinement_stability":{"legacyRmsAbsoluteDelta":0.1447377583996585,"cumulativeAmountErrorAbsoluteDelta":0.0390625,"anisotropyAbsoluteDelta":6.921603999954229e-06,"boundaryShellFractionAbsoluteDelta":0.0625,"pass":false},
+  "iteration_refinement_stability":{"legacyRmsAbsoluteDelta":0.21482474622673198,"cumulativeAmountErrorAbsoluteDelta":0.02864583333333326,"anisotropyAbsoluteDelta":0.0001728971585548411,"boundaryShellFractionAbsoluteDelta":0.0078125,"pass":false},
+  "high_n_pass":{"N768":false,"N1536":true},
+  "claim_ceiling":{"physical_validation":false,"canon_promotion":false,"scale_binding":false,"upor":false,"merge":false}
+}

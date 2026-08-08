@@ -1,0 +1,65 @@
+{
+  "schema": "R14_C0A_UNIFORM_BACKGROUND_CONTINUUM_LIMIT_REPAIR_STATUS_V1",
+  "task_id": "R14_C0A_UNIFORM_BACKGROUND_CONTINUUM_LIMIT_REPAIR_AND_C1_REPLAY_V1",
+  "date": "2026-08-08",
+  "worker": "R14_ACTION_TRANSPORT_CONTINUATION",
+  "source_class": "METHOD_REPAIR_PLUS_INHERITED_R13_NUMERICAL_CONTROL",
+  "repository": "svidetelsmysla-cmyk/voxellab-web",
+  "base_sha": "e0dc4f66ca257a6b5a4f47e45ee67785868370d5",
+  "branch": "r14/c0a-uniform-background-continuum-repair-v1",
+  "preregistration_commit": "8c373d85a6524be266cba1d4a6477a9a3013f249",
+  "runtime_evidence_head": "f796ab9f6b0f42b484de53315e4365720fdb512e",
+  "workflow_run": 31259189945,
+  "workflow_status": "SUCCESS",
+  "workflow_artifact_id": 9022281065,
+  "workflow_artifact_digest_sha256": "1be3a2639ce521bfebd3b71628ffad261444a20570c8e42d4c93bb9fdc8cdd21",
+  "runtime_receipt_sha256": "7b683c35cc3d4c04867c412204e66bafc434b01aeb158bb04e62c678bdecb873",
+  "primary_verdict": "C0A_NUMERICAL_CONVERGENCE_OR_SAMPLER_BLOCKER",
+  "c1_replay_open": false,
+  "c1_status": "BLOCKED",
+  "sampler_gate": {"pass": true, "passed": 5, "total": 5},
+  "continuum_oracle": {"pass": true, "maximum_relative_residual": 0},
+  "high_n_pass": {"N768": false, "N1536": true},
+  "n_refinement_stability": {
+    "legacyRmsAbsoluteDelta": 0.1447377583996585,
+    "cumulativeAmountErrorAbsoluteDelta": 0.0390625,
+    "anisotropyAbsoluteDelta": 6.921603999954229e-06,
+    "boundaryShellFractionAbsoluteDelta": 0.0625,
+    "pass": false
+  },
+  "iteration_refinement_stability": {
+    "legacyRmsAbsoluteDelta": 0.21482474622673198,
+    "cumulativeAmountErrorAbsoluteDelta": 0.02864583333333326,
+    "anisotropyAbsoluteDelta": 0.0001728971585548411,
+    "boundaryShellFractionAbsoluteDelta": 0.0078125,
+    "pass": false
+  },
+  "interpretation": {
+    "sampler_defect_repaired": true,
+    "continuum_B0_oracle_closed": true,
+    "discrete_operator_failure_established": false,
+    "trustworthy_uniform_C0_established": false,
+    "reason": "Refinement is not stable: N=768->1536 and iterations=320->640 fail preregistered stability gates; all runs remain non-converged under the inherited displacement criterion.",
+    "next_allowed": "C0B_VOLUME_SUPPORT_MECHANISM_DISCRIMINATOR may be separately preregistered; do not add new physics inside C0A."
+  },
+  "claim_ceiling": {
+    "physical_validation": false,
+    "canon_promotion": false,
+    "scale_binding": false,
+    "physical_time": false,
+    "upor": false,
+    "merge": false
+  },
+  "firewalls": [
+    "NO_NEW_PHYSICS_TO_RESCUE_C0",
+    "NO_HARD_CORE_AS_VIKTOR_LAW",
+    "NO_CONTACT_AS_UPOR",
+    "NO_DAMPING_AS_PHYSICAL_TIME",
+    "NO_TARGET_CAVITY_FITTING",
+    "NO_BACKGROUND_AMOUNT_DESTRUCTION",
+    "NO_SCALE_BINDING",
+    "NO_VALIDATION",
+    "NO_CANON_PROMOTION",
+    "NO_MERGE"
+  ]
+}

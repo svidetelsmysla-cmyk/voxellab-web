@@ -15,7 +15,7 @@ import { OverlapGeometryPanel } from "./OverlapPanel";
 import { FreeBoundaryBoundsPanel } from "./FreeBoundaryBoundsPanel";
 import { D0SParityPanel } from "./D0SParityPanel";
 import { CavityFieldPanel } from "./CavityFieldPanel";
-import { CavityRelaxationPanel } from "./CavityRelaxationPanel";
+import { C0ABlockerPanel } from "./C0ABlockerPanel";
 
 installA02DisplaySemanticsRepair();
 
@@ -56,7 +56,7 @@ cavityRoot.id = "c1-body-cavity-w-map-root";
 root.append(cavityRoot);
 new CavityFieldPanel(cavityRoot);
 
-const relaxationRoot = document.createElement("div");
-relaxationRoot.id = "c0-c1-generated-cavity-relaxation-root";
-root.append(relaxationRoot);
-new CavityRelaxationPanel(relaxationRoot);
+const c0aRoot = document.createElement("div");
+c0aRoot.id = "c0a-uniform-background-blocker-root";
+root.append(c0aRoot);
+new C0ABlockerPanel(c0aRoot);
