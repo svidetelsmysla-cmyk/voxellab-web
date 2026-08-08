@@ -1,0 +1,55 @@
+name: R14 C0A Uniform Background Repair
+
+on:
+  push:
+    branches: [r14/c0a-uniform-background-continuum-repair-v1]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  c0a-method-repair:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.9.0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Unit tests
+        run: pnpm test
+
+      - name: Build preregistered C0A runner
+        run: pnpm exec vite build --ssr scripts/runC0AUniformBackgroundGate.ts --outDir .c0a-build --emptyOutDir
+
+      - name: Execute preregistered C0A refinement matrix
+        run: |
+          node .c0a-build/runC0AUniformBackgroundGate.js | tee r14-c0a-runtime-receipt.json
+          sha256sum r14-c0a-runtime-receipt.json | tee r14-c0a-runtime-receipt.sha256
+
+      - name: Upload C0A evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: r14-c0a-uniform-background-evidence-${{ github.sha }}
+          path: |
+            r14-c0a-runtime-receipt.json
+            r14-c0a-runtime-receipt.sha256
+          if-no-files-found: error
+          retention-days: 30
