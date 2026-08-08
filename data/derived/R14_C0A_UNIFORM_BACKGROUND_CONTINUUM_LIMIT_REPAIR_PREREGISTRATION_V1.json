@@ -1,0 +1,134 @@
+{
+  "schema": "R14_C0A_UNIFORM_BACKGROUND_CONTINUUM_LIMIT_REPAIR_PREREGISTRATION_V1",
+  "task_id": "R14_C0A_UNIFORM_BACKGROUND_CONTINUUM_LIMIT_REPAIR_AND_C1_REPLAY_V1",
+  "date": "2026-08-08",
+  "status": "PREREGISTERED_BEFORE_REPAIRED_RUNTIME",
+  "source_class": "METHOD_REPAIR_PLUS_INHERITED_R13_NUMERICAL_CONTROL",
+  "base": {
+    "repository": "svidetelsmysla-cmyk/voxellab-web",
+    "sha": "e0dc4f66ca257a6b5a4f47e45ee67785868370d5",
+    "branch": "r13/c0c1-cavity-relaxation-boundary-v1"
+  },
+  "working_branch": "r14/c0a-uniform-background-continuum-repair-v1",
+  "sampler": {
+    "algorithm": "INDEPENDENT_HALTON_SPHERE_VOLUME_V1",
+    "index_offset": 1,
+    "radial_coordinate": {"sequence": "halton", "base": 2, "mapping": "r=0.965*R*cbrt(u_r)"},
+    "polar_coordinate": {"sequence": "halton", "base": 3, "mapping": "cos(theta)=1-2*u_z"},
+    "azimuth_coordinate": {"sequence": "halton", "base": 5, "mapping": "phi=2*pi*u_phi"},
+    "random_seed": null,
+    "unrecorded_randomness": false,
+    "raw_sampler_metrics_are_measured_before_recentering": true,
+    "relaxation_recenter_semantics": "INHERITED_UNCHANGED"
+  },
+  "runtime_matrix": {
+    "primary_n_ladder": {
+      "N": [96, 192, 384, 768, 1536],
+      "iterations": 160,
+      "softening_over_spacing": 0.32,
+      "boundary": "ANALYTIC_ISOTROPIC_RESERVOIR",
+      "body_amount": 0
+    },
+    "iteration_refinement": {
+      "N": 384,
+      "iterations": [160, 320, 640],
+      "softening_over_spacing": 0.32,
+      "boundary": "ANALYTIC_ISOTROPIC_RESERVOIR",
+      "body_amount": 0
+    },
+    "secondary_softening_control": {
+      "N": 384,
+      "iterations": 320,
+      "softening_over_spacing": [0.16, 0.08],
+      "baseline_softening_over_spacing": 0.32,
+      "boundary": "ANALYTIC_ISOTROPIC_RESERVOIR",
+      "body_amount": 0,
+      "interpretation": "NUMERICAL_REFINEMENT_ONLY"
+    }
+  },
+  "sampler_gates": {
+    "com_over_R_max": 0.05,
+    "covariance_anisotropy_max": 0.15,
+    "angular_moment_abs_max": 0.08,
+    "angular_moments": [1, 2, 3, 4],
+    "radial_cumulative_amount_max_abs_error": 0.05,
+    "rotation_metric_abs_delta_max": 1e-12,
+    "duplicate_spacing_floor_over_mean_spacing": 1e-6,
+    "all_are_hard_pre_relaxation_gates_except_nearest_neighbour_shape_statistics": true
+  },
+  "continuum_oracle": {
+    "fixture": "B0_ANALYTIC_ISOTROPIC_RESERVOIR",
+    "radial_fractions": [0, 0.1, 0.25, 0.5, 0.75, 0.95],
+    "a_self": "+(4*pi/3)*rho*r",
+    "a_reservoir": "-(4*pi/3)*rho*r",
+    "a_total": "0",
+    "relative_residual_max": 1e-12,
+    "interpretation": "METHOD_ORACLE_NOT_PHYSICAL_VALIDATION"
+  },
+  "radial_diagnostics": {
+    "cumulative_enclosed_amount": true,
+    "coarse_radial_density_bins": 10,
+    "shell_oscillation_definition": "RMS_OF_ADJACENT_COARSE_DENSITY_DIFFERENCES_OVER_BACKGROUND_DENSITY",
+    "legacy_rms_bins": 14,
+    "legacy_rms_radial_window_R": [0.2, 0.6],
+    "anisotropy": true,
+    "boundary_shell_fraction": true,
+    "boundary_shell_radial_threshold_R": 0.85,
+    "mean_displacement": true,
+    "maximum_displacement": true,
+    "centre_of_mass": true,
+    "positive_amount_residual": true
+  },
+  "c0_thresholds": {
+    "legacy_bulk_density_rms_max": 0.35,
+    "high_n_cumulative_amount_max_abs_error": 0.08,
+    "high_n_shell_oscillation_max": 0.50,
+    "high_n_anisotropy_max": 0.10,
+    "uniform_boundary_shell_expected_fraction": 0.385875,
+    "high_n_boundary_shell_fraction_abs_error_max": 0.10,
+    "relative_amount_residual_max": 1e-12,
+    "n_refinement_stability_768_to_1536": {
+      "legacy_rms_abs_delta_max": 0.10,
+      "cumulative_amount_error_abs_delta_max": 0.04,
+      "anisotropy_abs_delta_max": 0.04,
+      "boundary_shell_fraction_abs_delta_max": 0.05
+    },
+    "iteration_refinement_stability_320_to_640_at_N384": {
+      "legacy_rms_abs_delta_max": 0.10,
+      "cumulative_amount_error_abs_delta_max": 0.04,
+      "anisotropy_abs_delta_max": 0.04,
+      "boundary_shell_fraction_abs_delta_max": 0.05
+    }
+  },
+  "decision_rules": {
+    "C0A_UNIFORM_CONTINUUM_BASELINE_RECOVERED_C1_REPLAY_OPEN": "sampler gates pass; continuum oracle passes; amount conservation passes; N=768 and N=1536 both pass all high-N coarse thresholds; N-refinement stability passes; iteration-refinement stability passes; relaxation displacement/convergence evidence is consistent with a trustworthy C0 rather than persistent unresolved drift",
+    "C0A_COARSE_GRAINED_UNIFORMITY_CONVERGES_WITH_FINITE_N_SHELLING": "sampler/oracle/amount gates pass and coarse metrics are refinement-stable, but residual shelling or relaxation displacement prevents the stronger trustworthy-baseline gate; C1 remains blocked in this lane",
+    "C0A_DISCRETE_DIRECT_PAIR_OPERATOR_FAILS_CONTINUUM_RECOVERY": "sampler/oracle/amount gates pass; N and iteration refinements are stable; the two highest N results remain outside the preregistered coarse-uniformity thresholds in a stable nonuniform limit",
+    "C0A_NUMERICAL_CONVERGENCE_OR_SAMPLER_BLOCKER": "sampler/oracle fails, numerical outputs are non-finite, refinement is not stable enough to distinguish an operator limit, or the result depends on an isolated lucky N/regularization lane"
+  },
+  "allowed_primary_verdicts": [
+    "C0A_UNIFORM_CONTINUUM_BASELINE_RECOVERED_C1_REPLAY_OPEN",
+    "C0A_COARSE_GRAINED_UNIFORMITY_CONVERGES_WITH_FINITE_N_SHELLING",
+    "C0A_DISCRETE_DIRECT_PAIR_OPERATOR_FAILS_CONTINUUM_RECOVERY",
+    "C0A_NUMERICAL_CONVERGENCE_OR_SAMPLER_BLOCKER"
+  ],
+  "c1_gate": {
+    "open_only_for_primary_verdict": "C0A_UNIFORM_CONTINUUM_BASELINE_RECOVERED_C1_REPLAY_OPEN",
+    "same_background_amount": true,
+    "background_particle_deletion": false,
+    "fit_to_C1V": false,
+    "C1V_role": "VISUAL_NUMERICAL_ORACLE_ONLY"
+  },
+  "firewalls": [
+    "NO_NEW_PHYSICS_TO_RESCUE_C0",
+    "NO_HARD_CORE_AS_VIKTOR_LAW",
+    "NO_CONTACT_AS_UPOR",
+    "NO_DAMPING_AS_PHYSICAL_TIME",
+    "NO_TARGET_CAVITY_FITTING",
+    "NO_BACKGROUND_AMOUNT_DESTRUCTION",
+    "NO_SCALE_BINDING",
+    "NO_VALIDATION",
+    "NO_CANON_PROMOTION",
+    "NO_MERGE"
+  ]
+}
