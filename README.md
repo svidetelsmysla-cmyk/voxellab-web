@@ -3,8 +3,8 @@
 Scene Lab V2 is a public interactive preview and scene-authoring tool for
 browser-safe VoxelLab scenes and read-only governed result packets.
 
-The diagnostics deck now includes governed G4 ActionTally playback for the
-H0 and R0–R3 resolved-versus-homogenized branches. It displays dimensionless
+The diagnostics deck includes governed G4 ActionTally playback for the H0 and
+R0–R3 resolved-versus-homogenized branches. It displays dimensionless
 resultant/torque readouts while keeping physical force cadence-blocked.
 
 A separate G4 bridge audit panel verifies the bounded public packet contract:
@@ -17,6 +17,14 @@ The governed MR/DL catalogue publishes all MR00–MR07 current ActionTally
 replays and all DL00–DL07 available matched-residual diagnostics. The two
 source lanes remain visibly separate.
 
+Action Transport Lab now extends through A4. A3 reads complete first-owner
+continuous columns for uniform formed-domain fixtures. A4 adds the strict
+read-only `VOXELLAB_CONTINUOUS_FIELD_SNAPSHOT_V1` contract and evaluates
+`Sigma=integral rho ds`, `W0`, `W1`, `W2`, real `P1-P4`, projection limits and
+curl diagnostics. The branch includes synthetic method oracles only; the
+current project status remains
+`A4_METHOD_BRIDGE_IMPLEMENTED_V14_SNAPSHOT_EXPORT_BLOCKER`.
+
 Live site: <https://svidetelsmysla-cmyk.github.io/voxellab-web/>
 
 ## Preview and authority boundary
@@ -25,10 +33,12 @@ Live site: <https://svidetelsmysla-cmyk.github.io/voxellab-web/>
   multi-body motion and explicit evaluation-method labels.
 - **AUTHORITATIVE** means a governed packet loaded read-only. The browser does
   not silently recompute or promote scientific verdicts.
+- **A4 METHOD ORACLE** means a synthetic representation/integration control.
+  It is not a V5, V6 or V14 source state.
 
 This public repository contains only the web application, browser-safe demo
-data, interface documentation, and deployment metadata. It does not contain
-the private scientific corpus, governance registries, research archives, or
+data, interface documentation, and deployment metadata. It does not contain the
+private scientific corpus, governance registries, research archives, or
 unpublished solver packets.
 
 ## Local development
@@ -37,6 +47,8 @@ unpublished solver packets.
 pnpm install --frozen-lockfile
 pnpm typecheck
 pnpm test
+pnpm a4:gate
+pnpm cavity:gate
 pnpm suite
 pnpm build
 pnpm exec playwright install chromium
@@ -59,6 +71,9 @@ The production Vite base is `/voxellab-web/` for GitHub Pages.
 - `docs/interfaces/VOXELLAB_G4_ACTION_TALLY_AUDIT_PANEL_V1.md`
 - `docs/interfaces/VOXELLAB_MR_DL_MATCHED_RESIDUAL_PLAYBACK_V1.md`
 - `docs/interfaces/3DSMAX_EXPORTER_V2.md`
+- `docs/interfaces/VOXELLAB_ACTION_TRANSPORT_LAB_A3_FIRST_HIT_CONTINUOUS_COLUMN_V1.md`
+- `docs/interfaces/VOXELLAB_A4_V14_CONTINUOUS_FIELD_ACTION_BRIDGE_V1.md`
+- `docs/tasks/VOXELLAB_A4_V14_CONTINUOUS_FIELD_RESEARCH_PLAN_V1.md`
 
 ## Credits and scope
 
@@ -66,7 +81,7 @@ VoxelLab carries conceptual and engineering lineage associated with Viktor,
 GydruS, and SWS. This credit records provenance only; it does not convert the
 browser preview into scientific validation or attribute unsupported claims.
 
-No upor, dipole, physical scale, or validation claim is made.
+No upor, dipole, physical scale, physical cadence, or validation claim is made.
 
 ## License
 

@@ -1,0 +1,95 @@
+{
+  "schema": "R14_A4_CONTINUOUS_FIELD_ACTION_BRIDGE_METHOD_STATUS_V1",
+  "task_id": "R14_A4_V14_CONTINUOUS_FIELD_ACTION_BRIDGE_AND_RESEARCH_PLAN_V1",
+  "date": "2026-08-09",
+  "worker": "R14_ACTION_TRANSPORT_CONTINUATION",
+  "repository": "svidetelsmysla-cmyk/voxellab-web",
+  "base_branch": "r6/action-lab-a3-first-hit-continuous-column-v1",
+  "base_commit": "d38832f524a7ecf75d3e1ccfff077feb6d887dd7",
+  "implementation_branch": "r14/a4-v14-continuous-field-action-bridge-v1",
+  "source_class": "READ_ONLY_METHOD_BRIDGE_PLUS_SYNTHETIC_ORACLES",
+  "method_operator": {
+    "column": "Sigma(x,Omega)=integral rho(x+s*Omega) ds",
+    "moments": [
+      "W0=sum Sigma*dOmega",
+      "W1=sum Omega*Sigma*dOmega",
+      "W2=sum outer(Omega,Omega)*Sigma*dOmega"
+    ],
+    "projection_lanes": [
+      "TRANSPARENT_FULL_COLUMN",
+      "FIRST_REGISTERED_OWNER_COLUMN"
+    ],
+    "diagnostics": [
+      "TRACE_W2_CLOSURE",
+      "NORMALIZED_DEVIATORIC_W2",
+      "REAL_MULTIPOLE_P1_P4",
+      "FINITE_DIFFERENCE_CURL",
+      "REFERENCE_VECTOR_ALIGNMENT"
+    ]
+  },
+  "snapshot_contract": {
+    "schema": "VOXELLAB_CONTINUOUS_FIELD_SNAPSHOT_V1",
+    "rho": "CELL_CENTRED_X_FASTEST_FINITE_NON_NEGATIVE",
+    "owner_ids": "OPTIONAL_SOURCE_EXPORTED_NON_NEGATIVE_INTEGERS",
+    "frozen_provenance": "FULL_SOURCE_COMMIT_AND_PACKET_SHA256_REQUIRED"
+  },
+  "local_method_oracle_receipt": {
+    "resolution": 41,
+    "direction_count": 32768,
+    "transparent_w0_relative_error": 0.001046606194481678,
+    "transparent_w1_relative_error": 0.0009243773673332933,
+    "one_owner_w0_relative_delta": 0,
+    "one_owner_w1_relative_delta": 0,
+    "rotation_w0_relative_delta": 2.102834401886033e-05,
+    "rotation_w1_relative_delta": 2.112364084955211e-05,
+    "trace_closure_relative": 2.212121238791019e-15,
+    "normalized_curl": 0.0003431448321593567,
+    "registered_gate_count": 8,
+    "registered_pass_count": 8,
+    "status": "LOCAL_PRECOMMIT_METHOD_ORACLE_PASS_AWAITING_BRANCH_CI"
+  },
+  "primary_method_verdict": "A4_K2_CONTINUOUS_FIELD_METHOD_PARITY_PASS",
+  "overall_verdict": "A4_METHOD_BRIDGE_IMPLEMENTED_V14_SNAPSHOT_EXPORT_BLOCKER",
+  "current_blocker": {
+    "id": "V14_SNAPSHOT_EXPORT",
+    "status": "BLOCKED",
+    "reason": "No frozen V5, V6 or V14 rho packet with the strict A4 coordinate and provenance contract is attached to this branch.",
+    "synthetic_substitution_allowed": false,
+    "next_required": "AUTHORITATIVE_SOURCE_SIDE_EXPORTER_AND_MINIMAL_THREE_STATE_V5_PACKET"
+  },
+  "research_gates": [
+    "G0_FROZEN_SOURCE_EXPORT",
+    "G1_REPRESENTATION_AND_QUADRATURE_PARITY",
+    "G2_V5_CORRIDOR_READOUT",
+    "G3_TRANSPARENT_OWNER_TRANSPORT_DISCRIMINATOR",
+    "G4_CURL_AND_MU_COMPATIBILITY",
+    "G5_V14C_PRE_SPLIT_ORDERING",
+    "G6_BOUNDARY_RESOLUTION_INDEPENDENCE",
+    "G7_SOURCE_LOCKED_TRANSPORT_CANDIDATE",
+    "G8_READ_ONLY_DYNAMIC_REPLAY",
+    "G9_SEPARATE_FEEDBACK_PREREGISTRATION"
+  ],
+  "claim_ceiling": {
+    "physical_force": false,
+    "physical_cadence": false,
+    "upor": false,
+    "dipole_validation": false,
+    "scale_binding": false,
+    "validation": false,
+    "canon_promotion": false,
+    "merge": false
+  },
+  "firewalls": [
+    "READ_ONLY_NO_FEEDBACK_INTO_DYNAMICS",
+    "NO_SYNTHETIC_FIXTURE_AS_V14_EVIDENCE",
+    "NO_OWNER_IDS_INFERRED_WHEN_NOT_EXPORTED",
+    "NO_FIRST_OWNER_AS_FINAL_OPACITY_LAW",
+    "NO_TRANSPARENCY_FIT_TO_TARGET_ROOT",
+    "NO_PRESCRIBED_CAVITY_RADIUS",
+    "NO_W1_AS_PHYSICAL_FORCE_BEFORE_DYNAMIC_PARITY",
+    "NO_SCALE_BINDING",
+    "NO_VALIDATION",
+    "NO_CANON_PROMOTION",
+    "NO_MERGE"
+  ]
+}
