@@ -15,6 +15,8 @@
     "suite": "pnpm suite:build && node .suite-build/runSceneSuite.js",
     "cavity:build": "vite build --ssr scripts/runCavityRelaxationGate.ts --outDir .cavity-build --emptyOutDir",
     "cavity:gate": "pnpm cavity:build && node .cavity-build/runCavityRelaxationGate.js",
+    "a4:build": "vite build --ssr scripts/runContinuousFieldActionBridgeGate.ts --outDir .a4-build --emptyOutDir",
+    "a4:gate": "pnpm a4:build && node .a4-build/runContinuousFieldActionBridgeGate.js",
     "benchmark:browser": "node scripts/runBrowserPerformance.mjs"
   },
   "dependencies": {
