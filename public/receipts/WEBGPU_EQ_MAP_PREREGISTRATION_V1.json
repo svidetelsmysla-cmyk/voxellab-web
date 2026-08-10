@@ -1,0 +1,106 @@
+{
+  "schema": "VOXELLAB_WEBGPU_EQ_MAP_PREREGISTRATION_V1",
+  "task_id": "WEBGPU_EQUILIBRIUM_REGIME_MAP_V1",
+  "created_utc": "2026-08-10T16:22:30Z",
+  "repositories": {
+    "physics": {
+      "repository": "svidetelsmysla-cmyk/ghb-r6-bridge",
+      "branch": "agent/continuous-substrate-v14-mechanics-reconstruction-v1",
+      "commit": "7172b5a96c647b3f1d12e2a1daad378d59f7b72e",
+      "packet_baseline_commit": "f08e6c4c936eb309aa90fda3e52a5103f3821ffe"
+    },
+    "web": {
+      "repository": "svidetelsmysla-cmyk/voxellab-web",
+      "base_branch": "r14/a4-v14-continuous-field-action-bridge-v1",
+      "base_commit": "ca4ff979b4aa70b3b3123fc158f2c29c9c4e8bee",
+      "work_branch": "r14/webgpu-equilibrium-regime-map-v1"
+    }
+  },
+  "inputs": [
+    {
+      "packet_id": "WEBGPU_EQUILIBRIUM_REGIME_MAP_FULL_TASK_PACKET_V1",
+      "path": "owner-provided full task archive",
+      "sha256": "705e27312e2f5b2235763e2ba7f709b34f82fe954f195ed0cb5450544dfab4f8",
+      "source_commit": "7172b5a96c647b3f1d12e2a1daad378d59f7b72e",
+      "claim_ceiling": "TASK_AND_METHOD_PACKET_ONLY_NO_PHYSICAL_VALIDATION"
+    },
+    {
+      "packet_id": "BGF_SUBSTRATE_V14H_TRUE_3D_A4_SOURCE_FREEZE",
+      "path": "inputs/BGF_SUBSTRATE_V14H_TRUE_3D_A4_SOURCE_FREEZE.zip",
+      "sha256": "54009c0f3eddabe214560886aaef1e82e7b7405319d80922b9e431d633dd8888",
+      "source_commit": "1794404febd85bba8cedc77564f2f34268909eac",
+      "claim_ceiling": "FROZEN_TRUE_3D_POSITIVE_RHO_SOURCE_NOT_FORCE_VALIDATION"
+    },
+    {
+      "packet_id": "V14H_TRUE_3D_POSITIVE_RHO_REPLAY_SOURCE_V1",
+      "path": "source/V14H_TRUE_3D_POSITIVE_RHO_REPLAY_SOURCE_V1.npz",
+      "sha256": "e52ab52b77b577e1414b38bbd8d7acf6d6c231079629cfa174a58030a3d2e38c",
+      "source_commit": "1794404febd85bba8cedc77564f2f34268909eac",
+      "claim_ceiling": "ACTION_READOUT_NOT_SOURCE_FORCE"
+    },
+    {
+      "packet_id": "BGF_SUBSTRATE_V14J_ACTION_BRANCH_PRECEDES_DENSITY_SPLIT",
+      "path": "inputs/BGF_SUBSTRATE_V14J_ACTION_BRANCH_PRECEDES_DENSITY_SPLIT.zip",
+      "sha256": "9e5bd0f578421765157bc655bfd980d464dcdb1b83686ca4f47ef3e7e5ea70a7",
+      "source_commit": "1794404febd85bba8cedc77564f2f34268909eac",
+      "claim_ceiling": "ACTION_READOUT_NOT_SOURCE_FORCE"
+    }
+  ],
+  "registered_geometry": {
+    "reference_frame_id": "V14H_T0000p0_REFERENCE",
+    "origin": [8.995109290263992, 14.209466526983485, 23.38537698956131],
+    "axis_u": [0.6343579177565263, -0.6121589553428524, -0.4720714411751171],
+    "axis_v": [0.6944039545980828, 0.7195853999620502, 0.0],
+    "normal": [0.3396957168086581, -0.32780827560481757, 0.8815602954006312],
+    "frozen_before_unblind": true
+  },
+  "channels": {
+    "blind_action": "ACTION_STATE_MINUS_REFERENCE_W1",
+    "unblind_source": "SOURCE_MINUS_GRAD_MU",
+    "sign_convention": "R_EQUALS_SUM_DELTA_RHO_DV_TIMES_SOURCE_MINUS_RECEIVER_OVER_DISTANCE_CUBED",
+    "normalization": "NO_PER_FRAME_FIT"
+  },
+  "closures": ["FINITE_BOX", "NEAREST_PERIODIC"],
+  "resolutions": {
+    "source": [[16, 16, 16], [48, 48, 48], [54, 54, 54]],
+    "receiver_plane": [[41, 33], [129, 97], [257, 193], [513, 385]],
+    "render_pixel_density": [1, 2, 4]
+  },
+  "algorithms": {
+    "response": "P1_OFFLINE_FLOAT64_DIRECT_VOLUME_FULL_3D_TO_FLOAT32_PACKET",
+    "jacobian": "FULL_3D_CENTERED_DIFFERENCE_PERIODIC_WRAP_OR_REGISTERED_FINITE_ONE_SIDED_BOUNDARY",
+    "root": "COMPONENT_SIGN_BRACKET_TRILINEAR_NEWTON_IN_CELL_DEDUP_CPU_REFINEMENT",
+    "branch_matching": "GLOBAL_MINIMUM_COST_POSITION_EIGENVALUE_TYPE_AXIS_WITH_TWO_FRAME_PERSISTENCE",
+    "neutral_rule": "MIN_ABS_KAPPA_LE_MAX_1E_6_OR_1E_3_FRAME_KAPPA_P95"
+  },
+  "tolerances": {
+    "field_relative_l2": 0.002,
+    "field_mean_cosine": 0.999,
+    "field_component_sign_agreement": 0.999,
+    "jacobian_relative_l2": 0.005,
+    "root_position_world": 0.08,
+    "root_residual_relative_to_frame_p95": 0.0002,
+    "eigenvalue_sign_agreement_outside_neutral": 0.999,
+    "nonconservative_ratio": 0.05,
+    "branch_persistence_frames": 2,
+    "boundary_root_shift_world": 0.75
+  },
+  "performance_targets": {
+    "reference_hardware": "OWNER_LOCAL_WEBGPU_ADAPTER_RECORDED_AT_RUNTIME",
+    "viewport": [1024, 768],
+    "target_fps": 30,
+    "cached_frame_latency_ms": 100
+  },
+  "forbidden_after_lock": [
+    "CHANGE_AXIS_FROM_LATER_LABELS",
+    "CHANGE_CHANNEL_AFTER_UNBLIND",
+    "PER_FRAME_SCALAR_FIT",
+    "THRESHOLD_SELECTED_ROOT",
+    "OPACITY_FIT_TO_TARGET_ROOT",
+    "DENSITY_COMPONENT_AS_BRANCH_ID",
+    "PROMOTE_2D_ROOT_WITHOUT_FULL_3D_QUALIFICATION",
+    "CALL_ACTION_W1_SOURCE_FORCE_BEFORE_V14K"
+  ],
+  "preregistration_sha256_basis": "SHA256_OF_RFC8785_STYLE_SORTED_MINIFIED_JSON_WITH_preregistration_sha256_NULL",
+  "preregistration_sha256": "142e7f86f7c82416b6235cf26340bad6c93d670f55566acbfe1b755374d19756"
+}

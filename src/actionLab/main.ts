@@ -9,6 +9,7 @@ import "./cavityField.css";
 import "./cavityRelaxation.css";
 import "./firstHitContinuousColumn.css";
 import "./continuousFieldActionBridge.css";
+import "./equilibriumRegimeMap.css";
 import { ActionTransportAppA02 } from "./AppA02";
 import { installA02DisplaySemanticsRepair } from "./a02DisplaySemanticsRepair";
 import { OneBodyClosurePanel } from "./ClosurePanel";
@@ -20,6 +21,7 @@ import { CavityFieldPanel } from "./CavityFieldPanel";
 import { CavityRelaxationPanel } from "./CavityRelaxationPanel";
 import { FirstHitContinuousColumnPanel } from "./FirstHitContinuousColumnPanel";
 import { ContinuousFieldActionBridgePanel } from "./ContinuousFieldActionBridgePanel";
+import { EquilibriumRegimeMapPanel } from "./EquilibriumRegimeMapPanel";
 
 installA02DisplaySemanticsRepair();
 
@@ -74,3 +76,8 @@ const continuousFieldBridgeRoot = document.createElement("div");
 continuousFieldBridgeRoot.id = "a4-v14-continuous-field-action-bridge-root";
 root.append(continuousFieldBridgeRoot);
 new ContinuousFieldActionBridgePanel(continuousFieldBridgeRoot);
+
+const equilibriumRegimeRoot = document.createElement("div");
+equilibriumRegimeRoot.id = "webgpu-equilibrium-regime-map-root";
+root.append(equilibriumRegimeRoot);
+new EquilibriumRegimeMapPanel(equilibriumRegimeRoot);

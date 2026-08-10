@@ -1,0 +1,51 @@
+{
+  "schema": "VOXELLAB_WEBGPU_EQ_MAP_BASELINE_RECEIPT_V1",
+  "task_id": "WEBGPU_EQUILIBRIUM_REGIME_MAP_V1",
+  "created_utc": "2026-08-10T16:22:30Z",
+  "packet_archive_sha256": "705e27312e2f5b2235763e2ba7f709b34f82fe954f195ed0cb5450544dfab4f8",
+  "packet_manifest_files": 47,
+  "packet_manifest_status": "PASS",
+  "repositories": {
+    "physics": {
+      "repository": "svidetelsmysla-cmyk/ghb-r6-bridge",
+      "branch": "agent/continuous-substrate-v14-mechanics-reconstruction-v1",
+      "packet_observed_commit": "f08e6c4c936eb309aa90fda3e52a5103f3821ffe",
+      "verified_current_commit": "7172b5a96c647b3f1d12e2a1daad378d59f7b72e",
+      "packet_commit_is_ancestor": true,
+      "delta_class": "V14M0_V14M1_MASS_INERTIA_DIAGNOSTIC_V14K_PRIORITY_UNCHANGED"
+    },
+    "web": {
+      "repository": "svidetelsmysla-cmyk/voxellab-web",
+      "base_branch": "r14/a4-v14-continuous-field-action-bridge-v1",
+      "verified_base_commit": "ca4ff979b4aa70b3b3123fc158f2c29c9c4e8bee"
+    }
+  },
+  "inputs": {
+    "v14h_archive_sha256": "54009c0f3eddabe214560886aaef1e82e7b7405319d80922b9e431d633dd8888",
+    "v14j_archive_sha256": "9e5bd0f578421765157bc655bfd980d464dcdb1b83686ca4f47ef3e7e5ea70a7",
+    "source_npz_sha256": "e52ab52b77b577e1414b38bbd8d7acf6d6c231079629cfa174a58030a3d2e38c",
+    "timeline_sha256": "6c682dec72b5e08ccda296501512e5bba746da9f80cb7918944fa6d9a2780243",
+    "frozen_viewer_sha256": "f3882fc5353e3e761a917aa68437d3da368ab89c274e0d59e1676cd4521c2bc5",
+    "source_commit": "1794404febd85bba8cedc77564f2f34268909eac"
+  },
+  "reproduction": {
+    "frames": 36,
+    "plane_grid": [41, 33],
+    "source_hash_exact": true,
+    "density_blob_exact": true,
+    "field_blobs_exact": {
+      "finite": ["U", "Fu", "Fv", "lmin", "lmax", "curl"],
+      "nearest_periodic": ["U", "Fu", "Fv", "lmin", "lmax", "curl"]
+    },
+    "root_count_exact_all_frames": true,
+    "maximum_root_position_delta": 1.509903313490213e-14,
+    "maximum_root_eigenvalue_delta": 4.618527782440651e-14,
+    "reference_classifier_tests": 7,
+    "reference_classifier_failures": 0
+  },
+  "gates": {
+    "G00": "PASS",
+    "G01": "PASS"
+  },
+  "claim_ceiling": "ACTION_READOUT_NOT_SOURCE_FORCE"
+}

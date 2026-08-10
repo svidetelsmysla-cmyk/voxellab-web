@@ -1,0 +1,815 @@
+{
+  "schema": "VOXELLAB_EQUILIBRIUM_REGIME_PACKET_V1",
+  "packet_id": "V14H_V14J_P1_EQUILIBRIUM_RESPONSE_VOLUME_V1",
+  "source": {
+    "class": "FROZEN_V14H",
+    "claim_ceiling": "ACTION_READOUT_NOT_SOURCE_FORCE"
+  },
+  "grid": {
+    "dimensions": [
+      16,
+      16,
+      16
+    ],
+    "origin": [
+      -12.0,
+      -12.0,
+      -12.0
+    ],
+    "spacing": [
+      1.5,
+      1.5,
+      1.5
+    ],
+    "layout": "X_FASTEST",
+    "array_layout": "FRAME_Z_Y_X_COMPONENT",
+    "centering": "NODE_CENTERED",
+    "periodic_axes": [
+      true,
+      true,
+      true
+    ],
+    "world_midpoint": [
+      8.995109290263992,
+      14.209466526983485,
+      23.38537698956131
+    ]
+  },
+  "times": [
+    0.0,
+    2.4,
+    4.0,
+    6.4,
+    8.0,
+    10.4,
+    12.0,
+    14.4,
+    16.0,
+    18.400000000000002,
+    20.0,
+    22.400000000000002,
+    24.0,
+    26.400000000000002,
+    28.0,
+    30.400000000000002,
+    32.0,
+    34.4,
+    36.0,
+    38.4,
+    40.0,
+    42.4,
+    44.0,
+    46.4,
+    48.0,
+    50.4,
+    52.0,
+    54.4,
+    56.0,
+    58.0,
+    60.0,
+    62.0,
+    64.0,
+    66.0,
+    68.0,
+    70.0
+  ],
+  "frames": [
+    {
+      "frame_id": "V14H_T00000p0",
+      "time": 0.0,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 0
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 0
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 0
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00002p4",
+      "time": 2.4,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 16384
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 49152
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 49152
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00004p0",
+      "time": 4.0,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 32768
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 98304
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 98304
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00006p4",
+      "time": 6.4,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 49152
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 147456
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 147456
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00008p0",
+      "time": 8.0,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 65536
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 196608
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 196608
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00010p4",
+      "time": 10.4,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 81920
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 245760
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 245760
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00012p0",
+      "time": 12.0,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 98304
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 294912
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 294912
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00014p4",
+      "time": 14.4,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 114688
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 344064
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 344064
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00016p0",
+      "time": 16.0,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 131072
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 393216
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 393216
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00018p4",
+      "time": 18.400000000000002,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 147456
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 442368
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 442368
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00020p0",
+      "time": 20.0,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 163840
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 491520
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 491520
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00022p4",
+      "time": 22.400000000000002,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 180224
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 540672
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 540672
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00024p0",
+      "time": 24.0,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 196608
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 589824
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 589824
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00026p4",
+      "time": 26.400000000000002,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 212992
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 638976
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 638976
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00028p0",
+      "time": 28.0,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 229376
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 688128
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 688128
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00030p4",
+      "time": 30.400000000000002,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 245760
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 737280
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 737280
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00032p0",
+      "time": 32.0,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 262144
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 786432
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 786432
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00034p4",
+      "time": 34.4,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 278528
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 835584
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 835584
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00036p0",
+      "time": 36.0,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 294912
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 884736
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 884736
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00038p4",
+      "time": 38.4,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 311296
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 933888
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 933888
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00040p0",
+      "time": 40.0,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 327680
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 983040
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 983040
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00042p4",
+      "time": 42.4,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 344064
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 1032192
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 1032192
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00044p0",
+      "time": 44.0,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 360448
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 1081344
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 1081344
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00046p4",
+      "time": 46.4,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 376832
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 1130496
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 1130496
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00048p0",
+      "time": 48.0,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 393216
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 1179648
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 1179648
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00050p4",
+      "time": 50.4,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 409600
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 1228800
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 1228800
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00052p0",
+      "time": 52.0,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 425984
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 1277952
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 1277952
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00054p4",
+      "time": 54.4,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 442368
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 1327104
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 1327104
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00056p0",
+      "time": 56.0,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 458752
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 1376256
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 1376256
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00058p0",
+      "time": 58.0,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 475136
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 1425408
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 1425408
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00060p0",
+      "time": 60.0,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 491520
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 1474560
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 1474560
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00062p0",
+      "time": 62.0,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 507904
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 1523712
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 1523712
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00064p0",
+      "time": 64.0,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 524288
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 1572864
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 1572864
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00066p0",
+      "time": 66.0,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 540672
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 1622016
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 1622016
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00068p0",
+      "time": 68.0,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 557056
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 1671168
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 1671168
+        }
+      }
+    },
+    {
+      "frame_id": "V14H_T00070p0",
+      "time": 70.0,
+      "arrays": {
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 573440
+        },
+        "finite_response": {
+          "blob": "finite_response",
+          "byte_offset": 1720320
+        },
+        "nearest_periodic_response": {
+          "blob": "nearest_periodic_response",
+          "byte_offset": 1720320
+        }
+      }
+    }
+  ],
+  "registered_geometry": {
+    "origin": [
+      8.995109290263992,
+      14.209466526983485,
+      23.38537698956131
+    ],
+    "axis_u": [
+      0.6343579177565263,
+      -0.6121589553428524,
+      -0.4720714411751171
+    ],
+    "axis_v": [
+      0.6944039545980828,
+      0.7195853999620502,
+      -0.0
+    ],
+    "normal": [
+      0.3396957168086581,
+      -0.32780827560481757,
+      0.8815602954006312
+    ],
+    "frozen_before_unblind": true
+  },
+  "channels": [
+    {
+      "channel_id": "ACTION_STATE_MINUS_REFERENCE_W1_FINITE",
+      "source_class": "DIAGNOSTIC_ACTION_READOUT",
+      "closure": "FINITE_BOX",
+      "normalization": "NONE",
+      "claim_ceiling": "NOT_SOURCE_FORCE"
+    },
+    {
+      "channel_id": "ACTION_STATE_MINUS_REFERENCE_W1_NEAREST_PERIODIC",
+      "source_class": "DIAGNOSTIC_ACTION_READOUT",
+      "closure": "NEAREST_PERIODIC",
+      "normalization": "NONE",
+      "claim_ceiling": "NOT_SOURCE_FORCE"
+    }
+  ],
+  "array_blobs": {
+    "rho": {
+      "dtype": "LITTLE_ENDIAN_FLOAT32",
+      "shape": [
+        36,
+        16,
+        16,
+        16
+      ],
+      "byte_length": 589824,
+      "sha256": "b0bdc8bc873448cfabf2465d6661e9ae0a45431e37ea14f99513f40da00d8465",
+      "relative_path": "rho.f32"
+    },
+    "finite_response": {
+      "dtype": "LITTLE_ENDIAN_FLOAT32",
+      "shape": [
+        36,
+        16,
+        16,
+        16,
+        3
+      ],
+      "byte_length": 1769472,
+      "sha256": "030b1a0de511867adc72648d54ebf75ca325acb4427cc8065bacf2c90eb6fdbc",
+      "relative_path": "finite_response.f32"
+    },
+    "nearest_periodic_response": {
+      "dtype": "LITTLE_ENDIAN_FLOAT32",
+      "shape": [
+        36,
+        16,
+        16,
+        16,
+        3
+      ],
+      "byte_length": 1769472,
+      "sha256": "6642c03998d583148c61904c36937a764230bdcc16aee8ce35593d6e9585ad82",
+      "relative_path": "nearest_periodic_response.f32"
+    }
+  },
+  "provenance": {
+    "source_commit": "1794404febd85bba8cedc77564f2f34268909eac",
+    "source_packet_sha256": "e52ab52b77b577e1414b38bbd8d7acf6d6c231079629cfa174a58030a3d2e38c",
+    "timeline_sha256": "6c682dec72b5e08ccda296501512e5bba746da9f80cb7918944fa6d9a2780243",
+    "preregistration_sha256": "142e7f86f7c82416b6235cf26340bad6c93d670f55566acbfe1b755374d19756",
+    "physics_base_commit": "7172b5a96c647b3f1d12e2a1daad378d59f7b72e",
+    "generator_sha256": "7ef69e69ad8a2e14c0dac40ae984e853f707f931564c7cb76bc11a158834a41f",
+    "response_algorithm": "FLOAT64_DIRECT_VOLUME_STATE_MINUS_REFERENCE_TO_FLOAT32",
+    "self_cell_rule": "ZERO_BY_REGISTERED_SYMMETRY_NO_SOFTENING"
+  }
+}

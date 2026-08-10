@@ -1,0 +1,62 @@
+{
+  "schema": "VOXELLAB_WEBGPU_EQ_MAP_PROVENANCE_RECEIPT_V1",
+  "created_utc": "2026-08-10T17:35:00Z",
+  "repositories": [
+    {
+      "repository": "svidetelsmysla-cmyk/voxellab-web",
+      "branch": "r14/webgpu-equilibrium-regime-map-v1",
+      "base_commit": "ca4ff979b4aa70b3b3123fc158f2c29c9c4e8bee",
+      "preregistration_commit": "0a968c11d657530b861332b3c34f608a38ba3482",
+      "implementation_commit": "d9e2825091066a22fe40f170d1a4c3fece8c00de"
+    },
+    {
+      "repository": "svidetelsmysla-cmyk/ghb-r6-bridge",
+      "branch": "agent/webgpu-equilibrium-regime-map-source-v1",
+      "physics_base_commit": "7172b5a96c647b3f1d12e2a1daad378d59f7b72e",
+      "preregistration_commit": "f2238055f5c389b19fc36a919961208c2c2fbdd8",
+      "exporter_commit": "cddc55d786dd31b705e399e80eb4fabcbe2dbcda",
+      "packet_commit": "69394a8eb261c9899e098b06d0234e54e5887dad"
+    }
+  ],
+  "working_tree_clean": true,
+  "input_artifacts": [
+    {"id": "OWNER_TASK_PACKET", "sha256": "705e27312e2f5b2235763e2ba7f709b34f82fe954f195ed0cb5450544dfab4f8"},
+    {"id": "V14H_SOURCE_ARCHIVE", "sha256": "54009c0f3eddabe214560886aaef1e82e7b7405319d80922b9e431d633dd8888"},
+    {"id": "V14J_ARCHIVE", "sha256": "9e5bd0f578421765157bc655bfd980d464dcdb1b83686ca4f47ef3e7e5ea70a7"},
+    {"id": "V14H_RHO_SOURCE_NPZ", "sha256": "e52ab52b77b577e1414b38bbd8d7acf6d6c231079629cfa174a58030a3d2e38c"},
+    {"id": "P1_RESPONSE_MANIFEST", "sha256": "225d6e36d221816247e9c2465cc0b9f9816b04c3d9f1ac7d5688aaab0e3bb912"}
+  ],
+  "preregistration_sha256": "142e7f86f7c82416b6235cf26340bad6c93d670f55566acbfe1b755374d19756",
+  "shader_files": ["src/actionLab/equilibriumGpu/shaders/classifyRegime.wgsl.ts"],
+  "runtime": {
+    "browser": "Chrome 151.0.0.0",
+    "os": "Windows NT 10.0 Win64 x64",
+    "gpu_adapter": "nvidia lovelace",
+    "webgpu_features": ["f32_compute", "storage_buffers", "map_read"]
+  },
+  "resolution": {
+    "source": [16, 16, 16],
+    "receiver": [[41, 33], [129, 97], [257, 193], [513, 385]],
+    "render": "CSS_DPR_SEPARATE_FROM_NUMERIC_RECEIVER"
+  },
+  "channel": "ACTION_STATE_MINUS_REFERENCE_W1",
+  "closure": ["FINITE_BOX", "NEAREST_PERIODIC"],
+  "root_table_sha256": "0ef5a9620b4ee5fc813c86c9ed6faeb4bf5e852f5e36b06b638702eb3f185352",
+  "branch_table_sha256": "0ef5a9620b4ee5fc813c86c9ed6faeb4bf5e852f5e36b06b638702eb3f185352",
+  "tests": {
+    "typecheck": "PASS",
+    "vitest": "112_PASS",
+    "a4_gate": "PASS",
+    "scene_suite": "17_PASS_0_BLOCKED",
+    "production_build": "PASS",
+    "playwright_standard": "20_PASS",
+    "webgpu_hardware": "PASS_IN_APP_BROWSER_NVIDIA"
+  },
+  "benchmarks": {
+    "257x193_median_ms": 14.8,
+    "513x385_median_ms": 45.0,
+    "cached_target_ms": 100.0
+  },
+  "decision": "WEBGPU_INSTRUMENT_PASS_ONLY",
+  "claim_ceiling": "ACTION_READOUT_NOT_SOURCE_FORCE"
+}
