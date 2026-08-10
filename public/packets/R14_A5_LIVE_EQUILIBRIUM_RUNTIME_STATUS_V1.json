@@ -1,0 +1,52 @@
+{
+  "schema": "R14_A5_LIVE_EQUILIBRIUM_RUNTIME_STATUS_V1",
+  "date": "2026-08-10",
+  "repository": "svidetelsmysla-cmyk/voxellab-web",
+  "branch": "r14/a5-live-equilibrium-runtime-v1",
+  "base": "r14/a4-v14-continuous-field-action-bridge-v1",
+  "verdict": "LIVE_2D_REDUCED_EQUILIBRIUM_RUNTIME_IMPLEMENTED",
+  "runtime": {
+    "precomputed_frames": false,
+    "live_density_evolution": true,
+    "live_longitudinal_state": true,
+    "exact_spectral_linear_step": true,
+    "live_angular_stress_relaxation": true,
+    "mean_amount_projection": true,
+    "hidden_density_clipping": false,
+    "grids": [32, 64],
+    "equilibrium_readout": "CURRENT_SOURCE_FORCE_MINUS_GRAD_MU",
+    "classes": ["WELL", "SADDLE", "PEAK", "NEUTRAL"]
+  },
+  "controls": [
+    "PLAY_PAUSE_STEP_RESET_NEW_SEED",
+    "RUNTIME_SPEED",
+    "GRID",
+    "RHO0",
+    "DT",
+    "B",
+    "BETA",
+    "GAMMA4",
+    "ALPHA",
+    "ACTION_LAMBDA",
+    "KAPPA_SCALE",
+    "SCATTER",
+    "ANGULAR_DIRECTIONS",
+    "ACTION_RELAX_ITERATIONS",
+    "INITIAL_DENSITY_NOISE",
+    "NEUTRAL_THRESHOLD",
+    "ZERO_FORCE_THRESHOLD",
+    "LIVE_MOUSE_PERTURBATION"
+  ],
+  "claim_ceiling": {
+    "interactive_method": true,
+    "real_browser_calculation": true,
+    "three_dimensional_V14H_validation": false,
+    "physical_time": false,
+    "physical_scale": false,
+    "upor_validation": false,
+    "dipole_validation": false,
+    "canon_promotion": false,
+    "merge": false
+  },
+  "next": "USE_LIVE_RUNTIME_TO_LOCATE_BRANCH_TRANSITIONS_THEN_RETEST_THEM_IN_V14K_HIGH_FIDELITY_3D_SOURCE_HOLDOUTS"
+}
