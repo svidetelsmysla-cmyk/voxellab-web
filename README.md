@@ -17,13 +17,22 @@ The governed MR/DL catalogue publishes all MR00–MR07 current ActionTally
 replays and all DL00–DL07 available matched-residual diagnostics. The two
 source lanes remain visibly separate.
 
-Action Transport Lab now extends through A4. A3 reads complete first-owner
+Action Transport Lab now extends through A5. A3 reads complete first-owner
 continuous columns for uniform formed-domain fixtures. A4 adds the strict
 read-only `VOXELLAB_CONTINUOUS_FIELD_SNAPSHOT_V1` contract and evaluates
 `Sigma=integral rho ds`, `W0`, `W1`, `W2`, real `P1-P4`, projection limits and
-curl diagnostics. The branch includes synthetic method oracles only; the
-current project status remains
-`A4_METHOD_BRIDGE_IMPLEMENTED_V14_SNAPSHOT_EXPORT_BLOCKER`.
+curl diagnostics. A5 reads a frozen browser-safe projection of the V14J axial
+`STATE_MINUS_REFERENCE_W1` timeline and animates converging, diverging and
+neutral fixed-point candidates, finite-versus-nearest closure sensitivity,
+density overlay and branch persistence through the late `1 → 2 → 1` component
+labels.
+
+A5 deliberately stops at the axial diagnostic ceiling. Converging roots are
+labelled `AXIAL WELL CANDIDATE`; diverging roots are labelled
+`AXIAL CREST / 3D SADDLE CANDIDATE`. The displayed negative axis integral is
+not a physical potential. Full two- or three-dimensional well/saddle/neutral
+classification remains blocked until transverse vector/Jacobian channels are
+exported, and `W1 = physical source force` remains unestablished pending V14K.
 
 Live site: <https://svidetelsmysla-cmyk.github.io/voxellab-web/>
 
@@ -35,6 +44,9 @@ Live site: <https://svidetelsmysla-cmyk.github.io/voxellab-web/>
   not silently recompute or promote scientific verdicts.
 - **A4 METHOD ORACLE** means a synthetic representation/integration control.
   It is not a V5, V6 or V14 source state.
+- **A5 EQUILIBRIUM ATLAS** means a read-only display projection of frozen V14J
+  line data. It does not rerun the substrate, refit roots, reveal source force,
+  or convert axial action topology into a dipole or force-law claim.
 
 This public repository contains only the web application, browser-safe demo
 data, interface documentation, and deployment metadata. It does not contain the
@@ -47,6 +59,7 @@ unpublished solver packets.
 pnpm install --frozen-lockfile
 pnpm typecheck
 pnpm test
+node scripts/runActionEquilibriumMapGate.mjs
 pnpm a4:gate
 pnpm cavity:gate
 pnpm suite
@@ -73,6 +86,7 @@ The production Vite base is `/voxellab-web/` for GitHub Pages.
 - `docs/interfaces/3DSMAX_EXPORTER_V2.md`
 - `docs/interfaces/VOXELLAB_ACTION_TRANSPORT_LAB_A3_FIRST_HIT_CONTINUOUS_COLUMN_V1.md`
 - `docs/interfaces/VOXELLAB_A4_V14_CONTINUOUS_FIELD_ACTION_BRIDGE_V1.md`
+- `docs/interfaces/VOXELLAB_ACTION_EQUILIBRIUM_MAPS_V1.md`
 - `docs/tasks/VOXELLAB_A4_V14_CONTINUOUS_FIELD_RESEARCH_PLAN_V1.md`
 
 ## Credits and scope

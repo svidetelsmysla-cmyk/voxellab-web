@@ -12,7 +12,7 @@ const topbar = document.querySelector<HTMLElement>(".topbar-meta");
 if (topbar) {
   const actionLabLink = document.createElement("a");
   actionLabLink.href = `${import.meta.env.BASE_URL}action-lab/`;
-  actionLabLink.textContent = "Action Transport Lab A0 ↗";
+  actionLabLink.textContent = "Action Transport Lab A0–A5 ↗";
   actionLabLink.dataset.testid = "action-lab-link";
   topbar.prepend(actionLabLink);
 }

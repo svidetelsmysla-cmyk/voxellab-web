@@ -20,6 +20,7 @@ import { CavityFieldPanel } from "./CavityFieldPanel";
 import { CavityRelaxationPanel } from "./CavityRelaxationPanel";
 import { FirstHitContinuousColumnPanel } from "./FirstHitContinuousColumnPanel";
 import { ContinuousFieldActionBridgePanel } from "./ContinuousFieldActionBridgePanel";
+import { EquilibriumMapPanel } from "./EquilibriumMapPanel";
 
 installA02DisplaySemanticsRepair();
 
@@ -74,3 +75,8 @@ const continuousFieldBridgeRoot = document.createElement("div");
 continuousFieldBridgeRoot.id = "a4-v14-continuous-field-action-bridge-root";
 root.append(continuousFieldBridgeRoot);
 new ContinuousFieldActionBridgePanel(continuousFieldBridgeRoot);
+
+const equilibriumMapRoot = document.createElement("div");
+equilibriumMapRoot.id = "a5-v14j-action-equilibrium-map-root";
+root.append(equilibriumMapRoot);
+new EquilibriumMapPanel(equilibriumMapRoot);
