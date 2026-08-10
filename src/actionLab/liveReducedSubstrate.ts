@@ -209,16 +209,16 @@ export class LiveReducedSubstrate2D {
 
   perturb(gridX:number,gridY:number,amplitude:number,radiusCells:number,velocity=false):void{
     const n=this.params.n,target=velocity?this.w:this.rho,beforeMean=this.mean(target);
-    for(let y=0;y<n;y+=1){const dy=Math.min(Math.abs(y-gridY),n-Math.abs(y-gridY)); for(let x=0;x<n;x+=1){const dx=Math.min(Math.abs(x-gridX),n-Math.abs(x-gridX)); target[y*n+x]+=amplitude*Math.exp(-0.5*(dx*dx+dy*dy)/Math.max(radiusCells*radiusCells,1e-6));}}
+    for(let y=0;y<n;y+=1){const dy=Math.min(Math.abs(y-gridY),n-Math.abs(y-gridY)); for(let x=0;x<n;x+=1){const dx=Math.min(Math.abs(x-gridX),n-Math.abs(x-gridX)),i=y*n+x; target[i]=target[i]!+amplitude*Math.exp(-0.5*(dx*dx+dy*dy)/Math.max(radiusCells*radiusCells,1e-6));}}
     this.projectMean(target,beforeMean); if(!velocity){const b=this.densityBounds(); if(b.min<=0||b.max>=this.params.rhoMax)this.stoppedReason="PERTURBATION_HIT_DENSITY_BOUND";}
   }
 
   step(count=1):void{for(let c=0;c<count;c+=1){if(this.stoppedReason)return;this.singleStep();}}
   private singleStep():void{
-    const dt=this.params.dt,acc0=this.nonlinearAcceleration(); for(let i=0;i<this.w.length;i+=1)this.w[i]+=0.5*dt*acc0[i]!;
+    const dt=this.params.dt,acc0=this.nonlinearAcceleration(); for(let i=0;i<this.w.length;i+=1)this.w[i]=this.w[i]!+0.5*dt*acc0[i]!;
     this.exactLinearStep(dt); this.projectMean(this.rho,this.params.rho0); this.projectMean(this.w,0); const b=this.densityBounds();
     if(!Number.isFinite(b.min)||!Number.isFinite(b.max)||b.min<=0||b.max>=this.params.rhoMax){this.stoppedReason="DENSITY_BOUND_OR_NONFINITE";return;}
-    this.updateActionStress(); const acc1=this.nonlinearAcceleration(); for(let i=0;i<this.w.length;i+=1)this.w[i]+=0.5*dt*acc1[i]!; this.projectMean(this.w,0); this.computeTotalMu(); this.time+=dt; this.steps+=1;
+    this.updateActionStress(); const acc1=this.nonlinearAcceleration(); for(let i=0;i<this.w.length;i+=1)this.w[i]=this.w[i]!+0.5*dt*acc1[i]!; this.projectMean(this.w,0); this.computeTotalMu(); this.time+=dt; this.steps+=1;
   }
 
   private projectMean(values:Float64Array,meanValue:number):void{const h=fft2Real(values,this.params.n); for(let i=0;i<h.re.length;i+=1)if(!this.dealias[i]){h.re[i]=0;h.im[i]=0;} h.re[0]=meanValue*values.length;h.im[0]=0;values.set(ifft2(h,this.params.n));}
@@ -230,9 +230,9 @@ export class LiveReducedSubstrate2D {
     const lap=ifft2(lapH,n),lap2=ifft2(lap2H,n),psi=ifft2(psiH,n),out=new Float64Array(this.rho.length); for(let i=0;i<out.length;i+=1)out[i]=this.uprimeRaw(this.rho[i]!)-this.up0+this.params.beta*lap[i]!+this.params.gamma4*lap2[i]!+this.params.alpha*psi[i]!; return out;
   }
 
-  private laplacian(values:Float64Array):Float64Array{const h=fft2Real(values,this.params.n);for(let i=0;i<h.re.length;i+=1){const mult=this.dealias[i]?-this.k2[i]!:0;h.re[i]*=mult;h.im[i]*=mult;}return ifft2(h,this.params.n);}
-  private linearAcceleration(q:Float64Array):Float64Array{const h=fft2Real(q,this.params.n);for(let i=0;i<h.re.length;i+=1){const mult=this.dealias[i]?-this.omega2[i]!:0;h.re[i]*=mult;h.im[i]*=mult;}return ifft2(h,this.params.n);}
-  private nonlinearAcceleration():Float64Array{this.computeTotalMu();const full=this.laplacian(this.mu),q=new Float64Array(this.rho.length);for(let i=0;i<q.length;i+=1)q[i]=this.rho[i]!-this.params.rho0;const linear=this.linearAcceleration(q);for(let i=0;i<full.length;i+=1)full[i]-=linear[i]!;return full;}
+  private laplacian(values:Float64Array):Float64Array{const h=fft2Real(values,this.params.n);for(let i=0;i<h.re.length;i+=1){const mult=this.dealias[i]?-this.k2[i]!:0;h.re[i]=h.re[i]!*mult;h.im[i]=h.im[i]!*mult;}return ifft2(h,this.params.n);}
+  private linearAcceleration(q:Float64Array):Float64Array{const h=fft2Real(q,this.params.n);for(let i=0;i<h.re.length;i+=1){const mult=this.dealias[i]?-this.omega2[i]!:0;h.re[i]=h.re[i]!*mult;h.im[i]=h.im[i]!*mult;}return ifft2(h,this.params.n);}
+  private nonlinearAcceleration():Float64Array{this.computeTotalMu();const full=this.laplacian(this.mu),q=new Float64Array(this.rho.length);for(let i=0;i<q.length;i+=1)q[i]=this.rho[i]!-this.params.rho0;const linear=this.linearAcceleration(q);for(let i=0;i<full.length;i+=1)full[i]=full[i]!-linear[i]!;return full;}
 
   private exactLinearStep(dt:number):void{
     const n=this.params.n,q=new Float64Array(this.rho.length);for(let i=0;i<q.length;i+=1)q[i]=this.rho[i]!-this.params.rho0;const qh=fft2Real(q,n),wh=fft2Real(this.w,n);
@@ -247,10 +247,10 @@ export class LiveReducedSubstrate2D {
   private updateActionStress():void{
     if(this.params.actionLambda===0||this.params.actionRelaxIterations<=0){this.actionResidual=0;return;}const size=this.rho.length,kap=new Float64Array(size),a=new Float64Array(size),sig=new Float64Array(size),kbg=this.kappa(this.params.rho0);for(let i=0;i<size;i+=1){kap[i]=this.kappa(this.rho[i]!);a[i]=1/kap[i]!;sig[i]=this.params.scatter*kap[i]!;}
     const J=new Float64Array(size),residual=new Float64Array(size),dx=this.params.L/this.params.n;let lastNorm=0;
-    for(let iter=0;iter<this.params.actionRelaxIterations;iter+=1){J.fill(0);for(const P of this.actionP)for(let i=0;i<size;i+=1)J[i]+=P[i]!/this.actionP.length;let norm2=0,base2=0;for(let j=0;j<this.actionP.length;j+=1){const P=this.actionP[j]!,dp=this.derivative(P,this.actionDirs[j]!),flux=new Float64Array(size);for(let i=0;i<size;i+=1)flux[i]=a[i]!*dp[i]!;const dflux=this.derivative(flux,this.actionDirs[j]!);for(let i=0;i<size;i+=1){const lhs=-dflux[i]!+kap[i]!*P[i]!+sig[i]!*(P[i]!-J[i]!),r=kbg-lhs;residual[i]=r;norm2+=r*r;base2+=kbg*kbg;}for(let i=0;i<size;i+=1){const diag=2*a[i]!/(dx*dx)+kap[i]!+sig[i]!+1e-9;P[i]+=this.params.actionRelaxation*residual[i]!/diag;}}lastNorm=Math.sqrt(norm2/Math.max(base2,1e-30));}this.actionResidual=lastNorm;
+    for(let iter=0;iter<this.params.actionRelaxIterations;iter+=1){J.fill(0);for(const P of this.actionP)for(let i=0;i<size;i+=1)J[i]=J[i]!+P[i]!/this.actionP.length;let norm2=0,base2=0;for(let j=0;j<this.actionP.length;j+=1){const P=this.actionP[j]!,dp=this.derivative(P,this.actionDirs[j]!),flux=new Float64Array(size);for(let i=0;i<size;i+=1)flux[i]=a[i]!*dp[i]!;const dflux=this.derivative(flux,this.actionDirs[j]!);for(let i=0;i<size;i+=1){const lhs=-dflux[i]!+kap[i]!*P[i]!+sig[i]!*(P[i]!-J[i]!),r=kbg-lhs;residual[i]=r;norm2+=r*r;base2+=kbg*kbg;}for(let i=0;i<size;i+=1){const diag=2*a[i]!/(dx*dx)+kap[i]!+sig[i]!+1e-9;P[i]=P[i]!+this.params.actionRelaxation*residual[i]!/diag;}}lastNorm=Math.sqrt(norm2/Math.max(base2,1e-30));}this.actionResidual=lastNorm;
   }
 
-  private actionMu():Float64Array{const size=this.rho.length,out=new Float64Array(size);if(this.params.actionLambda===0)return out;const J=new Float64Array(size);for(const P of this.actionP)for(let i=0;i<size;i+=1)J[i]+=P[i]!/this.actionP.length;const g2=new Float64Array(size),p2=new Float64Array(size),d2=new Float64Array(size);for(let j=0;j<this.actionP.length;j+=1){const P=this.actionP[j]!,dp=this.derivative(P,this.actionDirs[j]!);for(let i=0;i<size;i+=1){g2[i]+=dp[i]!*dp[i]!/this.actionP.length;p2[i]+=P[i]!*P[i]!/this.actionP.length;const d=P[i]!-J[i]!;d2[i]+=d*d/this.actionP.length;}}for(let i=0;i<size;i+=1){const kap=this.kappa(this.rho[i]!),dkap=this.dkappa(this.rho[i]!),da=-dkap/(kap*kap),dsig=this.params.scatter*dkap;out[i]=0.5*da*g2[i]!+0.5*dkap*p2[i]!+0.5*dsig*d2[i]!;}return out;}
+  private actionMu():Float64Array{const size=this.rho.length,out=new Float64Array(size);if(this.params.actionLambda===0)return out;const J=new Float64Array(size);for(const P of this.actionP)for(let i=0;i<size;i+=1)J[i]=J[i]!+P[i]!/this.actionP.length;const g2=new Float64Array(size),p2=new Float64Array(size),d2=new Float64Array(size);for(let j=0;j<this.actionP.length;j+=1){const P=this.actionP[j]!,dp=this.derivative(P,this.actionDirs[j]!);for(let i=0;i<size;i+=1){g2[i]=g2[i]!+dp[i]!*dp[i]!/this.actionP.length;p2[i]=p2[i]!+P[i]!*P[i]!/this.actionP.length;const d=P[i]!-J[i]!;d2[i]=d2[i]!+d*d/this.actionP.length;}}for(let i=0;i<size;i+=1){const kap=this.kappa(this.rho[i]!),dkap=this.dkappa(this.rho[i]!),da=-dkap/(kap*kap),dsig=this.params.scatter*dkap;out[i]=0.5*da*g2[i]!+0.5*dkap*p2[i]!+0.5*dsig*d2[i]!;}return out;}
 
   computeTotalMu():void{const material=this.materialMu(),action=this.actionMu();for(let i=0;i<this.mu.length;i+=1)this.mu[i]=material[i]!-this.params.actionLambda*action[i]!;}
   sourceForce():{fx:Float64Array;fy:Float64Array}{const n=this.params.n,dx=this.params.L/n,fx=new Float64Array(this.mu.length),fy=new Float64Array(this.mu.length),index=(x:number,y:number)=>((y+n)%n)*n+((x+n)%n);for(let y=0;y<n;y+=1)for(let x=0;x<n;x+=1){const i=y*n+x;fx[i]=-(this.mu[index(x+1,y)]!-this.mu[index(x-1,y)]!)/(2*dx);fy[i]=-(this.mu[index(x,y+1)]!-this.mu[index(x,y-1)]!)/(2*dx);}return{fx,fy};}
