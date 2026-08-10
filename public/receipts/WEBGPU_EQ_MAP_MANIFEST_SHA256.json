@@ -1,0 +1,217 @@
+{
+  "claim_ceiling": "ACTION_READOUT_NOT_SOURCE_FORCE",
+  "decision": "WEBGPU_INSTRUMENT_PASS_ONLY",
+  "files": [
+    {
+      "path": "package.json",
+      "sha256": "031a9e45103b0cc0f80a577685bff731bb046c6c5a2f88e7b5abc6df30e60895",
+      "size_bytes": 1822
+    },
+    {
+      "path": "playwright.webgpu.config.ts",
+      "sha256": "3c72a2248dde67980e5692b1b64a9cfa5369aa3742aaeaeaf86b9955948a8922",
+      "size_bytes": 168
+    },
+    {
+      "path": "public/packets/webgpu-equilibrium-regime-map-v1/MANIFEST_SHA256.json",
+      "sha256": "e30e37b324801c3355a5299399b455af334daf699953dc2a8c9186f3011e8cc4",
+      "size_bytes": 549
+    },
+    {
+      "path": "public/packets/webgpu-equilibrium-regime-map-v1/PROVENANCE_RECEIPT.json",
+      "sha256": "e80ef32473e07a03c9e449bbbd988b61185bd512683f704296037741c65f6dda",
+      "size_bytes": 1700
+    },
+    {
+      "path": "public/packets/webgpu-equilibrium-regime-map-v1/STATUS.json",
+      "sha256": "969cae841516ead72554458a9947f88bf329b7aab4ac075dfbb04d6e0e7d2f46",
+      "size_bytes": 338
+    },
+    {
+      "path": "public/packets/webgpu-equilibrium-regime-map-v1/finite_response.f32",
+      "sha256": "030b1a0de511867adc72648d54ebf75ca325acb4427cc8065bacf2c90eb6fdbc",
+      "size_bytes": 1769472
+    },
+    {
+      "path": "public/packets/webgpu-equilibrium-regime-map-v1/manifest.json",
+      "sha256": "225d6e36d221816247e9c2465cc0b9f9816b04c3d9f1ac7d5688aaab0e3bb912",
+      "size_bytes": 18751
+    },
+    {
+      "path": "public/packets/webgpu-equilibrium-regime-map-v1/nearest_periodic_response.f32",
+      "sha256": "6642c03998d583148c61904c36937a764230bdcc16aee8ce35593d6e9585ad82",
+      "size_bytes": 1769472
+    },
+    {
+      "path": "public/packets/webgpu-equilibrium-regime-map-v1/rho.f32",
+      "sha256": "b0bdc8bc873448cfabf2465d6661e9ae0a45431e37ea14f99513f40da00d8465",
+      "size_bytes": 589824
+    },
+    {
+      "path": "public/packets/webgpu-equilibrium-regime-map-v1/root_timeline.json",
+      "sha256": "0ef5a9620b4ee5fc813c86c9ed6faeb4bf5e852f5e36b06b638702eb3f185352",
+      "size_bytes": 1145790
+    },
+    {
+      "path": "public/receipts/WEBGPU_EQ_MAP_BENCHMARK_V1.json",
+      "sha256": "be98f3d20c039ada216f0a8807be2463ca868e3b45254b43c9b1cb7d4511f3b5",
+      "size_bytes": 1760
+    },
+    {
+      "path": "public/receipts/WEBGPU_EQ_MAP_BOUNDARY_COMPARISON_V1.json",
+      "sha256": "170670519c2533886d7f5da08972040f51746419652e74aa4d31c9f03f3697de",
+      "size_bytes": 812
+    },
+    {
+      "path": "public/receipts/WEBGPU_EQ_MAP_G00_G01_BASELINE_RECEIPT_V1.json",
+      "sha256": "a30610e36b8c4ec91c634efa63b51c92a69c5897228f127e44bdc864643611d4",
+      "size_bytes": 2183
+    },
+    {
+      "path": "public/receipts/WEBGPU_EQ_MAP_PREREGISTRATION_V1.json",
+      "sha256": "6c6c41eba8660a94e007fd310da283265e223ae6c905628683580e53adb09860",
+      "size_bytes": 4769
+    },
+    {
+      "path": "public/receipts/WEBGPU_EQ_MAP_PROVENANCE_RECEIPT_V1.json",
+      "sha256": "5dbf7c18967a5788127a99a3d920e9fc79ad43385212c4d633193d66cd4e56cb",
+      "size_bytes": 2800
+    },
+    {
+      "path": "public/receipts/WEBGPU_EQ_MAP_ROOT_SUMMARY_V1.json",
+      "sha256": "1c5d5b830b489036252e4f04448da8a65cebcfdfa4ef0605e93880986e41dee5",
+      "size_bytes": 1116
+    },
+    {
+      "path": "public/receipts/WEBGPU_EQ_MAP_STATUS_V1.json",
+      "sha256": "f215dc49c052cb212809e95bf96d7408226b43f0a5e81e7618cb822ce9f4538b",
+      "size_bytes": 1575
+    },
+    {
+      "path": "reports/implementation/WEBGPU_EQUILIBRIUM_FINITE_PERIODIC_COMPARISON_FRAME12.png",
+      "sha256": "67974d44f9fe3e860075933a582a6867eed71ae32921317bfe996f7ed18d3e6f",
+      "size_bytes": 624480
+    },
+    {
+      "path": "reports/implementation/WEBGPU_EQUILIBRIUM_NEUTRAL_TRANSITION_V1.gif",
+      "sha256": "9a863d2537e3669aadd13b65a87567e5dd273539f601c674d3b1f5edb7393f18",
+      "size_bytes": 2119055
+    },
+    {
+      "path": "reports/implementation/WEBGPU_EQUILIBRIUM_REGIME_MAP_BRANCH_TIMELINE.png",
+      "sha256": "94b9898bcc81a88187d51c44602d9e099b4664660f6989ba7c3d5eef4dc45ab0",
+      "size_bytes": 55504
+    },
+    {
+      "path": "reports/implementation/WEBGPU_EQUILIBRIUM_REGIME_MAP_FRAME12.png",
+      "sha256": "e09f84c0d48d7f9141ee9d49c5ee88a7af6f388196912df25b7c8e7cf3107843",
+      "size_bytes": 65229
+    },
+    {
+      "path": "reports/implementation/WEBGPU_EQUILIBRIUM_REGIME_MAP_PARITY_FRAME12.png",
+      "sha256": "ccd58eb5fb3231216493fda76039d9b57aa13498b31cbfa80d444e277bc97284",
+      "size_bytes": 63436
+    },
+    {
+      "path": "reports/implementation/WEBGPU_EQUILIBRIUM_REGIME_MAP_ROOT_TIMELINE_FRAME12.png",
+      "sha256": "1b6ff9a8c2ebe5993bd6e78ab2b4e567d54cc0ba3681d49879f36d74057a506b",
+      "size_bytes": 70070
+    },
+    {
+      "path": "reports/implementation/WEBGPU_EQ_MAP_SOURCE_ACTION_HOLDOUT_V1.md",
+      "sha256": "9e9ae956839a4bbe668bc6ac6419c405d50c4dae1ce6032738c30bc89b23128b",
+      "size_bytes": 996
+    },
+    {
+      "path": "scripts/buildEquilibriumRootTimeline.ts",
+      "sha256": "d5ac7de6e36ab1de6119bd8e2e227f045f02450922f23f2a2a6fa69bc42e68a9",
+      "size_bytes": 3463
+    },
+    {
+      "path": "scripts/build_equilibrium_release_packet.py",
+      "sha256": "672e3dc274dd00041064fe9577ffcd90964788cfedee0af20f07c2b4005de4a6",
+      "size_bytes": 4611
+    },
+    {
+      "path": "src/actionLab/EquilibriumRegimeMapPanel.ts",
+      "sha256": "91c517aca0a0ae0f1e0fe632d81565b033548aa196828268e389eb21d5b9bfaa",
+      "size_bytes": 21334
+    },
+    {
+      "path": "src/actionLab/equilibriumGpu/branchTracker.ts",
+      "sha256": "b69961d8681d839065a99d741c2d951816be99802fdd34a6ceb6c0a47a0a6a4a",
+      "size_bytes": 3810
+    },
+    {
+      "path": "src/actionLab/equilibriumGpu/cpuReference.ts",
+      "sha256": "74e03af97bf4de601f03c0f6bd167894ee462d2cfc4ac82a604dc1ba09ed8434",
+      "size_bytes": 13249
+    },
+    {
+      "path": "src/actionLab/equilibriumGpu/gpuContext.ts",
+      "sha256": "2e7b5d1e27c2ed7f21ce4f9a5e69862986311cbb7f328cb5a3bc6e00eb20ab4d",
+      "size_bytes": 5281
+    },
+    {
+      "path": "src/actionLab/equilibriumGpu/packetLoader.ts",
+      "sha256": "28b733866429fa9912b38d34caf275ee97ce20e9e97f1eada038b7e30594be6d",
+      "size_bytes": 4186
+    },
+    {
+      "path": "src/actionLab/equilibriumGpu/receipts.ts",
+      "sha256": "dca0b6e94c461296693f855ec8b0b8f78d245744e78b44b325a62d1887db9a2b",
+      "size_bytes": 2111
+    },
+    {
+      "path": "src/actionLab/equilibriumGpu/shaders/classifyRegime.wgsl.ts",
+      "sha256": "8284a51fffedadac0a91b3d91bbfbcf8c8769eb6df9cd4b76fe5c5e8bc67a534",
+      "size_bytes": 4697
+    },
+    {
+      "path": "src/actionLab/equilibriumGpu/types.ts",
+      "sha256": "a29ca12a91dfb43f3e8a21c8656c764bd99bfa93e56a23b77a9c50636658f37d",
+      "size_bytes": 3561
+    },
+    {
+      "path": "src/actionLab/equilibriumRegimeMap.css",
+      "sha256": "a362855ef21a16c6bbd3c47561519f445443b6da11f1eed82c9a86a41a009b1d",
+      "size_bytes": 3219
+    },
+    {
+      "path": "src/actionLab/main.ts",
+      "sha256": "d1775ee1292db305c891c3905d23ca50d2474056da882865e62f52f79354da0c",
+      "size_bytes": 3431
+    },
+    {
+      "path": "tests/e2e/equilibrium-regime-map.spec.ts",
+      "sha256": "57ed04ce769bd780b3f9418b0b07503e8821fdf6030c8826c09b630357475c3e",
+      "size_bytes": 1022
+    },
+    {
+      "path": "tests/equilibriumGpuBranches.test.ts",
+      "sha256": "1d029628ab9302a45361353a3fb38f6e2a501ced0232e3ae361c25cd49a0dfee",
+      "size_bytes": 1401
+    },
+    {
+      "path": "tests/equilibriumGpuMath.test.ts",
+      "sha256": "cb802c91c7bd4ac1fdecc4d0a94308b0ba2d29395085cdec26c2c35fe3deb321",
+      "size_bytes": 3464
+    },
+    {
+      "path": "tests/equilibriumGpuPacket.test.ts",
+      "sha256": "7a4d61deb18a7abe26196703e8763ab678a6feba94f01ad5ed181b01bd5c3fbf",
+      "size_bytes": 2913
+    },
+    {
+      "path": "tests/gpu-runner/equilibrium-webgpu-parity.spec.ts",
+      "sha256": "4e9378e3d48ef8f2328ef2387adad0c85fc9aabf4886164e28273cb8e9f19d2b",
+      "size_bytes": 1319
+    },
+    {
+      "path": "vite.config.ts",
+      "sha256": "5123d0fd40dc0ca506abfc16857263a5e4672ab03ae189d9c7ac73bb51a20136",
+      "size_bytes": 1000
+    }
+  ],
+  "schema": "VOXELLAB_WEBGPU_EQ_MAP_RELEASE_MANIFEST_V1"
+}

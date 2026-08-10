@@ -1,0 +1,27 @@
+{
+  "schema": "VOXELLAB_WEBGPU_EQ_MAP_ROOT_SUMMARY_V1",
+  "root_timeline_sha256": "0ef5a9620b4ee5fc813c86c9ed6faeb4bf5e852f5e36b06b638702eb3f185352",
+  "algorithm": "3D_COMPONENT_SIGN_BRACKET_TRILINEAR_NEWTON_FULL_JACOBIAN_GLOBAL_ASSIGNMENT",
+  "zero_frame_rule": "GLOBAL_ZERO_RESPONSE_IS_DEGENERATE_CONTINUUM_NOT_DISCRETE_ROOTS",
+  "neutral_rule": "MAX_1E_6_OR_1E_3_FRAME_KAPPA_P95",
+  "density_used": false,
+  "closures": {
+    "FINITE_BOX": {
+      "root_observations": 975,
+      "nonzero_frame_root_count_range": [7, 57],
+      "branches": 65,
+      "persistent_branches": 64,
+      "maximum_relative_residual": 0.00019579354977073316,
+      "neutral_tolerance_range": [0.000001, 0.0018067168303602076]
+    },
+    "NEAREST_PERIODIC": {
+      "root_observations": 816,
+      "nonzero_frame_root_count_range": [6, 59],
+      "branches": 63,
+      "persistent_branches": 60,
+      "maximum_relative_residual": 0.00013864721930551807,
+      "neutral_tolerance_range": [0.000001, 0.0017096562095595164]
+    }
+  },
+  "interpretation": "N16_ACTION_TOPOLOGY_DIAGNOSTIC_ONLY_BOUNDARY_AND_SOURCE_RESOLUTION_UNRESOLVED"
+}

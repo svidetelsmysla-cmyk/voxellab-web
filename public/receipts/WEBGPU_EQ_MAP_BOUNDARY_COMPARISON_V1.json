@@ -1,0 +1,24 @@
+{
+  "schema": "VOXELLAB_WEBGPU_EQ_MAP_BOUNDARY_COMPARISON_V1",
+  "source_resolution": [16, 16, 16],
+  "frame": 12,
+  "time": 24.0,
+  "finite_box": {
+    "qualified_roots": 12,
+    "types": {"REPELLING_ROOT": 8, "SADDLE_INDEX_2": 3, "RESTORING_ROOT": 1},
+    "neutral_tolerance": 0.00010107594463954736
+  },
+  "nearest_periodic": {
+    "qualified_roots": 8,
+    "types": {"SADDLE_INDEX_1": 4, "SADDLE_INDEX_2": 3, "RESTORING_ROOT": 1},
+    "neutral_tolerance": 0.00013818748869251867
+  },
+  "finite_to_periodic_nearest_root_distance": {
+    "minimum": 0.8765026580062935,
+    "mean": 8.948992640877124,
+    "maximum": 14.241707104539278
+  },
+  "classification": "BOUNDARY_CREATED_OR_DESTROYED_BRANCH_AT_N16",
+  "intrinsic_near_mechanics_claim": "FORBIDDEN",
+  "claim_ceiling": "ACTION_READOUT_NOT_SOURCE_FORCE"
+}

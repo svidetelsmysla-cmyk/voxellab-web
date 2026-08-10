@@ -2,7 +2,7 @@ name: Deploy VoxelLab Web to Pages
 
 on:
   push:
-    branches: [main, agent/web/voxellab-scene-lab-v2-full-suite-v1, agent/web/g4-action-tally-resolved-homogenized-v1, r13/action-transport-visualizer-a0-v1, r13/action-transport-visualizer-a0-2-v1, r13/action-transport-visualizer-a0-3-v1, r13/action-transport-visualizer-a1-v1, r13/action-transport-visualizer-a2-overlap-v1, r13/action-transport-visualizer-a2b-free-boundary-v1, r13/d0s-static-microbody-representation-parity-v1, r13/c1-cavity-w-maps-v1, r13/c0c1-cavity-relaxation-boundary-v1, r6/action-lab-a3-first-hit-continuous-column-v1, r14/a4-v14-continuous-field-action-bridge-v1]
+    branches: [main, agent/web/voxellab-scene-lab-v2-full-suite-v1, agent/web/g4-action-tally-resolved-homogenized-v1, r13/action-transport-visualizer-a0-v1, r13/action-transport-visualizer-a0-2-v1, r13/action-transport-visualizer-a0-3-v1, r13/action-transport-visualizer-a1-v1, r13/action-transport-visualizer-a2-overlap-v1, r13/action-transport-visualizer-a2b-free-boundary-v1, r13/d0s-static-microbody-representation-parity-v1, r13/c1-cavity-w-maps-v1, r13/c0c1-cavity-relaxation-boundary-v1, r6/action-lab-a3-first-hit-continuous-column-v1, r14/a4-v14-continuous-field-action-bridge-v1, r14/webgpu-equilibrium-regime-map-v1]
   workflow_dispatch:
 
 permissions:

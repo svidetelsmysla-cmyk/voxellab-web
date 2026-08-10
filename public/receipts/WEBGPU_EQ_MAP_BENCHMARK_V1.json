@@ -1,0 +1,43 @@
+{
+  "schema": "VOXELLAB_WEBGPU_EQ_MAP_BENCHMARK_V1",
+  "hardware": {
+    "os": "Windows NT 10.0 Win64 x64",
+    "browser": "Chrome 151.0.0.0 via Codex in-app browser",
+    "adapter": "nvidia",
+    "architecture": "lovelace",
+    "driver": "NOT_EXPOSED_BY_WEBGPU"
+  },
+  "source_dimensions": [16, 16, 16],
+  "receiver_dimensions": [[257, 193], [513, 385]],
+  "viewport": [1265, 712],
+  "passes_ms": {
+    "cached_upload_compute_readback_257x193": [17.0, 15.799999997019768, 14.400000005960464, 14.799999997019768, 13.200000002980232],
+    "cached_upload_compute_readback_513x385": [46.29999999701977, 45.0, 44.29999999701977, 51.099999994039536, 43.70000000298023],
+    "response": "P1_PRECOMPUTED_VOLUME_NO_BROWSER_SOURCE_CONVOLUTION",
+    "jacobian_eigen_plane_sample": "FUSED_WEBGPU_COMPUTE_PASS",
+    "render": "NOT_SEPARATELY_TIMESTAMPED"
+  },
+  "latency_ms": {
+    "257x193_median": 14.8,
+    "257x193_max": 17.0,
+    "513x385_median": 45.0,
+    "513x385_max": 51.099999994039536,
+    "preregistered_cached_target": 100.0
+  },
+  "fps_from_compute_latency_only": {
+    "257x193_median": 67.56756756756756,
+    "257x193_p05_conservative": 58.8235294117647,
+    "513x385_median": 22.22222222222222,
+    "513x385_p05_conservative": 19.56947162634406
+  },
+  "gpu_memory_estimate_bytes": {
+    "257x193": 4827232,
+    "513x385": 19026128
+  },
+  "notes": [
+    "Pipeline, adapter and device were cached before the five-frame series.",
+    "Timing includes response-volume upload, fused plane/Jacobian/eigen/classification compute and readback.",
+    "Default 257x193 exceeds the preferred 30 FPS compute budget; 513x385 passes the <100 ms cached latency target but not 30 FPS.",
+    "N54 was not benchmarked because its governed source packet was absent."
+  ]
+}

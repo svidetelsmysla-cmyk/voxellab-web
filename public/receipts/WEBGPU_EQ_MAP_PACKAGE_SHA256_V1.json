@@ -1,0 +1,11 @@
+{
+  "artifact": "reports/implementation/WEBGPU_EQUILIBRIUM_REGIME_MAP_V1_PACKAGE.zip",
+  "claim_ceiling": "ACTION_READOUT_NOT_SOURCE_FORCE",
+  "decision": "WEBGPU_INSTRUMENT_PASS_ONLY",
+  "file_count": 43,
+  "manifest": "public/receipts/WEBGPU_EQ_MAP_MANIFEST_SHA256.json",
+  "manifest_sha256": "11975a3b09a28afc1e2eff6af6a1f5ea000095d83ddcad44e0337fc4c91077f8",
+  "schema": "VOXELLAB_WEBGPU_EQ_MAP_PACKAGE_SHA256_V1",
+  "sha256": "696ff5708d7ca7b5584de842641c518ab8d2e0c88cd9c1da3bf36699498ab014",
+  "size_bytes": 6836877
+}
