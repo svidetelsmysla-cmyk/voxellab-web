@@ -1,0 +1,11 @@
+{
+  "schema": "BGF_SUBSTRATE_WEBGPU_EQ_MAP_SOURCE_STATUS_V1",
+  "decision": "P1_RESPONSE_VOLUME_EXPORTED_ACTION_ONLY",
+  "gates": {
+    "G00": "PASS",
+    "G01": "PASS",
+    "P1_EXPORT": "PASS"
+  },
+  "v14k_n54_source_force": "SOURCE_PACKET_BLOCKED_NOT_PRESENT_IN_V14H_V14J_INPUTS",
+  "claim_ceiling": "ACTION_READOUT_NOT_SOURCE_FORCE"
+}

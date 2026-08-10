@@ -1,8 +1,13 @@
 import { defineConfig } from "vite";
 
+// URL.pathname remains percent-encoded and starts with `/C:/` on Windows.
+// Decode only the build entry path; scientific packet hashes remain byte-exact.
+const localEntry = (relative: string) => decodeURIComponent(new URL(relative, import.meta.url).pathname)
+  .replace(/^\/([A-Za-z]:\/)/, "$1");
+
 const browserInputs = {
-  main: new URL("./index.html", import.meta.url).pathname,
-  actionLab: new URL("./action-lab/index.html", import.meta.url).pathname,
+  main: localEntry("./index.html"),
+  actionLab: localEntry("./action-lab/index.html"),
 };
 
 export default defineConfig(({ isSsrBuild }) => ({

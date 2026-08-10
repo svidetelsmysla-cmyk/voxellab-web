@@ -17,7 +17,11 @@
     "cavity:gate": "pnpm cavity:build && node .cavity-build/runCavityRelaxationGate.js",
     "a4:build": "vite build --ssr scripts/runContinuousFieldActionBridgeGate.ts --outDir .a4-build --emptyOutDir",
     "a4:gate": "pnpm a4:build && node .a4-build/runContinuousFieldActionBridgeGate.js",
-    "benchmark:browser": "node scripts/runBrowserPerformance.mjs"
+    "benchmark:browser": "node scripts/runBrowserPerformance.mjs",
+    "equilibrium:gate": "vitest run tests/equilibriumGpuMath.test.ts tests/equilibriumGpuBranches.test.ts tests/equilibriumGpuPacket.test.ts",
+    "equilibrium:e2e": "playwright test tests/e2e/equilibrium-regime-map.spec.ts",
+    "equilibrium:timeline:build": "vite build --ssr scripts/buildEquilibriumRootTimeline.ts --outDir .equilibrium-timeline-build --emptyOutDir && node .equilibrium-timeline-build/buildEquilibriumRootTimeline.js",
+    "equilibrium:webgpu:gate": "playwright test --config playwright.webgpu.config.ts"
   },
   "dependencies": {
     "three": "^0.179.1"
