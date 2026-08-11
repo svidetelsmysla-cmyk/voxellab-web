@@ -1,0 +1,15 @@
+{
+  "schema": "V14K2R_PUBLIC_NEUTRAL_TIMELINE_RECEIPT_V1",
+  "status": "PASS",
+  "root_timeline_sha256": "71cc464ad3693939c9838dbc9f11357d03a45e76d6850dabf7b2ef111600ad71",
+  "root_timeline_bytes": 2666,
+  "builder_path": "scripts/buildV14K2RPublicNeutralTimeline.ts",
+  "builder_sha256": "886d038148513e5c032ef7152acba53f1926b3aa4da37efc4a0cb0943cf03fc4",
+  "full_source_packet_payload_sha256": "8e8479c3b69acbe9b1ebdcea25a26808d4c3a7316f98e06383432f3dd601bcea",
+  "full_multi_channel_manifest_sha256": "1319c1a11b3fab4807877bee4b19ae04d30b87cdb4504ddf8f3ba9fca3c8e6ad",
+  "frames": [40.0, 55.0, 70.0],
+  "channels": 5,
+  "roots_omitted_from_public_json": true,
+  "browser_recomputes_roots_from_hash_verified_fields": true,
+  "claim_ceiling": "SOURCE_FORCE_RESTORING_TOPOLOGY_DIAGNOSTIC_MAXIMUM"
+}

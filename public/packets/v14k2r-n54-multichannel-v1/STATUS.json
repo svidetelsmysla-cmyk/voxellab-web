@@ -1,0 +1,7 @@
+{
+  "claim_ceiling": "SOURCE_FORCE_RESTORING_TOPOLOGY_DIAGNOSTIC_MAXIMUM",
+  "complete": true,
+  "decision": "PUBLIC_PLAYBACK_SUBSET_READY",
+  "full_packet_replaced_as_evidence": false,
+  "schema": "V14K2R_PUBLIC_PLAYBACK_SUBSET_STATUS_V1"
+}

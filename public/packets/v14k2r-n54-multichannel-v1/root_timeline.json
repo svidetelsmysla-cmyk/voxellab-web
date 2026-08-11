@@ -1,0 +1,103 @@
+{
+  "schema": "V14K2R_PUBLIC_MULTI_CHANNEL_NEUTRAL_TIMELINE_V1",
+  "packet_id": "V14K2R_N54_G11R_MULTI_CHANNEL_RESPONSE_VOLUME_V1_PUBLIC_T40_T55_T70_SUBSET",
+  "source_packet_payload_sha256": "8e8479c3b69acbe9b1ebdcea25a26808d4c3a7316f98e06383432f3dd601bcea",
+  "frames": [
+    {
+      "frame_id": "V14K2R_T00040p0",
+      "time": 40,
+      "full_packet_frame_index": 0
+    },
+    {
+      "frame_id": "V14K2R_T00055p0",
+      "time": 55,
+      "full_packet_frame_index": 75
+    },
+    {
+      "frame_id": "V14K2R_T00070p0",
+      "time": 70,
+      "full_packet_frame_index": 150
+    }
+  ],
+  "channels": [
+    {
+      "channel_id": "ACTION_K2_STATE_MINUS_REFERENCE_W1_FINITE",
+      "neutral_thresholds": [
+        0.00039573155440595156,
+        0.0013985026648348077,
+        0.0019436870672223452
+      ],
+      "roots_by_frame": [
+        [],
+        [],
+        []
+      ],
+      "persistent_branch_count": 0,
+      "roots_omitted_from_public_json": true
+    },
+    {
+      "channel_id": "ACTION_K2_STATE_MINUS_REFERENCE_W1_NEAREST_PERIODIC",
+      "neutral_thresholds": [
+        0.00042661099029533695,
+        0.0015165865221111,
+        0.0021481716020563873
+      ],
+      "roots_by_frame": [
+        [],
+        [],
+        []
+      ],
+      "persistent_branch_count": 0,
+      "roots_omitted_from_public_json": true
+    },
+    {
+      "channel_id": "SOURCE_MATERIAL_FORCE_PERIODIC",
+      "neutral_thresholds": [
+        0.000001,
+        0.000004769462751542671,
+        0.000032591390007140434
+      ],
+      "roots_by_frame": [
+        [],
+        [],
+        []
+      ],
+      "persistent_branch_count": 0,
+      "roots_omitted_from_public_json": true
+    },
+    {
+      "channel_id": "SOURCE_ACTION_FORCE_PERIODIC",
+      "neutral_thresholds": [
+        0.000001,
+        0.0000046651623122799405,
+        0.000010725207451734874
+      ],
+      "roots_by_frame": [
+        [],
+        [],
+        []
+      ],
+      "persistent_branch_count": 0,
+      "roots_omitted_from_public_json": true
+    },
+    {
+      "channel_id": "SOURCE_TOTAL_FORCE_PERIODIC",
+      "neutral_thresholds": [
+        0.000001,
+        0.000002455389001150714,
+        0.000030928579580493935
+      ],
+      "roots_by_frame": [
+        [],
+        [],
+        []
+      ],
+      "persistent_branch_count": 0,
+      "roots_omitted_from_public_json": true
+    }
+  ],
+  "classifier": "SHARED_EXACT_GRID_NODE_NEUTRAL_TOLERANCE",
+  "browser_behavior": "ROOTS_RECOMPUTED_FROM_HASH_VERIFIED_54_CUBED_VECTOR_FIELD",
+  "roots_omitted_reason": "AVOID_MULTI_GIGABYTE_DERIVED_JSON_WITHOUT_REMOVING_SOURCE_FIELDS",
+  "claim_ceiling": "SOURCE_FORCE_RESTORING_TOPOLOGY_DIAGNOSTIC_MAXIMUM"
+}

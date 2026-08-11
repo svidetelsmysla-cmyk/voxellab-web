@@ -4,4 +4,7 @@ test-results/
 playwright-report/
 .suite-build/
 .v14k2r-timeline-build/
+.v14k2r-public-timeline-build/
+.v14k2r-channel-timeline-build/
+.v14k2r-timeline-assembler-build/
 *.log
