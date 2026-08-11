@@ -1,0 +1,26 @@
+{
+  "schema": "V14K2R_NEUTRAL_SPECIALIZATION_PARITY_AMENDMENT_V1",
+  "created_utc": "2026-08-11T09:42:00Z",
+  "status": "FROZEN_BEFORE_MULTI_CHANNEL_PACKET_ANALYSIS",
+  "parent_analyzer_lock_commit": "f05e6bff112e62278d8183f53c40010936f99967",
+  "parent_analyzer_sha256": "64159116b1703284f2e9fc513fd2b540d4797fcec25ccbca53eb92f6b2be7bb4",
+  "amended_analyzer_sha256": "46b57f4c47e35905cac2fa0b0f7b75dd15181e559e8f74693d76e6bb53ff3095",
+  "specialization_path": "src/actionLab/equilibriumGpu/fastNeutralTolerance.ts",
+  "specialization_sha256": "fd997d341ba77af9838b393696792285f470fc334e480a4337ab4a9401805cfe",
+  "parity_test_path": "tests/v14k2rNeutralParity.test.ts",
+  "parity_test_sha256": "03b79121309d9f7af2ecf883855950656157076e01423d7cf49b0d46511280bf",
+  "parity_cases": ["FINITE_BOUNDARY", "PERIODIC_BOUNDARY"],
+  "parity_status": "2_PASS_AT_14_DECIMAL_PLACES",
+  "full_vitest": "117_PASS",
+  "typecheck": "PASS",
+  "classifier_threshold_change": false,
+  "packet_analyzed_before_amendment": false,
+  "firewalls": [
+    "NO_CHANNEL_SPECIFIC_CLASSIFIER",
+    "NO_THRESHOLD_CHANGE",
+    "NO_POST_REVEAL_TUNING",
+    "NO_VALIDATION",
+    "NO_CANON_PROMOTION",
+    "NO_MERGE"
+  ]
+}

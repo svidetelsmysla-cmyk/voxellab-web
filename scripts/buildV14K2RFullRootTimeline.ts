@@ -4,17 +4,15 @@ import { closeSync, openSync, readFileSync, readSync, writeFileSync } from "node
 import { join } from "node:path";
 import {
   DEFAULT_THRESHOLDS,
-  type Mat3,
   type QualifiedRoot,
   type Vec3,
   type VolumeFrame,
 } from "../src/actionLab/equilibriumGpu/types";
 import {
   findQualifiedRoots,
-  stiffnessFromJacobian,
-  symmetricEigenvalues,
 } from "../src/actionLab/equilibriumGpu/cpuReference";
 import { trackRootBranches } from "../src/actionLab/equilibriumGpu/branchTracker";
+import { exactGridNodeNeutralTolerance } from "../src/actionLab/equilibriumGpu/fastNeutralTolerance";
 import { validateMultiChannelManifest } from "../src/actionLab/equilibriumGpu/multiChannelPacketLoader";
 import type {
   MultiChannelManifest,
@@ -65,39 +63,6 @@ function frame(channelId: V14K2RChannelId, frameIndex: number): VolumeFrame {
 }
 
 const wrap = (value: number, n: number) => ((value % n) + n) % n;
-const clamp = (value: number, low: number, high: number) => Math.max(low, Math.min(high, value));
-const nodeIndex = (x: number, y: number, z: number) => ((z * ny + y) * nx + x) * 3;
-
-/** Exact node specialization of the published centered-difference classifier. */
-function exactFastNeutralTolerance(volume: VolumeFrame) {
-  const values = new Float64Array(voxelCount * 3);
-  let cursor = 0;
-  const index = (x: number, y: number, z: number) => nodeIndex(
-    volume.periodic ? wrap(x, nx) : clamp(x, 0, nx - 1),
-    volume.periodic ? wrap(y, ny) : clamp(y, 0, ny - 1),
-    volume.periodic ? wrap(z, nz) : clamp(z, 0, nz - 1),
-  );
-  for (let z = 0; z < nz; z++) for (let y = 0; y < ny; y++) for (let x = 0; x < nx; x++) {
-    const columns: number[][] = [];
-    for (let axis = 0; axis < 3; axis++) {
-      const plus = index(x + (axis === 0 ? 1 : 0), y + (axis === 1 ? 1 : 0), z + (axis === 2 ? 1 : 0));
-      const minus = index(x - (axis === 0 ? 1 : 0), y - (axis === 1 ? 1 : 0), z - (axis === 2 ? 1 : 0));
-      const denominator = 2 * volume.spacing[axis]!;
-      columns.push([0, 1, 2].map((component) => (volume.response[plus + component]! - volume.response[minus + component]!) / denominator));
-    }
-    const jacobian: Mat3 = [
-      [columns[0]![0]!, columns[1]![0]!, columns[2]![0]!],
-      [columns[0]![1]!, columns[1]![1]!, columns[2]![1]!],
-      [columns[0]![2]!, columns[1]![2]!, columns[2]![2]!],
-    ];
-    const eigenvalues = symmetricEigenvalues(stiffnessFromJacobian(jacobian).stiffness);
-    values[cursor++] = Math.abs(eigenvalues[0]);
-    values[cursor++] = Math.abs(eigenvalues[1]);
-    values[cursor++] = Math.abs(eigenvalues[2]);
-  }
-  values.sort();
-  return Math.max(1e-6, 1e-3 * values[Math.floor(0.95 * (values.length - 1))]!);
-}
 
 function compact(root: QualifiedRoot) {
   return {
@@ -113,7 +78,7 @@ const channelResults = packet.channels.map((channel) => {
   const neutralThresholds: number[] = [];
   for (let frameIndex = 0; frameIndex < packet.frames.length; frameIndex++) {
     const volume = frame(channel.channel_id, frameIndex);
-    const neutralTolerance = exactFastNeutralTolerance(volume);
+    const neutralTolerance = exactGridNodeNeutralTolerance(volume);
     neutralThresholds.push(neutralTolerance);
     rootsByFrame.push(findQualifiedRoots(volume, frameIndex, 2e-4, { ...DEFAULT_THRESHOLDS, neutralTolerance }));
     console.log(`roots channel=${channel.channel_id} frame=${frameIndex + 1}/${packet.frames.length}`);
