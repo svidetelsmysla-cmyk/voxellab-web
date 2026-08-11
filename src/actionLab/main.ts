@@ -22,6 +22,7 @@ import { CavityRelaxationPanel } from "./CavityRelaxationPanel";
 import { FirstHitContinuousColumnPanel } from "./FirstHitContinuousColumnPanel";
 import { ContinuousFieldActionBridgePanel } from "./ContinuousFieldActionBridgePanel";
 import { EquilibriumRegimeMapPanel } from "./EquilibriumRegimeMapPanel";
+import { V14K2RMultiChannelPanel } from "./V14K2RMultiChannelPanel";
 
 installA02DisplaySemanticsRepair();
 
@@ -81,3 +82,8 @@ const equilibriumRegimeRoot = document.createElement("div");
 equilibriumRegimeRoot.id = "webgpu-equilibrium-regime-map-root";
 root.append(equilibriumRegimeRoot);
 new EquilibriumRegimeMapPanel(equilibriumRegimeRoot);
+
+const v14k2rRoot = document.createElement("div");
+v14k2rRoot.id = "v14k2r-multichannel-g11r-root";
+root.append(v14k2rRoot);
+new V14K2RMultiChannelPanel(v14k2rRoot);

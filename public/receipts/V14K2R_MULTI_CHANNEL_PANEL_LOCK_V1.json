@@ -1,0 +1,28 @@
+{
+  "schema": "V14K2R_MULTI_CHANNEL_PANEL_LOCK_V1",
+  "created_utc": "2026-08-11T09:53:00Z",
+  "status": "FROZEN_BEFORE_PUBLIC_N54_SUBSET_IMPORT",
+  "parent_classifier_parity_commit": "77de57a84015c7883c4d158a8f0c30f6a135f60e",
+  "files_sha256": {
+    "src/actionLab/V14K2RMultiChannelPanel.ts": "33d2421c7bb831879c19f6bbaeb62a1c377f688cc758ed33be20630962c145a7",
+    "src/actionLab/main.ts": "aef6f48d4c62facc103f89c0e807e58d478e5f62fc1c5274f126740e802832dd"
+  },
+  "default_channel": "SOURCE_TOTAL_FORCE_PERIODIC",
+  "channel_count": 5,
+  "shared_cpu_classifier": true,
+  "shared_webgpu_classifier": true,
+  "typecheck": "PASS",
+  "production_build": "PASS",
+  "public_packet_imported": false,
+  "claim_ceiling": "SOURCE_FORCE_RESTORING_TOPOLOGY_DIAGNOSTIC_MAXIMUM",
+  "firewalls": [
+    "NO_W1_EQUALS_TOTAL_FORCE",
+    "NO_CHANNEL_SPECIFIC_CLASSIFIER",
+    "NO_PER_FRAME_SCALE",
+    "NO_DIPOLE_OR_UPOR",
+    "NO_SCALE_BINDING",
+    "NO_VALIDATION",
+    "NO_CANON_PROMOTION",
+    "NO_MERGE"
+  ]
+}
