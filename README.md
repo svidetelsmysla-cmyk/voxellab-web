@@ -25,6 +25,27 @@ curl diagnostics. The branch includes synthetic method oracles only; the
 current project status remains
 `A4_METHOD_BRIDGE_IMPLEMENTED_V14_SNAPSHOT_EXPORT_BLOCKER`.
 
+The V14K2R panel adds a hash-verified N54 playback with one shared classifier
+and five explicitly separate channels: finite and nearest-periodic K2/W1 action
+readouts, plus periodic material, action, and total source-force branches. W1
+is never relabelled as total force. The public site carries only the frozen
+`t=40/55/70` playback subset; the complete 151-frame packet remains the
+governed scientific artifact.
+
+The current governed source runtime completed all 151 N54 frames with
+`N54_MULTI_CHANNEL_PACKET_PASS_READY_FOR_REPAIRED_HOLDOUT`. The public
+projection is derived from source payload
+`8e8479c3b69acbe9b1ebdcea25a26808d4c3a7316f98e06383432f3dd601bcea`;
+this is a source-force topology diagnostic, not physical validation.
+
+The exact full-timeline gate now reports
+`N54_TOTAL_FORCE_RESTORING_BRANCH_PASS_DIAGNOSTIC`: 1,256,866 total-source
+roots, 28,512 persistent branches, and 1,104 persistent restoring branches.
+The separately frozen density-following test honestly reports
+`N54_DENSITY_FOLLOWING_FAIL` (37,842 steps, median delta
+`0.00446505824914567`, decrease fraction `0.4634004545214312`). The browser
+shows this bounded receipt but does not publish the multi-gigabyte root packet.
+
 Live site: <https://svidetelsmysla-cmyk.github.io/voxellab-web/>
 
 ## Preview and authority boundary
@@ -73,6 +94,7 @@ The production Vite base is `/voxellab-web/` for GitHub Pages.
 - `docs/interfaces/3DSMAX_EXPORTER_V2.md`
 - `docs/interfaces/VOXELLAB_ACTION_TRANSPORT_LAB_A3_FIRST_HIT_CONTINUOUS_COLUMN_V1.md`
 - `docs/interfaces/VOXELLAB_A4_V14_CONTINUOUS_FIELD_ACTION_BRIDGE_V1.md`
+- `docs/interfaces/VOXELLAB_V14K2R_N54_MULTI_CHANNEL_PLAYBACK_V1.md`
 - `docs/tasks/VOXELLAB_A4_V14_CONTINUOUS_FIELD_RESEARCH_PLAN_V1.md`
 
 ## Credits and scope

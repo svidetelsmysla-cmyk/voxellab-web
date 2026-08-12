@@ -1,0 +1,33 @@
+{
+  "schema": "V14K2R_WEB_EXTENSION_PREREGISTRATION_V1",
+  "created_utc": "2026-08-11T09:42:00Z",
+  "status": "FROZEN_BEFORE_N54_PACKET_IMPORT",
+  "base_commit": "e1e740e3f4a27fa08ab0efa95925c60c7ce3ae8a",
+  "physics_preregistration_commit": "a40d68ed0c45a5c995725ce8ee8de943a08120db",
+  "physics_preregistration_sha256": "2701118379e99ac2af5334649ecd84bd4c941b81e2397f7b2c85ed5f471825d5",
+  "channels": [
+    "ACTION_K2_STATE_MINUS_REFERENCE_W1_FINITE",
+    "ACTION_K2_STATE_MINUS_REFERENCE_W1_NEAREST_PERIODIC",
+    "SOURCE_MATERIAL_FORCE_PERIODIC",
+    "SOURCE_ACTION_FORCE_PERIODIC",
+    "SOURCE_TOTAL_FORCE_PERIODIC"
+  ],
+  "classifier": "ONE_EXISTING_SHARED_CPU_WEBGPU_CLASSIFIER",
+  "root_tolerance": "max(1e-10,2e-4*frame_max_response_norm)",
+  "neutral_tolerance": "max(1e-6,1e-3*frame_stiffness_abs_p95)",
+  "antisymmetry_tolerance": 0.05,
+  "public_packet_policy": "BOUNDED_PLAYBACK_SUBSET_WITH_FULL_PACKET_HASH_POINTER",
+  "old_instrument_verdict_unchanged": true,
+  "claim_ceiling": "SOURCE_FORCE_RESTORING_TOPOLOGY_DIAGNOSTIC_MAXIMUM",
+  "firewalls": [
+    "NO_W1_EQUALS_TOTAL_FORCE",
+    "NO_CHANNEL_SPECIFIC_CLASSIFIER",
+    "NO_PER_FRAME_SCALE",
+    "NO_COMPONENT_LABELS",
+    "NO_DIPOLE_OR_UPOR",
+    "NO_SCALE_BINDING",
+    "NO_VALIDATION",
+    "NO_CANON_PROMOTION",
+    "NO_MERGE"
+  ]
+}

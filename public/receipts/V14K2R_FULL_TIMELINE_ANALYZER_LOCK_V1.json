@@ -1,0 +1,28 @@
+{
+  "schema": "V14K2R_FULL_TIMELINE_ANALYZER_LOCK_V1",
+  "created_utc": "2026-08-11T09:49:00Z",
+  "status": "FROZEN_BEFORE_MULTI_CHANNEL_PACKET_ANALYSIS",
+  "parent_loader_commit": "a7593651519ccbcedaa59cf15abb9f0564aef86d",
+  "analyzer_path": "scripts/buildV14K2RFullRootTimeline.ts",
+  "analyzer_sha256": "64159116b1703284f2e9fc513fd2b540d4797fcec25ccbca53eb92f6b2be7bb4",
+  "root_classifier": "SHARED_PUBLISHED_findQualifiedRoots",
+  "branch_tracker": "SHARED_PUBLISHED_trackRootBranches",
+  "neutral_threshold": "EXACT_GRID_NODE_SPECIALIZATION_OF_PUBLISHED_CENTERED_DIFFERENCE_RULE",
+  "density_used_for_root_candidates_or_matching": false,
+  "density_centre_rule": "TOP8_STRICT_PERIODIC_26_NEIGHBOUR_MAXIMA_NO_THRESHOLD",
+  "typecheck": "PASS",
+  "ssr_compile": "PASS",
+  "packet_analyzed": false,
+  "claim_ceiling": "SOURCE_FORCE_RESTORING_TOPOLOGY_DIAGNOSTIC_MAXIMUM",
+  "firewalls": [
+    "NO_CHANNEL_SPECIFIC_CLASSIFIER",
+    "NO_COMPONENT_LABELS",
+    "NO_W1_EQUALS_TOTAL_FORCE",
+    "NO_POST_REVEAL_TUNING",
+    "NO_DIPOLE_OR_UPOR",
+    "NO_SCALE_BINDING",
+    "NO_VALIDATION",
+    "NO_CANON_PROMOTION",
+    "NO_MERGE"
+  ]
+}

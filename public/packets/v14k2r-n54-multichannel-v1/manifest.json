@@ -1,0 +1,310 @@
+{
+  "array_blobs": {
+    "ACTION_K2_STATE_MINUS_REFERENCE_W1_FINITE": {
+      "byte_length": 5668704,
+      "dtype": "LITTLE_ENDIAN_FLOAT32",
+      "relative_path": "ACTION_K2_STATE_MINUS_REFERENCE_W1_FINITE.f32",
+      "sha256": "fde551b2a0800d88f16cbacebfba1de12eb85da023009669b1709f65c5d95b9f",
+      "shape": [
+        3,
+        54,
+        54,
+        54,
+        3
+      ]
+    },
+    "ACTION_K2_STATE_MINUS_REFERENCE_W1_NEAREST_PERIODIC": {
+      "byte_length": 5668704,
+      "dtype": "LITTLE_ENDIAN_FLOAT32",
+      "relative_path": "ACTION_K2_STATE_MINUS_REFERENCE_W1_NEAREST_PERIODIC.f32",
+      "sha256": "b30ea3c20a8fc47a06be400ee2bd440129960abf1ac905cfb1bcdcd22b8f1e13",
+      "shape": [
+        3,
+        54,
+        54,
+        54,
+        3
+      ]
+    },
+    "SOURCE_ACTION_FORCE_PERIODIC": {
+      "byte_length": 5668704,
+      "dtype": "LITTLE_ENDIAN_FLOAT32",
+      "relative_path": "SOURCE_ACTION_FORCE_PERIODIC.f32",
+      "sha256": "1dcab5b12a23980b187b31cb9a818c953190144deee60d7255240125697fd8a4",
+      "shape": [
+        3,
+        54,
+        54,
+        54,
+        3
+      ]
+    },
+    "SOURCE_MATERIAL_FORCE_PERIODIC": {
+      "byte_length": 5668704,
+      "dtype": "LITTLE_ENDIAN_FLOAT32",
+      "relative_path": "SOURCE_MATERIAL_FORCE_PERIODIC.f32",
+      "sha256": "cee1eac3d40bc5bbd6ceb81c73e7a6d47e555c6bee27dac2c509ead7d99b8020",
+      "shape": [
+        3,
+        54,
+        54,
+        54,
+        3
+      ]
+    },
+    "SOURCE_TOTAL_FORCE_PERIODIC": {
+      "byte_length": 5668704,
+      "dtype": "LITTLE_ENDIAN_FLOAT32",
+      "relative_path": "SOURCE_TOTAL_FORCE_PERIODIC.f32",
+      "sha256": "4ea3c2b57d73a3e1bb69d0e6d53ad453459700e28084548501d3748a9d390c63",
+      "shape": [
+        3,
+        54,
+        54,
+        54,
+        3
+      ]
+    },
+    "rho": {
+      "byte_length": 1889568,
+      "dtype": "LITTLE_ENDIAN_FLOAT32",
+      "relative_path": "rho.f32",
+      "sha256": "6f72c9745aedcb2b10296574b554b72d0fd41220bc359e9b72267fe60a19b1a3",
+      "shape": [
+        3,
+        54,
+        54,
+        54
+      ]
+    }
+  },
+  "channels": [
+    {
+      "channel_id": "ACTION_K2_STATE_MINUS_REFERENCE_W1_FINITE",
+      "claim_ceiling": "NOT_SOURCE_FORCE",
+      "closure": "FINITE_BOX",
+      "normalization": "NONE",
+      "source_class": "DIAGNOSTIC_ACTION_READOUT"
+    },
+    {
+      "channel_id": "ACTION_K2_STATE_MINUS_REFERENCE_W1_NEAREST_PERIODIC",
+      "claim_ceiling": "NOT_SOURCE_FORCE",
+      "closure": "NEAREST_PERIODIC",
+      "normalization": "NONE",
+      "source_class": "DIAGNOSTIC_ACTION_READOUT"
+    },
+    {
+      "channel_id": "SOURCE_MATERIAL_FORCE_PERIODIC",
+      "claim_ceiling": "SOURCE_FORCE_RESTORING_TOPOLOGY_DIAGNOSTIC_MAXIMUM",
+      "closure": "SOURCE_PERIODIC",
+      "normalization": "NONE",
+      "source_class": "SOURCE_PERIODIC_FORCE_BRANCH"
+    },
+    {
+      "channel_id": "SOURCE_ACTION_FORCE_PERIODIC",
+      "claim_ceiling": "SOURCE_FORCE_RESTORING_TOPOLOGY_DIAGNOSTIC_MAXIMUM",
+      "closure": "SOURCE_PERIODIC",
+      "normalization": "NONE",
+      "source_class": "SOURCE_PERIODIC_FORCE_BRANCH"
+    },
+    {
+      "channel_id": "SOURCE_TOTAL_FORCE_PERIODIC",
+      "claim_ceiling": "SOURCE_FORCE_RESTORING_TOPOLOGY_DIAGNOSTIC_MAXIMUM",
+      "closure": "SOURCE_PERIODIC",
+      "normalization": "NONE",
+      "source_class": "SOURCE_PERIODIC_FORCE_BRANCH"
+    }
+  ],
+  "classifier_lock": {
+    "antisymmetry_tolerance": 0.05,
+    "implementation": "PUBLISHED_SHARED_WEBGPU_CPU_REFERENCE",
+    "neutral_tolerance": "max(1e-6,1e-3*frame_stiffness_abs_p95)",
+    "per_channel_tuning": false,
+    "root_tolerance": "max(1e-10,2e-4*frame_max_response_norm)"
+  },
+  "frames": [
+    {
+      "arrays": {
+        "ACTION_K2_STATE_MINUS_REFERENCE_W1_FINITE": {
+          "blob": "ACTION_K2_STATE_MINUS_REFERENCE_W1_FINITE",
+          "byte_offset": 0
+        },
+        "ACTION_K2_STATE_MINUS_REFERENCE_W1_NEAREST_PERIODIC": {
+          "blob": "ACTION_K2_STATE_MINUS_REFERENCE_W1_NEAREST_PERIODIC",
+          "byte_offset": 0
+        },
+        "SOURCE_ACTION_FORCE_PERIODIC": {
+          "blob": "SOURCE_ACTION_FORCE_PERIODIC",
+          "byte_offset": 0
+        },
+        "SOURCE_MATERIAL_FORCE_PERIODIC": {
+          "blob": "SOURCE_MATERIAL_FORCE_PERIODIC",
+          "byte_offset": 0
+        },
+        "SOURCE_TOTAL_FORCE_PERIODIC": {
+          "blob": "SOURCE_TOTAL_FORCE_PERIODIC",
+          "byte_offset": 0
+        },
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 0
+        }
+      },
+      "frame_id": "V14K2R_T00040p0",
+      "full_packet_frame_index": 0,
+      "time": 40.0
+    },
+    {
+      "arrays": {
+        "ACTION_K2_STATE_MINUS_REFERENCE_W1_FINITE": {
+          "blob": "ACTION_K2_STATE_MINUS_REFERENCE_W1_FINITE",
+          "byte_offset": 1889568
+        },
+        "ACTION_K2_STATE_MINUS_REFERENCE_W1_NEAREST_PERIODIC": {
+          "blob": "ACTION_K2_STATE_MINUS_REFERENCE_W1_NEAREST_PERIODIC",
+          "byte_offset": 1889568
+        },
+        "SOURCE_ACTION_FORCE_PERIODIC": {
+          "blob": "SOURCE_ACTION_FORCE_PERIODIC",
+          "byte_offset": 1889568
+        },
+        "SOURCE_MATERIAL_FORCE_PERIODIC": {
+          "blob": "SOURCE_MATERIAL_FORCE_PERIODIC",
+          "byte_offset": 1889568
+        },
+        "SOURCE_TOTAL_FORCE_PERIODIC": {
+          "blob": "SOURCE_TOTAL_FORCE_PERIODIC",
+          "byte_offset": 1889568
+        },
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 629856
+        }
+      },
+      "frame_id": "V14K2R_T00055p0",
+      "full_packet_frame_index": 75,
+      "time": 55.0
+    },
+    {
+      "arrays": {
+        "ACTION_K2_STATE_MINUS_REFERENCE_W1_FINITE": {
+          "blob": "ACTION_K2_STATE_MINUS_REFERENCE_W1_FINITE",
+          "byte_offset": 3779136
+        },
+        "ACTION_K2_STATE_MINUS_REFERENCE_W1_NEAREST_PERIODIC": {
+          "blob": "ACTION_K2_STATE_MINUS_REFERENCE_W1_NEAREST_PERIODIC",
+          "byte_offset": 3779136
+        },
+        "SOURCE_ACTION_FORCE_PERIODIC": {
+          "blob": "SOURCE_ACTION_FORCE_PERIODIC",
+          "byte_offset": 3779136
+        },
+        "SOURCE_MATERIAL_FORCE_PERIODIC": {
+          "blob": "SOURCE_MATERIAL_FORCE_PERIODIC",
+          "byte_offset": 3779136
+        },
+        "SOURCE_TOTAL_FORCE_PERIODIC": {
+          "blob": "SOURCE_TOTAL_FORCE_PERIODIC",
+          "byte_offset": 3779136
+        },
+        "rho": {
+          "blob": "rho",
+          "byte_offset": 1259712
+        }
+      },
+      "frame_id": "V14K2R_T00070p0",
+      "full_packet_frame_index": 150,
+      "time": 70.0
+    }
+  ],
+  "grid": {
+    "array_layout": "FRAME_Z_Y_X_COMPONENT",
+    "centering": "NODE_CENTERED",
+    "dimensions": [
+      54,
+      54,
+      54
+    ],
+    "layout": "X_FASTEST",
+    "origin": [
+      -18.0,
+      -18.0,
+      -18.0
+    ],
+    "periodic_axes": [
+      true,
+      true,
+      true
+    ],
+    "spacing": [
+      0.6666666666666666,
+      0.6666666666666666,
+      0.6666666666666666
+    ],
+    "world_midpoint": [
+      8.995109290263992,
+      14.209466526983485,
+      23.38537698956131
+    ]
+  },
+  "packet_id": "V14K2R_N54_G11R_MULTI_CHANNEL_RESPONSE_VOLUME_V1_PUBLIC_T40_T55_T70_SUBSET",
+  "provenance": {
+    "action_algorithm": "REGISTERED_FRAME_REAL_FFT_CONVOLUTION_PARITY_WITH_DIRECT_VOLUME",
+    "generator_sha256": "b184c6c7807657eb454c9895616e4bd8f2f36d3ae634d1833c0756f25b5b7032",
+    "rho_projection": "EXACT_FOURIER_SHIFT_TO_THE_COMMON_REGISTERED_LOCAL_GRID",
+    "self_cell_rule": "ZERO_ONLY_WHEN_DISPLACEMENT_NORM_IS_ZERO",
+    "source_algorithm": "PERIODIC_SPECTRAL_GRADIENT_AND_EXACT_FOURIER_GRID_SHIFT",
+    "source_manifest_sha256": "44e17b99899223d83ab44ef0c5b4a5bfbe8e6fc8e3b9b5aa0acdeb7cd1cf8198",
+    "source_packet_payload_sha256": "8e8479c3b69acbe9b1ebdcea25a26808d4c3a7316f98e06383432f3dd601bcea"
+  },
+  "public_subset": {
+    "class": "BOUNDED_PLAYBACK_NOT_FULL_SCIENTIFIC_PACKET",
+    "full_manifest_sha256": "1319c1a11b3fab4807877bee4b19ae04d30b87cdb4504ddf8f3ba9fca3c8e6ad",
+    "full_packet_manifest_ledger_sha256": "4f59d5199fbcf372fbc783eb498c9d414a8d08af33b6cdb14cc25dee834a0df1",
+    "generator_sha256": "6b05575fb79ebc96be89b1058059ee6bba58eac6050020cd3d0047b5e9c71003",
+    "selected_full_frame_indices": [
+      0,
+      75,
+      150
+    ],
+    "selection_frozen": [
+      40.0,
+      55.0,
+      70.0
+    ]
+  },
+  "registered_geometry": {
+    "axis_u": [
+      0.6343579177565263,
+      -0.6121589553428524,
+      -0.4720714411751171
+    ],
+    "axis_v": [
+      0.6944039545980828,
+      0.7195853999620502,
+      0.0
+    ],
+    "frozen_before_unblind": true,
+    "normal": [
+      0.3396957168086581,
+      -0.32780827560481757,
+      0.8815602954006312
+    ],
+    "origin": [
+      8.995109290263992,
+      14.209466526983485,
+      23.38537698956131
+    ]
+  },
+  "schema": "VOXELLAB_EQUILIBRIUM_MULTI_CHANNEL_PACKET_V1",
+  "source": {
+    "claim_ceiling": "SOURCE_FORCE_RESTORING_TOPOLOGY_DIAGNOSTIC_MAXIMUM",
+    "class": "FROZEN_V14K2R_N54_SOURCE_PACKET",
+    "packet_payload_sha256": "8e8479c3b69acbe9b1ebdcea25a26808d4c3a7316f98e06383432f3dd601bcea"
+  },
+  "times": [
+    40.0,
+    55.0,
+    70.0
+  ]
+}

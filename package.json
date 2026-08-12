@@ -21,6 +21,10 @@
     "equilibrium:gate": "vitest run tests/equilibriumGpuMath.test.ts tests/equilibriumGpuBranches.test.ts tests/equilibriumGpuPacket.test.ts",
     "equilibrium:e2e": "playwright test tests/e2e/equilibrium-regime-map.spec.ts",
     "equilibrium:timeline:build": "vite build --ssr scripts/buildEquilibriumRootTimeline.ts --outDir .equilibrium-timeline-build --emptyOutDir && node .equilibrium-timeline-build/buildEquilibriumRootTimeline.js",
+    "v14k2r:timeline:compile": "vite build --ssr scripts/buildV14K2RFullRootTimeline.ts --outDir .v14k2r-timeline-build --emptyOutDir",
+    "v14k2r:public-timeline:compile": "vite build --ssr scripts/buildV14K2RPublicNeutralTimeline.ts --outDir .v14k2r-public-timeline-build --emptyOutDir",
+    "v14k2r:channel-timeline:compile": "vite build --ssr scripts/buildV14K2RChannelTimeline.ts --outDir .v14k2r-channel-timeline-build --emptyOutDir",
+    "v14k2r:timeline-assembler:compile": "vite build --ssr scripts/assembleV14K2RFullRootTimeline.ts --outDir .v14k2r-timeline-assembler-build --emptyOutDir",
     "equilibrium:webgpu:gate": "playwright test --config playwright.webgpu.config.ts"
   },
   "dependencies": {
