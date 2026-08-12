@@ -1,0 +1,26 @@
+{
+  "schema": "V14K2R_PUBLIC_FULL_TIMELINE_DECISION_V1",
+  "timeline_index_sha256": "13da8d226b95e7c78a0f8a22f612768b9631af01e63f4a101989a4b99c4a6bff",
+  "source_packet_payload_sha256": "8e8479c3b69acbe9b1ebdcea25a26808d4c3a7316f98e06383432f3dd601bcea",
+  "frames": 151,
+  "source_total": {
+    "roots": 1256866,
+    "persistent_branches": 28512,
+    "persistent_restoring_branches": 1104
+  },
+  "g11r": {
+    "decision": "N54_TOTAL_FORCE_RESTORING_BRANCH_PASS_DIAGNOSTIC",
+    "crosswalk_rows": 29031,
+    "source_action_regime_agreement_fraction": 0.8051048878784748,
+    "source_total_regime_agreement_fraction": 0.2511797733457339
+  },
+  "g12r": {
+    "decision": "N54_DENSITY_FOLLOWING_FAIL",
+    "step_count": 37842,
+    "median_step_delta": 0.00446505824914567,
+    "decrease_fraction": 0.4634004545214312
+  },
+  "claim_ceiling": "SOURCE_FORCE_RESTORING_TOPOLOGY_DIAGNOSTIC_MAXIMUM",
+  "w1_equals_total_force": false,
+  "validation": false
+}

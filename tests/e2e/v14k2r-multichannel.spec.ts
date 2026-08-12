@@ -12,6 +12,10 @@ test("V14K2R verifies the governed N54 packet and keeps W1 separate from source 
   await expect(panel).toContainText("W1 is action readout, not total source force");
   await expect(panel).toContainText("N54");
   await expect(panel.locator("#v14k2r-semantics")).toContainText("SOURCE_FORCE_RESTORING_TOPOLOGY_DIAGNOSTIC_MAXIMUM", { timeout: 90_000 });
+  const fullTimeline = panel.locator("#v14k2r-full-timeline");
+  await expect(fullTimeline).toContainText("N54_TOTAL_FORCE_RESTORING_BRANCH_PASS_DIAGNOSTIC", { timeout: 90_000 });
+  await expect(fullTimeline).toContainText("N54_DENSITY_FOLLOWING_FAIL");
+  await expect(fullTimeline).toContainText("1,256,866 total roots");
 
   const channel = panel.locator("#v14k2r-channel");
   await expect(channel.locator("option")).toHaveCount(5);

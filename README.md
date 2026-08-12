@@ -38,6 +38,14 @@ projection is derived from source payload
 `8e8479c3b69acbe9b1ebdcea25a26808d4c3a7316f98e06383432f3dd601bcea`;
 this is a source-force topology diagnostic, not physical validation.
 
+The exact full-timeline gate now reports
+`N54_TOTAL_FORCE_RESTORING_BRANCH_PASS_DIAGNOSTIC`: 1,256,866 total-source
+roots, 28,512 persistent branches, and 1,104 persistent restoring branches.
+The separately frozen density-following test honestly reports
+`N54_DENSITY_FOLLOWING_FAIL` (37,842 steps, median delta
+`0.00446505824914567`, decrease fraction `0.4634004545214312`). The browser
+shows this bounded receipt but does not publish the multi-gigabyte root packet.
+
 Live site: <https://svidetelsmysla-cmyk.github.io/voxellab-web/>
 
 ## Preview and authority boundary

@@ -13,6 +13,12 @@ const LABELS: Record<V14K2RChannelId, string> = {
   SOURCE_ACTION_FORCE_PERIODIC: "Source action force · periodic",
   SOURCE_TOTAL_FORCE_PERIODIC: "Source total force · periodic",
 };
+interface FullTimelineDecision {
+  timeline_index_sha256: string;
+  source_total: { roots: number; persistent_branches: number; persistent_restoring_branches: number };
+  g11r: { decision: string };
+  g12r: { decision: string; median_step_delta: number; decrease_fraction: number };
+}
 
 export class V14K2RMultiChannelPanel {
   private packet?: LoadedMultiChannelPacket;
@@ -26,6 +32,7 @@ export class V14K2RMultiChannelPanel {
   private readonly status: HTMLElement;
   private readonly rootSummary: HTMLElement;
   private readonly backend: HTMLElement;
+  private readonly fullTimeline: HTMLElement;
 
   constructor(private readonly root: HTMLElement) {
     root.innerHTML = `<section class="equilibrium-map-card" id="v14k2r-multichannel-g11r-v1">
@@ -42,12 +49,14 @@ export class V14K2RMultiChannelPanel {
         <div class="eq-legend"><span class="well">restoring</span><span class="saddle1">saddle 1</span><span class="saddle2">saddle 2</span><span class="peak">repelling</span><span class="neutral">neutral</span><span class="unresolved">unresolved</span></div></div>
       <div class="eq-readouts"><article><h3>Qualified 3D roots</h3><div id="v14k2r-roots">pending</div></article>
       <article><h3>Channel semantics</h3><div id="v14k2r-semantics">pending</div></article>
+      <article><h3>Full 151-frame gate</h3><div id="v14k2r-full-timeline">verifying governed receipt…</div></article>
       <article><h3>Provenance</h3><div id="v14k2r-status">verifying packet hashes…</div></article></div>
     </section>`;
     this.canvas = root.querySelector("#v14k2r-map")!;
     this.status = root.querySelector("#v14k2r-status")!;
     this.rootSummary = root.querySelector("#v14k2r-roots")!;
     this.backend = root.querySelector("#v14k2r-backend")!;
+    this.fullTimeline = root.querySelector("#v14k2r-full-timeline")!;
     root.querySelector<HTMLSelectElement>("#v14k2r-channel")!.addEventListener("change", (event) => {
       this.channel = (event.currentTarget as HTMLSelectElement).value as V14K2RChannelId;
       void this.render();
@@ -65,6 +74,10 @@ export class V14K2RMultiChannelPanel {
       this.packet = await loadMultiChannelPacket(PACKET_URL);
       const timelineResponse = await fetch(`${PACKET_URL}/root_timeline.json`);
       if (timelineResponse.ok) this.timeline = await timelineResponse.json() as MultiChannelTimeline;
+      const decisionResponse = await fetch(`${PACKET_URL}/full_timeline_decision.json`);
+      if (!decisionResponse.ok) throw new Error(`full timeline receipt HTTP ${decisionResponse.status}`);
+      const decision = await decisionResponse.json() as FullTimelineDecision;
+      this.fullTimeline.innerHTML = `<b>${decision.g11r.decision}</b><br>${decision.source_total.roots.toLocaleString()} total roots · ${decision.source_total.persistent_restoring_branches.toLocaleString()} persistent restoring<br><b class="eq-fail">${decision.g12r.decision}</b><br>median Δ ${decision.g12r.median_step_delta.toExponential(3)} · decrease ${(100 * decision.g12r.decrease_fraction).toFixed(2)}%<br><code>${decision.timeline_index_sha256.slice(0, 20)}…</code>`;
       const slider = this.root.querySelector<HTMLInputElement>("#v14k2r-frame")!;
       slider.max = String(this.packet.manifest.frames.length - 1);
       this.status.innerHTML = `<b>PACKET VERIFIED</b><br>${this.packet.manifest.packet_id}<br><code>${this.packet.manifest.source.packet_payload_sha256.slice(0, 20)}…</code>`;

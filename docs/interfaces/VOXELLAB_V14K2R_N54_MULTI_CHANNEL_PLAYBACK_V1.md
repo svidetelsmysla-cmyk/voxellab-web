@@ -59,6 +59,21 @@ browser recomputes the selected frame's roots from the hash-verified 54-cubed
 vector field. This prevents a multi-gigabyte derived JSON from becoming a
 second, lossy scientific packet.
 
+The bounded `full_timeline_decision.json` publishes only the governed result
+and its exact full-index hash:
+
+```text
+timeline index SHA256 =
+  13da8d226b95e7c78a0f8a22f612768b9631af01e63f4a101989a4b99c4a6bff
+
+G11R = N54_TOTAL_FORCE_RESTORING_BRANCH_PASS_DIAGNOSTIC
+G12R = N54_DENSITY_FOLLOWING_FAIL
+```
+
+The negative G12R result is displayed rather than hidden or retuned. It is not
+a failure of packet integrity and does not erase the separately classified
+source-total restoring topology.
+
 Local production verification:
 
 ```text

@@ -4,7 +4,7 @@ import { closeSync, openSync, readFileSync, readSync, writeFileSync } from "node
 import { join } from "node:path";
 import { REQUIRED_V14K2R_CHANNELS, validateMultiChannelManifest } from "../src/actionLab/equilibriumGpu/multiChannelPacketLoader";
 import type { MultiChannelManifest, V14K2RChannelId } from "../src/actionLab/equilibriumGpu/multiChannelTypes";
-import type { QualifiedRoot, Vec3 } from "../src/actionLab/equilibriumGpu/types";
+import type { Mat3, QualifiedRoot, Vec3 } from "../src/actionLab/equilibriumGpu/types";
 
 declare const process: { argv: string[] };
 function argument(name: string) {
@@ -51,6 +51,53 @@ const periodicDistance = (a: Vec3, b: Vec3) => Math.hypot(...a.map((value, axis)
 }) as [number, number, number]);
 const persistentIds = (result: ChannelCheckpoint) =>
   new Set(result.branches.filter((branch) => branch.persistent).map((branch) => branch.id));
+
+function stiffnessEigenvectors(jacobian: Mat3): Mat3 {
+  const matrix: Mat3 = [
+    [-jacobian[0][0], -0.5 * (jacobian[0][1] + jacobian[1][0]), -0.5 * (jacobian[0][2] + jacobian[2][0])],
+    [-0.5 * (jacobian[1][0] + jacobian[0][1]), -jacobian[1][1], -0.5 * (jacobian[1][2] + jacobian[2][1])],
+    [-0.5 * (jacobian[2][0] + jacobian[0][2]), -0.5 * (jacobian[2][1] + jacobian[1][2]), -jacobian[2][2]],
+  ];
+  const vectors: Mat3 = [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
+  for (let sweep = 0; sweep < 32; sweep++) {
+    let p = 0, q = 1, largest = Math.abs(matrix[0][1]);
+    for (const [row, col] of [[0, 2], [1, 2]] as const) {
+      const magnitude = Math.abs(matrix[row][col]);
+      if (magnitude > largest) { largest = magnitude; p = row; q = col; }
+    }
+    if (largest <= 1e-15 * Math.max(1, Math.abs(matrix[0][0]), Math.abs(matrix[1][1]), Math.abs(matrix[2][2]))) break;
+    const angle = 0.5 * Math.atan2(2 * matrix[p][q], matrix[q][q] - matrix[p][p]);
+    const cosine = Math.cos(angle), sine = Math.sin(angle);
+    const app = matrix[p][p], aqq = matrix[q][q], apq = matrix[p][q];
+    matrix[p][p] = cosine * cosine * app - 2 * sine * cosine * apq + sine * sine * aqq;
+    matrix[q][q] = sine * sine * app + 2 * sine * cosine * apq + cosine * cosine * aqq;
+    matrix[p][q] = matrix[q][p] = 0;
+    for (let index = 0; index < 3; index++) {
+      if (index !== p && index !== q) {
+        const aip = matrix[index][p], aiq = matrix[index][q];
+        matrix[index][p] = matrix[p][index] = cosine * aip - sine * aiq;
+        matrix[index][q] = matrix[q][index] = sine * aip + cosine * aiq;
+      }
+      const vip = vectors[index][p], viq = vectors[index][q];
+      vectors[index][p] = cosine * vip - sine * viq;
+      vectors[index][q] = sine * vip + cosine * viq;
+    }
+  }
+  const order = [0, 1, 2].sort((left, right) => matrix[left][left] - matrix[right][right]);
+  return order.map((column) => [vectors[0][column], vectors[1][column], vectors[2][column]]) as Mat3;
+}
+
+const channelsWithEigenvectors = channels.map((channel) => ({
+  ...channel,
+  roots_by_frame: channel.roots_by_frame.map((roots) => roots.map((root) => ({
+    ...root,
+    stiffnessEigenvectors: stiffnessEigenvectors(root.jacobian),
+  }))),
+  root_record_fields: [
+    "position", "response", "responseNorm", "jacobian", "stiffnessEigenvalues",
+    "stiffnessEigenvectors", "antisymmetryRatio", "regime", "residualRelative", "branchId",
+  ],
+}));
 
 const actionW1 = byChannel.ACTION_K2_STATE_MINUS_REFERENCE_W1_NEAREST_PERIODIC;
 const sourceAction = byChannel.SOURCE_ACTION_FORCE_PERIODIC;
@@ -158,7 +205,7 @@ const output = {
   neutral_node_specialization: "EXACT_PARITY_CENTERED_DIFFERENCE_AT_GRID_NODES",
   density_used_for_root_candidates_or_branch_matching: false,
   channel_execution: "INDEPENDENT_CHECKPOINTS_ASSEMBLED_WITHOUT_ALGORITHM_CHANGE",
-  channels,
+  channels: channelsWithEigenvectors,
   g11r_d_action_scaffold_crosswalk: g11Rows,
   g12_density_following: {
     detector: "TOP8_STRICT_PERIODIC_26_NEIGHBOUR_MAXIMA_NO_THRESHOLD",
