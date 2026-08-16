@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { computeChrysanthemum, sharedFrontChange } from "../src/actionLab/chrysanthemumScale";
+import {
+  asymptoticRawShellBudget,
+  chrysanthemumShellScale,
+  computeChrysanthemum,
+  sharedFrontChange,
+} from "../src/actionLab/chrysanthemumScale";
 
 describe("Chrysanthemum external support scale", () => {
   it("reproduces the locally closed S10 diagnostic and converges in angular sampling", () => {
@@ -30,5 +35,16 @@ describe("Chrysanthemum external support scale", () => {
     const disordered = computeChrysanthemum(6, 1.4, 4096, "RANDOM_ANTIPODAL", 1701);
     expect(disordered.metrics.coverage).toBeGreaterThan(0.999);
     expect(disordered.metrics.coefficientOfVariation).toBeGreaterThan(0.2);
+  });
+
+  it("shows the k^2 times inverse-square shell balance without calling it a force law", () => {
+    const run = computeChrysanthemum(8, 0.2, 4096, "ORDERED_ANTIPODAL");
+    const rows = chrysanthemumShellScale(run.result, run.bodies, 0.2, 8);
+    const asymptote = asymptoticRawShellBudget(0.2);
+    expect(rows[7]!.bodyCount).toBe(384); // 2*m*k^2, m=3, k=8.
+    expect(rows[7]!.rawShellSolidAngleBudget).toBeGreaterThan(0);
+    expect(rows[7]!.rawShellSolidAngleBudget).toBeLessThan(asymptote);
+    expect(rows[7]!.rawShellSolidAngleBudget / asymptote).toBeGreaterThan(0.75);
+    expect(rows[7]!.openFraction).toBeLessThan(rows[0]!.openFraction);
   });
 });
