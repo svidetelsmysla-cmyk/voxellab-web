@@ -41,10 +41,20 @@ describe("Chrysanthemum external support scale", () => {
     const run = computeChrysanthemum(8, 0.2, 4096, "ORDERED_ANTIPODAL");
     const rows = chrysanthemumShellScale(run.result, run.bodies, 0.2, 8);
     const asymptote = asymptoticRawShellBudget(0.2);
-    expect(rows[7]!.bodyCount).toBe(384); // 2*m*k^2, m=3, k=8.
+    expect(rows[7]!.bodyCount).toBe(384);
     expect(rows[7]!.rawShellSolidAngleBudget).toBeGreaterThan(0);
     expect(rows[7]!.rawShellSolidAngleBudget).toBeLessThan(asymptote);
     expect(rows[7]!.rawShellSolidAngleBudget / asymptote).toBeGreaterThan(0.75);
     expect(rows[7]!.openFraction).toBeLessThan(rows[0]!.openFraction);
+  });
+
+  it("has exact normalized terminal-front collapse under a pure geometric scale change", () => {
+    const base = computeChrysanthemum(6, 0.5, 4096, "ORDERED_ANTIPODAL", 1701, 1.0);
+    const scaled = computeChrysanthemum(6, 1.0, 4096, "ORDERED_ANTIPODAL", 1701, 2.0);
+    expect(scaled.metrics.coverage).toBe(base.metrics.coverage);
+    expect(scaled.metrics.coefficientOfVariation).toBeCloseTo(base.metrics.coefficientOfVariation, 12);
+    expect(scaled.metrics.robustLobeAmplitude).toBeCloseTo(base.metrics.robustLobeAmplitude, 12);
+    expect(scaled.metrics.meanDepth / base.metrics.meanDepth).toBeCloseTo(2, 12);
+    expect(scaled.metrics.meanDepth / 1.0).toBeCloseTo(base.metrics.meanDepth / 0.5, 12);
   });
 });
