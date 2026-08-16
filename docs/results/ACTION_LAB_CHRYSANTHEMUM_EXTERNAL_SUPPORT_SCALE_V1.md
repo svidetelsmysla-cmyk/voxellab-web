@@ -215,6 +215,74 @@ first-owner survival over repeated tiers:
   approximately exponential in tier count.
 ```
 
+## Constant external-centre density and the terminal-ownership length
+
+The same KOU asymptotics reveal why the `k^2` shell count is physically interesting as a representation of a homogeneous external population rather than just a numerical recipe.
+
+For shell thickness `dr ~= s`, shell volume is approximately
+
+```text
+dV_shell ~= 4 pi r_k^2 s.
+```
+
+With `N_k ~= 2 m k^2` and `r_k ~= s k`, the represented centre number density tends to
+
+```text
+n_c ~= N_k / dV_shell
+    ~= m / (2 pi s^3),
+```
+
+which is independent of radius.
+
+A static geometric line-of-direction encounter opportunity for finite centres has area scale
+
+```text
+Sigma_geom ~ pi a^2.
+```
+
+The associated terminal-ownership length scale is therefore, at the level of this geometric approximation,
+
+```text
+ell_term ~ 1 / (n_c Sigma_geom)
+         ~ 2 s^3 / (m a^2).
+```
+
+Again, `ell_term` is **not** introduced as a corpuscular mean-free-path. It is a compact way of describing the terminal-depth statistics of a static first-owner geometry.
+
+This gives a very strong hierarchy clue. If a natural next level rescales object radius and characteristic spacing together,
+
+```text
+a' = b a
+s' = b s,
+```
+
+then
+
+```text
+ell_term' = b ell_term
+```
+
+and consequently
+
+```text
+ell_term / a = invariant
+```
+
+provided the dimensionless filling/shape statistics remain similar.
+
+Equivalent packing-fraction form:
+
+```text
+n_c a^3 ~ phi
+Sigma_geom ~ C_shape a^2
+=>
+ell_term / a ~ 1/(C_shape phi).
+```
+
+This is a concrete possible mechanism for the old qualitative statement that the external counter-boundary grain can remain calibrated to the clump scale without requiring a fundamental voxel size of space.
+
+It also sharpens the proposed `scale resonance` concept. A level can reproduce the *dimensionless* external support geometry of another level when its object-size / spacing / angular-shape ratios repeat. Absolute lengths may change while the normalized terminal front does not.
+
 ## Link to the “two exponentials -> power law” clue
 
 The shell result above does not itself create a new power law in physical distance; KOU tiers are linearly spaced here.
@@ -279,7 +347,8 @@ robust q05-q95 lobe amplitude;
 owner fraction by tier;
 front-change norm K -> K+1;
 raw solid-angle budget by shell;
-open-sky survival and effective shell hazard.
+open-sky survival and effective shell hazard;
+terminal scale normalized by support-object size.
 ```
 
 A truly intrinsic terminal front should satisfy, after a finite K_sat:
@@ -303,7 +372,8 @@ material cavity is proved independent of the terminal front;
 external support front is a particle boundary;
 scale quantization or constants are derived;
 observed shell hazard is a physical collision/transport process;
-a gravitational exponent is derived from the tier law.
+a gravitational exponent is derived from the tier law;
+self-similar external support is naturally selected by V14H or R17.
 ```
 
 The result is a mechanism discriminator and a bridge to the current R17 natural-formation solver.
