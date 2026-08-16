@@ -76,9 +76,41 @@ SCALAR HOMOGENIZATION
 DISAPPEARANCE OF INTERNAL STRUCTURE.
 ```
 
+## Moment scale-dimension spectrum
+
+A single `D_relief` hides whether weak and strong inhomogeneities occupy the same geometry. Define the source-direct family
+
+```text
+Z_q(R) = integral |rho-<rho>|^q dV
+D_q(R) = d ln Z_q / d ln R.
+```
+
+At the same `t=70`, `R=8.246800` cancellation scale:
+
+```text
+q = 0.5  -> D_q = 3.074231
+q = 1.0  -> D_q = 2.928010
+q = 2.0  -> D_q = 2.205380
+q = 4.0  -> D_q = 0.728618
+```
+
+This is a strong qualitative separation:
+
+```text
+weak relief:
+  approximately volume-filling;
+
+strong relief:
+  much more spatially concentrated.
+```
+
+The decreasing `D_q` with increasing moment order is a real scale signature of this V14H frame. It is **not yet** called a multifractal spectrum: N16 supplies too little scale range, there is no spatial-resolution family here, and the raw moments have not been converted into a governed multifractal measure.
+
+This result nevertheless sharpens the hierarchy hypothesis. Coarse-graining can cancel the scalar mean while retaining a hierarchy in the strength and spatial concentration of the remaining structure.
+
 ## Important negative result
 
-The late V14H relief does **not** behave like a compact dimension-zero perturbation over the accessible N16/L24 scale range. Around and beyond the strongest cancellation region, `D_relief` is close to three. The raw density fluctuations are therefore approximately volume-filling at this stage/history.
+The late first-moment V14H relief does **not** behave like a compact dimension-zero perturbation over the accessible N16/L24 scale range. Around and beyond the strongest cancellation region, `D_1` is close to three. The weak/raw density fluctuations are therefore approximately volume-filling at this stage/history.
 
 That is consistent with the historical continuous-substrate picture in which formation/breathing organization can be distributed into global substrate modes. It is not evidence that a finished isolated particle has fractal dimension three.
 
@@ -90,7 +122,7 @@ This result repairs one possible circularity. A scale-transfer exponent must not
 
 ```text
 1. MATERIAL SCALE CURVE
-   D_amount(R), D_relief(R), C(R)
+   D_amount(R), D_q(R), C(R)
 
 2. ANGULAR PERSISTENCE
    normalized P_l(R) or later a true transfer eigenvalue lambda_l
@@ -104,6 +136,18 @@ This result repairs one possible circularity. A scale-transfer exponent must not
 
 Only if these independently measured channels coincide across natural events does `scale resonance` become a physical mechanism rather than a bookkeeping identity.
 
+## Discrete-scale falsifier
+
+If the project hierarchy repeats only at discrete level ratios rather than continuously, a pure power law need not be the most specific signal. Test a form
+
+```text
+X(R) = R^alpha * F(log R / log b)
+```
+
+where `F` is periodic. Repeated residual structure at a stable interval in `log R` would be more specific evidence for discrete scale invariance than an arbitrary straight line on a log-log plot.
+
+Do not search/tune `b` until multiple independent natural birth/split/merge events exist.
+
 ## Browser-coordinate warning found during this work
 
 The WebGPU packet stores the exact source `rho` array but uses a display grid origin of `(-12,-12,-12)`, while `world_midpoint` / registered geometry remains in the source `[0,24)` coordinates. Therefore any new material scale analysis must explicitly crosswalk source coordinates to the browser display frame. The source-direct result above is unaffected.
@@ -115,7 +159,7 @@ Do not silently use `world_midpoint` as though it were already expressed in the 
 Keep the existing Action Lab Local Power Exponent and R15 fold panels. Add/retain three independent measured plots:
 
 ```text
-D_relief / C(R)     material homogenization
+D_q / C(R)          material homogenization and concentration hierarchy
 P1,P2 scaling       angular persistence proxy
 kappa_soft          mechanical branch softness
 ```
@@ -128,4 +172,4 @@ scale-collapse overlays
 log-periodic residual test for discrete scale invariance.
 ```
 
-No claim of universality class, self-organized criticality, total physical force or inter-level resonance is made here.
+No claim of universality class, self-organized criticality, total physical force, multifractality or inter-level resonance is made here.
