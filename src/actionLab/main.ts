@@ -11,6 +11,7 @@ import "./firstHitContinuousColumn.css";
 import "./continuousFieldActionBridge.css";
 import "./equilibriumRegimeMap.css";
 import "./scalingAnalysis.css";
+import "./chrysanthemumScale.css";
 import { ActionTransportAppA02 } from "./AppA02";
 import { installA02DisplaySemanticsRepair } from "./a02DisplaySemanticsRepair";
 import { OneBodyClosurePanel } from "./ClosurePanel";
@@ -24,6 +25,7 @@ import { FirstHitContinuousColumnPanel } from "./FirstHitContinuousColumnPanel";
 import { ContinuousFieldActionBridgePanel } from "./ContinuousFieldActionBridgePanel";
 import { EquilibriumRegimeMapPanel } from "./EquilibriumRegimeMapPanel";
 import { ScalingAnalysisPanel } from "./ScalingAnalysisPanel";
+import { ChrysanthemumScalePanel } from "./ChrysanthemumScalePanel";
 
 installA02DisplaySemanticsRepair();
 
@@ -88,3 +90,8 @@ const scalingRoot = document.createElement("div");
 scalingRoot.id = "action-lab-scale-law-explorer-root";
 root.append(scalingRoot);
 new ScalingAnalysisPanel(scalingRoot);
+
+const chrysanthemumScaleRoot = document.createElement("div");
+chrysanthemumScaleRoot.id = "action-lab-chrysanthemum-scale-root";
+root.append(chrysanthemumScaleRoot);
+new ChrysanthemumScalePanel(chrysanthemumScaleRoot);
