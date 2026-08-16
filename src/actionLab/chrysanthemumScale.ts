@@ -51,13 +51,14 @@ export function chrysanthemumKou(
   bodyRadius: number,
   geometryMode: ChrysanthemumGeometryMode,
   randomSeed = 1701,
+  tierSpacing = 1.05,
 ): RigidGroup[] {
   const definition: KouDefinition = {
     enabled: true,
     preset: "M0_K4",
     m: 3,
     tiers,
-    tier_spacing: 1.05,
+    tier_spacing: tierSpacing,
     body_amount: 0.03,
     body_radius: bodyRadius,
     near_movable_tiers: 1,
@@ -141,21 +142,20 @@ export function computeChrysanthemum(
   directionCount: number,
   geometryMode: ChrysanthemumGeometryMode = "ORDERED_ANTIPODAL",
   randomSeed = 1701,
+  tierSpacing = 1.05,
 ) {
-  const bodies = chrysanthemumKou(tiers, bodyRadius, geometryMode, randomSeed);
-  const result = computeFirstHit([0, 0, 0], bodies, directionCount, 100);
+  const bodies = chrysanthemumKou(tiers, bodyRadius, geometryMode, randomSeed, tierSpacing);
+  const result = computeFirstHit([0, 0, 0], bodies, directionCount, 100 * Math.max(1, tierSpacing));
   return { bodies, result, metrics: chrysanthemumMetrics(result, bodies) };
 }
 
 export function shellSolidAngleFraction(bodyRadius: number, centreRadius: number) {
   if (!(centreRadius > bodyRadius && bodyRadius >= 0)) return Number.NaN;
   const x = bodyRadius / centreRadius;
-  // Exact spherical-cap fraction Omega/(4*pi) for a sphere seen from the origin.
   return 0.5 * (1 - Math.sqrt(Math.max(0, 1 - x * x)));
 }
 
 export function asymptoticRawShellBudget(bodyRadius: number, m = 3, tierSpacing = 1.05) {
-  // N_k = 2*m*k^2 and one small angular footprint ~a^2/(4 r_k^2), r_k~s*k.
   return m * bodyRadius * bodyRadius / (2 * tierSpacing * tierSpacing);
 }
 
