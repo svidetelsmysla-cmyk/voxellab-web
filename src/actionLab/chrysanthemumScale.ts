@@ -14,6 +14,17 @@ export interface ChrysanthemumMetrics {
   tierFractions: number[];
 }
 
+export interface ChrysanthemumShellScaleRow {
+  tier: number;
+  centreRadius: number;
+  bodyCount: number;
+  singleBodySolidAngleFraction: number;
+  rawShellSolidAngleBudget: number;
+  cumulativeCoverage: number;
+  openFraction: number;
+  incrementalHazard: number;
+}
+
 function xorshift32(seed: number) {
   let state = (seed >>> 0) || 1;
   return () => {
@@ -134,6 +145,62 @@ export function computeChrysanthemum(
   const bodies = chrysanthemumKou(tiers, bodyRadius, geometryMode, randomSeed);
   const result = computeFirstHit([0, 0, 0], bodies, directionCount, 100);
   return { bodies, result, metrics: chrysanthemumMetrics(result, bodies) };
+}
+
+export function shellSolidAngleFraction(bodyRadius: number, centreRadius: number) {
+  if (!(centreRadius > bodyRadius && bodyRadius >= 0)) return Number.NaN;
+  const x = bodyRadius / centreRadius;
+  // Exact spherical-cap fraction Omega/(4*pi) for a sphere seen from the origin.
+  return 0.5 * (1 - Math.sqrt(Math.max(0, 1 - x * x)));
+}
+
+export function asymptoticRawShellBudget(bodyRadius: number, m = 3, tierSpacing = 1.05) {
+  // N_k = 2*m*k^2 and one small angular footprint ~a^2/(4 r_k^2), r_k~s*k.
+  return m * bodyRadius * bodyRadius / (2 * tierSpacing * tierSpacing);
+}
+
+export function chrysanthemumShellScale(
+  result: FirstHitResult,
+  bodies: readonly RigidGroup[],
+  bodyRadius: number,
+  maxTier: number,
+  m = 3,
+  tierSpacing = 1.05,
+): ChrysanthemumShellScaleRow[] {
+  const tierById = new Map(bodies.map((body) => [body.object_id, body.kou_tier ?? 0]));
+  const ownerCounts = new Array<number>(maxTier + 1).fill(0);
+  for (const id of result.body_ids) {
+    if (!id) continue;
+    const tier = tierById.get(id) ?? 0;
+    if (tier > 0 && tier <= maxTier) ownerCounts[tier] += 1;
+  }
+
+  const rows: ChrysanthemumShellScaleRow[] = [];
+  let cumulativeHits = 0;
+  let previousOpen = 1;
+  for (let tier = 1; tier <= maxTier; tier += 1) {
+    cumulativeHits += ownerCounts[tier] ?? 0;
+    const coverage = cumulativeHits / Math.max(result.direction_count, 1);
+    const open = Math.max(0, 1 - coverage);
+    const hazard = open > 0 && previousOpen > 0
+      ? -Math.log(open / previousOpen)
+      : open === 0 && previousOpen > 0 ? Number.POSITIVE_INFINITY : 0;
+    const centreRadius = tierSpacing * (tier + 1);
+    const bodyCount = 2 * m * tier * tier;
+    const one = shellSolidAngleFraction(bodyRadius, centreRadius);
+    rows.push({
+      tier,
+      centreRadius,
+      bodyCount,
+      singleBodySolidAngleFraction: one,
+      rawShellSolidAngleBudget: bodyCount * one,
+      cumulativeCoverage: coverage,
+      openFraction: open,
+      incrementalHazard: hazard,
+    });
+    previousOpen = open;
+  }
+  return rows;
 }
 
 export function sharedFrontChange(current: FirstHitResult, previous: FirstHitResult) {
