@@ -1,9 +1,12 @@
 import type { FirstHitResult } from "../app/contracts";
 import {
+  asymptoticRawShellBudget,
+  chrysanthemumShellScale,
   computeChrysanthemum,
   sharedFrontChange,
   type ChrysanthemumGeometryMode,
   type ChrysanthemumMetrics,
+  type ChrysanthemumShellScaleRow,
 } from "./chrysanthemumScale";
 
 function required<T extends Element>(root: ParentNode, selector: string): T {
@@ -70,11 +73,69 @@ function drawOwners(canvas: HTMLCanvasElement, fractions: readonly number[]) {
   });
 }
 
+function linearFit(rows: readonly ChrysanthemumShellScaleRow[]) {
+  const usable = rows.filter((row) => row.openFraction > 0 && row.openFraction < 0.999999);
+  if (usable.length < 3) return { hazard: Number.NaN, r2: Number.NaN };
+  const x = usable.map((r) => r.tier);
+  const y = usable.map((r) => Math.log(r.openFraction));
+  const mx = x.reduce((a, b) => a + b, 0) / x.length;
+  const my = y.reduce((a, b) => a + b, 0) / y.length;
+  let sxx = 0, sxy = 0, syy = 0;
+  for (let i = 0; i < x.length; i += 1) {
+    const dx = x[i]! - mx, dy = y[i]! - my;
+    sxx += dx * dx; sxy += dx * dy; syy += dy * dy;
+  }
+  const slope = sxy / Math.max(sxx, 1e-30);
+  return { hazard: -slope, r2: syy > 0 ? (sxy * sxy) / Math.max(sxx * syy, 1e-30) : 1 };
+}
+
+function drawScaleBridge(canvas: HTMLCanvasElement, rows: readonly ChrysanthemumShellScaleRow[], asymptotic: number) {
+  const ctx = canvas.getContext("2d")!;
+  const w = canvas.width, h = canvas.height;
+  ctx.fillStyle = "#071018"; ctx.fillRect(0, 0, w, h);
+  if (!rows.length) return;
+  const padL = 58, padR = 20, top0 = 24, topH = 120, gap = 48, bot0 = top0 + topH + gap, botH = 120;
+  const maxTier = Math.max(...rows.map((r) => r.tier));
+  const X = (tier: number) => padL + (tier - 1) / Math.max(maxTier - 1, 1) * (w - padL - padR);
+
+  // Top: exact raw summed solid-angle budget per shell.
+  const maxBudget = Math.max(asymptotic, ...rows.map((r) => r.rawShellSolidAngleBudget)) * 1.15;
+  const Y1 = (value: number) => top0 + topH - value / Math.max(maxBudget, 1e-30) * topH;
+  ctx.strokeStyle = "rgba(210,230,240,.25)";
+  ctx.strokeRect(padL, top0, w - padL - padR, topH);
+  ctx.strokeStyle = "rgba(242,199,107,.6)"; ctx.setLineDash([6, 5]);
+  ctx.beginPath(); ctx.moveTo(padL, Y1(asymptotic)); ctx.lineTo(w - padR, Y1(asymptotic)); ctx.stroke(); ctx.setLineDash([]);
+  ctx.strokeStyle = "#55d6b3"; ctx.lineWidth = 2; ctx.beginPath();
+  rows.forEach((row, i) => { const x = X(row.tier), y = Y1(row.rawShellSolidAngleBudget); if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y); }); ctx.stroke();
+  ctx.fillStyle = "#cfe0e7"; ctx.font = "11px system-ui";
+  ctx.fillText("raw shell Ω budget = Nₖ Ω_one / 4π", padL + 8, top0 + 16);
+  ctx.fillStyle = "#f2c76b"; ctx.fillText(`asymptote ${asymptotic.toFixed(3)}`, w - 130, Math.max(top0 + 14, Y1(asymptotic) - 5));
+
+  // Bottom: open sky survival. A straight line in log(open) means exponential closure in tier count.
+  const positive = rows.filter((r) => r.openFraction > 0);
+  const logs = positive.map((r) => Math.log10(r.openFraction));
+  const minLog = Math.min(-0.5, ...logs) - 0.25, maxLog = 0;
+  const Y2 = (value: number) => bot0 + botH - (value - minLog) / Math.max(maxLog - minLog, 1e-30) * botH;
+  ctx.strokeStyle = "rgba(210,230,240,.25)"; ctx.strokeRect(padL, bot0, w - padL - padR, botH);
+  ctx.strokeStyle = "#78b8ff"; ctx.lineWidth = 2; ctx.beginPath();
+  let started = false;
+  for (const row of rows) {
+    if (!(row.openFraction > 0)) continue;
+    const x = X(row.tier), y = Y2(Math.log10(row.openFraction));
+    if (!started) { ctx.moveTo(x, y); started = true; } else ctx.lineTo(x, y);
+    ctx.fillStyle = "#78b8ff"; ctx.beginPath(); ctx.arc(x, y, 3, 0, 2 * Math.PI); ctx.fill();
+  }
+  ctx.fillStyle = "#cfe0e7"; ctx.fillText("log₁₀ open-sky fraction", padL + 8, bot0 + 16);
+  rows.forEach((row) => { ctx.fillStyle = "#91a9b4"; ctx.fillText(`K${row.tier}`, X(row.tier) - 7, h - 9); });
+}
+
 export class ChrysanthemumScalePanel {
   private generation = 0;
   private readonly sky: HTMLCanvasElement;
   private readonly owners: HTMLCanvasElement;
+  private readonly scaleBridge: HTMLCanvasElement;
   private readonly readout: HTMLElement;
+  private readonly hazardReadout: HTMLElement;
   private readonly status: HTMLElement;
 
   constructor(private readonly root: HTMLElement) {
@@ -96,14 +157,17 @@ export class ChrysanthemumScalePanel {
         <div class="chrys-grid">
           <article><h3>Terminal-depth sky</h3><p>Colour = first positive external owner depth / mean depth. Dark = uncovered direction.</p><canvas id="chrys-sky" width="720" height="360"></canvas></article>
           <article><h3>Who actually holds the front?</h3><p>Fraction of covered directions whose first terminal owner belongs to each KOU tier.</p><canvas id="chrys-owners" width="720" height="360"></canvas></article>
+          <article class="chrys-wide"><h3>Power geometry → exponential angular closure</h3><p>The KOU shell has Nₖ=2mk² centres while one body's solid-angle footprint falls ≈rₖ⁻². Their raw product tends to a constant; first-hit converts repeated shell opportunities into the survival/open fraction.</p><canvas id="chrys-scale-bridge" width="1440" height="360"></canvas><div id="chrys-hazard-readout" class="chrys-readout"></div></article>
         </div>
         <div id="chrys-readout" class="chrys-readout"></div>
-        <div class="chrys-thesis"><b>Intrinsic-front discriminator:</b> after some finite K<sub>sat</sub>, coverage≈1, adding farther tiers should leave R<sub>term</sub>(Ω) unchanged while the normalized lobe amplitude remains finite under angular refinement. That is a local external support scale. It is not the same observable as the global M<sub>+</sub>≈M<sub>−</sub> compensation radius.</div>
+        <div class="chrys-thesis"><b>Intrinsic-front discriminator:</b> after some finite K<sub>sat</sub>, coverage≈1, adding farther tiers should leave R<sub>term</sub>(Ω) unchanged while the normalized lobe amplitude remains finite under angular refinement. That is a local external support scale. It is not the same observable as the global M<sub>+</sub>≈M<sub>−</sub> compensation radius.<br><br><b>Hierarchy bridge:</b> if a later natural hierarchy has L<sub>j</sub>=L₀b<sup>j</sup> and an independently measured normalized mode P<sub>j</sub>=P₀s<sup>j</sup>, eliminating the hidden level index gives P(L)∝L<sup>ln(s)/ln(b)</sup>. This is a precise place where “two exponentials → power law” could enter the project; no exponent is asserted here.</div>
         <div id="chrys-status" class="chrys-status">ready</div>
       </section>`;
     this.sky = required(root, "#chrys-sky");
     this.owners = required(root, "#chrys-owners");
+    this.scaleBridge = required(root, "#chrys-scale-bridge");
     this.readout = required(root, "#chrys-readout");
+    this.hazardReadout = required(root, "#chrys-hazard-readout");
     this.status = required(root, "#chrys-status");
     this.bind();
     this.schedule();
@@ -142,6 +206,16 @@ export class ChrysanthemumScalePanel {
 
     drawSky(this.sky, current.result, current.metrics);
     drawOwners(this.owners, current.metrics.tierFractions);
+    const shellRows = chrysanthemumShellScale(current.result, current.bodies, radius, tiers);
+    const rawAsymptote = asymptoticRawShellBudget(radius);
+    drawScaleBridge(this.scaleBridge, shellRows, rawAsymptote);
+    const fit = linearFit(shellRows);
+    const finiteHazards = shellRows.map((r) => r.incrementalHazard).filter((v) => Number.isFinite(v) && v > 0);
+    const meanHazard = finiteHazards.length ? finiteHazards.reduce((a, b) => a + b, 0) / finiteHazards.length : Number.NaN;
+    const last = shellRows.at(-1);
+    this.hazardReadout.innerHTML = `Nₖ=6k² · rₖ=1.05(k+1) · exact raw shell Ω budget at K${tiers}=${last?.rawShellSolidAngleBudget.toFixed(4) ?? "—"} · asymptotic small-cap budget=${rawAsymptote.toFixed(4)}<br>
+      open-sky exponential fit: h=${Number.isFinite(fit.hazard) ? fit.hazard.toFixed(4) : "—"}, R²=${Number.isFinite(fit.r2) ? fit.r2.toFixed(4) : "—"} · mean finite incremental hazard=${Number.isFinite(meanHazard) ? meanHazard.toFixed(4) : "—"}<br>
+      <small>Interpret as geometry/ownership survival, not a physical ray flux. The inverse-square factor here is solid-angle footprint; exponential behaviour, when present, is produced by repeated first-owner closure.</small>`;
 
     const addedCoverage = previous ? current.metrics.coverage - previous.metrics.coverage : Number.NaN;
     const sharedChange = previous ? sharedFrontChange(current.result, previous.result) : Number.NaN;
