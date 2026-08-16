@@ -10,6 +10,7 @@ import "./cavityRelaxation.css";
 import "./firstHitContinuousColumn.css";
 import "./continuousFieldActionBridge.css";
 import "./equilibriumRegimeMap.css";
+import "./scalingAnalysis.css";
 import { ActionTransportAppA02 } from "./AppA02";
 import { installA02DisplaySemanticsRepair } from "./a02DisplaySemanticsRepair";
 import { OneBodyClosurePanel } from "./ClosurePanel";
@@ -22,6 +23,7 @@ import { CavityRelaxationPanel } from "./CavityRelaxationPanel";
 import { FirstHitContinuousColumnPanel } from "./FirstHitContinuousColumnPanel";
 import { ContinuousFieldActionBridgePanel } from "./ContinuousFieldActionBridgePanel";
 import { EquilibriumRegimeMapPanel } from "./EquilibriumRegimeMapPanel";
+import { ScalingAnalysisPanel } from "./ScalingAnalysisPanel";
 
 installA02DisplaySemanticsRepair();
 
@@ -81,3 +83,8 @@ const equilibriumRegimeRoot = document.createElement("div");
 equilibriumRegimeRoot.id = "webgpu-equilibrium-regime-map-root";
 root.append(equilibriumRegimeRoot);
 new EquilibriumRegimeMapPanel(equilibriumRegimeRoot);
+
+const scalingRoot = document.createElement("div");
+scalingRoot.id = "action-lab-scale-law-explorer-root";
+root.append(scalingRoot);
+new ScalingAnalysisPanel(scalingRoot);
