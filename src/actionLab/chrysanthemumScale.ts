@@ -172,7 +172,7 @@ export function chrysanthemumShellScale(
   for (const id of result.body_ids) {
     if (!id) continue;
     const tier = tierById.get(id) ?? 0;
-    if (tier > 0 && tier <= maxTier) ownerCounts[tier] += 1;
+    if (tier > 0 && tier <= maxTier) ownerCounts[tier] = (ownerCounts[tier] ?? 0) + 1;
   }
 
   const rows: ChrysanthemumShellScaleRow[] = [];
