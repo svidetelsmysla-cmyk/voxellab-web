@@ -147,7 +147,8 @@ export class ChrysanthemumScalePanel {
         <div class="chrys-firewall"><b>Separate the objects:</b> material cavity = amount redistribution of the continuous substrate. Chrysanthemum = directional terminal-depth surface R<sub>term</sub>(Ω) produced by external positive centres. S10 enlarges external body radius to 1.4 to close the sky; this is an inserted diagnostic closure aid, not a physical constant.</div>
         <div class="chrys-controls">
           <label>KOU tiers <input id="chrys-tiers" type="range" min="1" max="8" step="1" value="4"><output id="chrys-tiers-label">4</output></label>
-          <label>support radius <input id="chrys-radius" type="range" min="0.2" max="1.6" step="0.05" value="1.4"><output id="chrys-radius-label">1.40</output></label>
+          <label>support radius a <input id="chrys-radius" type="range" min="0.2" max="1.6" step="0.05" value="1.4"><output id="chrys-radius-label">1.40</output></label>
+          <label>tier spacing s <input id="chrys-spacing" type="range" min="0.5" max="3" step="0.05" value="1.05"><output id="chrys-spacing-label">1.05</output></label>
           <label>angular rays <select id="chrys-rays"><option>1024</option><option>4096</option><option selected>16384</option></select></label>
           <label>external geometry <select id="chrys-geometry"><option value="ORDERED_ANTIPODAL">ordered antipodal</option><option value="RANDOM_ANTIPODAL">random antipodal</option></select></label>
           <label>random seed <input id="chrys-seed" type="number" min="1" max="999999" value="1701"></label>
@@ -158,7 +159,7 @@ export class ChrysanthemumScalePanel {
           <article class="chrys-wide"><h3>Power geometry → exponential angular closure</h3><p>The KOU shell has Nₖ=2mk² centres while one body's solid-angle footprint falls ≈rₖ⁻². Their raw product tends to a constant; first-hit converts repeated shell opportunities into the survival/open fraction.</p><canvas id="chrys-scale-bridge" width="1440" height="360"></canvas><div id="chrys-hazard-readout" class="chrys-readout"></div></article>
         </div>
         <div id="chrys-readout" class="chrys-readout"></div>
-        <div class="chrys-thesis"><b>Intrinsic-front discriminator:</b> after some finite K<sub>sat</sub>, coverage≈1, adding farther tiers should leave R<sub>term</sub>(Ω) unchanged while the normalized lobe amplitude remains finite under angular refinement. That is a local external support scale. It is not the same observable as the global M<sub>+</sub>≈M<sub>−</sub> compensation radius.<br><br><b>Hierarchy bridge:</b> a statistically uniform family of finite centres has n∼m/(2πs³) in this KOU scaling and angular/geometric cross-section ∼πa², so its terminal-ownership length scales as ℓ<sub>term</sub>∼1/(nπa²). If a natural hierarchy rescales both object size and spacing by the same factor, a/s stays fixed and ℓ<sub>term</sub>/a stays fixed. That is a concrete dimensionless similarity condition for an external support front.<br><br>If a later natural hierarchy also has L<sub>j</sub>=L₀b<sup>j</sup> and an independently measured normalized mode P<sub>j</sub>=P₀s<sup>j</sup>, eliminating the hidden level index gives P(L)∝L<sup>ln(s)/ln(b)</sup>. This is a precise place where “two exponentials → power law” could enter the project; no exponent is asserted here.</div>
+        <div class="chrys-thesis"><b>Intrinsic-front discriminator:</b> after some finite K<sub>sat</sub>, coverage≈1, adding farther tiers should leave R<sub>term</sub>(Ω) unchanged while the normalized lobe amplitude remains finite under angular refinement. That is a local external support scale. It is not the same observable as the global M<sub>+</sub>≈M<sub>−</sub> compensation radius.<br><br><b>Hierarchy bridge:</b> a statistically uniform family of finite centres has n∼m/(2πs³) in this KOU scaling and angular/geometric cross-section ∼πa², so its terminal-ownership length scales as ℓ<sub>term</sub>∼1/(nπa²). Move <b>a</b> and <b>s</b> together while keeping a/s fixed: pure geometric similarity predicts identical coverage, owner fractions and normalized terminal map, with R<sub>term</sub> scaling linearly. If a natural hierarchy reproduces this dimensionless relation without us imposing it, that is a candidate scale-transfer mechanism.<br><br>If a later natural hierarchy also has L<sub>j</sub>=L₀b<sup>j</sup> and an independently measured normalized mode P<sub>j</sub>=P₀s<sup>j</sup>, eliminating the hidden level index gives P(L)∝L<sup>ln(s)/ln(b)</sup>. This is a precise place where “two exponentials → power law” could enter the project; no exponent is asserted here.</div>
         <div id="chrys-status" class="chrys-status">ready</div>
       </section>`;
     this.sky = required(root, "#chrys-sky");
@@ -172,7 +173,7 @@ export class ChrysanthemumScalePanel {
   }
 
   private bind() {
-    for (const selector of ["#chrys-tiers", "#chrys-radius", "#chrys-rays", "#chrys-geometry", "#chrys-seed"]) {
+    for (const selector of ["#chrys-tiers", "#chrys-radius", "#chrys-spacing", "#chrys-rays", "#chrys-geometry", "#chrys-seed"]) {
       required<HTMLInputElement | HTMLSelectElement>(this.root, selector).addEventListener("input", () => this.schedule());
       required<HTMLInputElement | HTMLSelectElement>(this.root, selector).addEventListener("change", () => this.schedule());
     }
@@ -190,32 +191,34 @@ export class ChrysanthemumScalePanel {
   private render(generation: number) {
     const tiers = Number(required<HTMLInputElement>(this.root, "#chrys-tiers").value);
     const radius = Number(required<HTMLInputElement>(this.root, "#chrys-radius").value);
+    const spacing = Number(required<HTMLInputElement>(this.root, "#chrys-spacing").value);
     const rays = Number(required<HTMLSelectElement>(this.root, "#chrys-rays").value);
     const geometry = required<HTMLSelectElement>(this.root, "#chrys-geometry").value as ChrysanthemumGeometryMode;
     const seed = Number(required<HTMLInputElement>(this.root, "#chrys-seed").value);
     required<HTMLOutputElement>(this.root, "#chrys-tiers-label").value = String(tiers);
     required<HTMLOutputElement>(this.root, "#chrys-radius-label").value = radius.toFixed(2);
+    required<HTMLOutputElement>(this.root, "#chrys-spacing-label").value = spacing.toFixed(2);
 
     const started = performance.now();
-    const current = computeChrysanthemum(tiers, radius, rays, geometry, seed);
-    const previous = tiers > 1 ? computeChrysanthemum(tiers - 1, radius, rays, geometry, seed) : null;
+    const current = computeChrysanthemum(tiers, radius, rays, geometry, seed, spacing);
+    const previous = tiers > 1 ? computeChrysanthemum(tiers - 1, radius, rays, geometry, seed, spacing) : null;
     if (generation !== this.generation) return;
     const elapsed = performance.now() - started;
 
     drawSky(this.sky, current.result, current.metrics);
     drawOwners(this.owners, current.metrics.tierFractions);
-    const shellRows = chrysanthemumShellScale(current.result, current.bodies, radius, tiers);
-    const rawAsymptote = asymptoticRawShellBudget(radius);
+    const shellRows = chrysanthemumShellScale(current.result, current.bodies, radius, tiers, 3, spacing);
+    const rawAsymptote = asymptoticRawShellBudget(radius, 3, spacing);
     drawScaleBridge(this.scaleBridge, shellRows, rawAsymptote);
     const fit = linearFit(shellRows);
     const finiteHazards = shellRows.map((r) => r.incrementalHazard).filter((v) => Number.isFinite(v) && v > 0);
     const meanHazard = finiteHazards.length ? finiteHazards.reduce((a, b) => a + b, 0) / finiteHazards.length : Number.NaN;
     const last = shellRows.at(-1);
-    const m = 3, tierSpacing = 1.05;
-    const centreNumberDensity = m / (2 * Math.PI * tierSpacing ** 3);
+    const m = 3;
+    const centreNumberDensity = m / (2 * Math.PI * spacing ** 3);
     const rawLength = 1 / Math.max(centreNumberDensity * Math.PI * radius * radius, 1e-30);
-    const fittedLength = Number.isFinite(fit.hazard) && fit.hazard > 0 ? tierSpacing / fit.hazard : Number.NaN;
-    this.hazardReadout.innerHTML = `Nₖ=6k² · rₖ=1.05(k+1) · exact raw shell Ω budget at K${tiers}=${last?.rawShellSolidAngleBudget.toFixed(4) ?? "—"} · asymptotic small-cap budget=${rawAsymptote.toFixed(4)}<br>
+    const fittedLength = Number.isFinite(fit.hazard) && fit.hazard > 0 ? spacing / fit.hazard : Number.NaN;
+    this.hazardReadout.innerHTML = `Nₖ=6k² · rₖ=${spacing.toFixed(2)}(k+1) · a/s=${(radius / spacing).toFixed(4)} · exact raw shell Ω budget at K${tiers}=${last?.rawShellSolidAngleBudget.toFixed(4) ?? "—"} · asymptotic budget=${rawAsymptote.toFixed(4)}<br>
       open-sky exponential fit: h=${Number.isFinite(fit.hazard) ? fit.hazard.toFixed(4) : "—"}, R²=${Number.isFinite(fit.r2) ? fit.r2.toFixed(4) : "—"} · mean finite incremental hazard=${Number.isFinite(meanHazard) ? meanHazard.toFixed(4) : "—"}<br>
       uniform-shell density proxy n≈${centreNumberDensity.toFixed(4)} · raw terminal length 1/(nπa²)≈${rawLength.toFixed(3)} · fitted s/h≈${Number.isFinite(fittedLength) ? fittedLength.toFixed(3) : "—"} · measured mean finite R<sub>term</sub>=${current.metrics.meanDepth.toFixed(3)}<br>
       <small>Interpret as static geometry/ownership survival, not a physical ray flux or collision mean-free-path. The inverse-square factor is solid-angle footprint; exponential behaviour, when present, is produced by repeated first-owner closure.</small>`;
@@ -228,7 +231,7 @@ export class ChrysanthemumScalePanel {
     const saturated = current.metrics.coverage >= 0.9999 && previous && previous.metrics.coverage >= 0.9999 && sharedChange <= 1e-10;
 
     this.readout.innerHTML = `
-      coverage=<b>${(100 * current.metrics.coverage).toFixed(3)}%</b> · mean R<sub>term</sub>=${current.metrics.meanDepth.toFixed(4)} · R<sub>term</sub>/a=${(current.metrics.meanDepth / Math.max(radius, 1e-30)).toFixed(4)} · CV=${current.metrics.coefficientOfVariation.toFixed(4)} · robust lobe amplitude=${current.metrics.robustLobeAmplitude.toFixed(4)}<br>
+      coverage=<b>${(100 * current.metrics.coverage).toFixed(3)}%</b> · mean R<sub>term</sub>=${current.metrics.meanDepth.toFixed(4)} · R<sub>term</sub>/a=${(current.metrics.meanDepth / Math.max(radius, 1e-30)).toFixed(4)} · R<sub>term</sub>/s=${(current.metrics.meanDepth / Math.max(spacing, 1e-30)).toFixed(4)} · CV=${current.metrics.coefficientOfVariation.toFixed(4)} · robust lobe amplitude=${current.metrics.robustLobeAmplitude.toFixed(4)}<br>
       K−1 → K: Δcoverage=${Number.isFinite(addedCoverage) ? (100 * addedCoverage).toFixed(3) + "%" : "—"} · shared-front relative RMS change=${Number.isFinite(sharedChange) ? sharedChange.toExponential(3) : "—"}<br>
       owners: ${ownerText || "none"}<br>
       <b>${saturated ? "LOCAL TERMINAL FRONT SATURATED IN THIS DIAGNOSTIC" : "terminal front still depends on added support / uncovered directions"}</b>`;
