@@ -123,6 +123,125 @@ ORDERED FCC/FIBONACCI SHAPE -> not yet required for existence of the front.
 
 This repairs the earlier caveat that a large isotropic set of external centres could wash angular ripples away.
 
+## Power geometry -> exponential closure bridge
+
+The existing KOU generator contains a useful exact scale relation. Tier `k` has
+
+```text
+N_k = 2 m k^2
+r_k = s (k+1)
+```
+
+with current diagnostic `m=3`, `s=1.05`.
+
+For a positive external sphere of radius `a` observed from the centre, its exact solid-angle fraction is
+
+```text
+f_Omega(a,r) = [1 - sqrt(1-(a/r)^2)] / 2
+```
+
+and for `a << r`:
+
+```text
+f_Omega ~ a^2/(4 r^2).
+```
+
+Therefore the raw, overlap-unaware angular opportunity supplied by one tier is
+
+```text
+Lambda_k = N_k f_Omega(a,r_k)
+```
+
+and asymptotically
+
+```text
+Lambda_k -> m a^2/(2 s^2) = constant.
+```
+
+This is the exact cancellation:
+
+```text
+number of possible external owners per tier ~ r^2
+x
+one-owner solid-angle footprint ~ 1/r^2
+=
+approximately scale-independent raw angular opportunity per tier.
+```
+
+This is **not** a force law and not a transport flux. It is pure solid-angle geometry plus the KOU centre-count rule.
+
+First-hit/occlusion then changes the problem. A direction already owned by a nearer tier cannot be owned again by a farther one. Define the remaining open angular fraction after tier `K` as
+
+```text
+S_K = 1 - coverage_K.
+```
+
+If successive shells supply a roughly constant effective angular closure hazard `h`, then
+
+```text
+S_K ~ exp(-h K).
+```
+
+The ordered diagnostic with 8,192 angular samples gives, over K=1..10:
+
+```text
+support radius a     fitted h      R^2 of ln(S_K) vs K
+0.2                  ~0.0400       ~0.9917
+0.4                  ~0.1708       ~0.9929
+0.6                  ~0.3367       ~0.9964
+```
+
+For larger support radii the front closes in only a few tiers and the finite-K exponential approximation ceases to be the useful asymptotic description. At `a=1.4` the open fractions are approximately
+
+```text
+K1: 0.2982
+K2: 0.0167
+K3: 0.00073
+K4: 0
+```
+
+so the diagnostic reaches exact sampled angular closure by K4.
+
+This gives the project a concrete place where power and exponential laws coexist without contradiction:
+
+```text
+single angular footprint:
+  inverse-square / power geometry;
+
+tier population:
+  compensating square growth;
+
+first-owner survival over repeated tiers:
+  approximately exponential in tier count.
+```
+
+## Link to the “two exponentials -> power law” clue
+
+The shell result above does not itself create a new power law in physical distance; KOU tiers are linearly spaced here.
+
+But it identifies the exact algebra that should be tested if a **natural discrete hierarchy** later has geometric level spacing:
+
+```text
+L_j = L_0 b^j
+P_j = P_0 s^j
+```
+
+where `P_j` is an independently measured normalized angular mode, survival fraction, or other level-to-level quantity. Eliminating the hidden level index `j` gives
+
+```text
+P(L) = const * L^[ln(s)/ln(b)].
+```
+
+Thus “two exponentials -> power law” has a precise possible carrier in the project:
+
+```text
+geometric growth of physical scale across levels
++
+multiplicative survival/transfer of a relational mode across levels.
+```
+
+No exponent, especially `-2`, is derived here. A `-2` inter-level exponent would require the independent relation `ln(s)/ln(b)=-2`.
+
 ## New physical delta
 
 ```text
@@ -141,7 +260,7 @@ The next physical question is not "what is the cavity radius?" but:
 
 ## Required Action Lab controls
 
-The interactive diagnostic must expose:
+The interactive diagnostic exposes:
 
 ```text
 number of KOU tiers;
@@ -158,7 +277,9 @@ mean terminal depth;
 CV terminal depth;
 robust q05-q95 lobe amplitude;
 owner fraction by tier;
-front-change norm K -> K+1.
+front-change norm K -> K+1;
+raw solid-angle budget by shell;
+open-sky survival and effective shell hazard.
 ```
 
 A truly intrinsic terminal front should satisfy, after a finite K_sat:
@@ -180,7 +301,9 @@ FCC/HCP is selected by the substrate;
 terminal front is total physical force;
 material cavity is proved independent of the terminal front;
 external support front is a particle boundary;
-scale quantization or constants are derived.
+scale quantization or constants are derived;
+observed shell hazard is a physical collision/transport process;
+a gravitational exponent is derived from the tier law.
 ```
 
 The result is a mechanism discriminator and a bridge to the current R17 natural-formation solver.
