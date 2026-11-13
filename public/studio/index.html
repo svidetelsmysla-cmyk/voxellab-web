@@ -1,0 +1,927 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>VoxelLab Studio · Р45</title><style>
+:root{--bg:#07121b;--panel:#0b1a24;--panel2:#102431;--edge:#213847;--hi:#6adddf;--hi2:#3ba4b5;--warm:#e2a974;--txt:#dce9ed;--muted:#75919c;--red:#f48f87;--green:#a5d8ac;--blue:#6eaef1;--shadow:0 8px 40px rgba(0,0,0,.2)}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:var(--bg);color:var(--txt);font-family:Inter,Segoe UI,system-ui,-apple-system,sans-serif;font-size:13px}button,input,select{font:inherit}button{background:var(--panel2);border:1px solid var(--edge);border-radius:8px;color:var(--txt);cursor:pointer;padding:9px 12px;transition:background .15s,border-color .15s,transform .12s;white-space:nowrap}button:hover{border-color:#4c7380;background:#193444}button:active{transform:scale(.98)}button:disabled{opacity:.33;cursor:default}button.primary{background:#164653;color:#aaf5ec;border:1px solid #2f8b95;font-weight:700}button.primary:hover{background:#20606a}button.flat{background:transparent;border:1px solid #2a424e;padding:9px 12px}button.iconbtn{width:37px;justify-content:center;font-size:17px;font-weight:600}input,select{background:#0a1b26;color:var(--txt);border:1px solid #2b4757;border-radius:6px;padding:9px 9px;min-width:0;width:100%;outline:0;transition:border-color .12s}input:focus,select:focus{border-color:#65d5d8;box-shadow:0 0 0 2px rgba(101,213,216,.1)}input[type=checkbox]{width:auto;accent-color:#5ed8d6}input[type=color]{height:38px;width:42px;min-width:42px;padding:2px;border-radius:6px;cursor:pointer}select{cursor:pointer}h2,p{margin:0}h2{font-size:17px;letter-spacing:-.2px;font-weight:680}.app{height:100dvh;min-height:680px;display:flex;flex-direction:column;overflow:hidden}.top{height:72px;flex-shrink:0;background:#0a1822;border-bottom:1px solid var(--edge);display:flex;align-items:center;justify-content:space-between;padding:10px 24px;gap:15px}.brand{display:flex;align-items:center;gap:12px}.mark{width:36px;height:36px;position:relative}.mark span{position:absolute;display:block;border:2px solid var(--hi);border-radius:50%;width:27px;height:27px;top:3px;left:1px;transform:rotate(-30deg) scaleX(.76)}.mark span+span{border-color:var(--warm);left:9px;top:9px;opacity:.8;transform:rotate(35deg) scaleX(.75)}.overline,.eyebrow{color:#7bafb9;font-size:10px;font-weight:800;letter-spacing:1.45px}.brand-title{font-size:23px;line-height:1.22;font-weight:800;letter-spacing:1.4px}.brand-title span{color:var(--hi);font-size:15px;vertical-align:2px;padding-left:3px}.brand-title small{font-size:10px;font-weight:450;letter-spacing:0;opacity:.72;padding-left:10px}.head-actions{display:flex;align-items:center;gap:9px}.version{color:var(--muted);font-size:10px;letter-spacing:.8px;margin-right:15px}.workspace{flex:1;display:grid;grid-template-columns:minmax(245px,280px) minmax(390px,1fr) minmax(292px,335px);min-height:0}.side{background:var(--panel);min-width:0;display:flex;flex-direction:column;overflow:auto;scrollbar-width:thin;scrollbar-color:#3a5360 transparent;padding:18px 16px 14px}.left{border-right:1px solid var(--edge)}.right{border-left:1px solid var(--edge)}.side-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:18px}.side-head h2{margin-top:4px}.side-head.compact{margin:18px 0 12px}.count{display:inline-flex;min-width:34px;align-items:center;justify-content:center;border:1px solid #386170;border-radius:18px;color:#92dce3;font-size:12px;font-weight:700;padding:4px 7px}.hint-title{display:block;font-size:11px;color:var(--muted);margin:0 0 7px}.scene-preset{margin-bottom:12px}.object-actions{display:grid;grid-template-columns:1.25fr .9fr;gap:7px}.object-actions button{font-size:11px;padding:10px 6px}.small-header{display:flex;align-items:center;justify-content:space-between;color:#8dacb7;font-size:10px;font-weight:750;letter-spacing:.9px;margin:21px 0 10px}.small-header span+span{font-size:10px;color:#718c96;font-weight:500;letter-spacing:0}.objects{min-height:100px;overflow-y:auto;flex:1;margin-right:-5px;padding-right:5px;scrollbar-width:thin;scrollbar-color:#315362 transparent}.obj{display:flex;gap:9px;align-items:center;padding:10px 9px;border:1px solid transparent;border-radius:8px;cursor:pointer;margin-bottom:4px;background:transparent;min-width:0;transition:background .13s,border-color .13s}.obj:hover{background:#152c38}.obj.selected{background:#163c48;border-color:#368192}.obj-color{width:11px;height:11px;border-radius:50%;flex-shrink:0;border:1px solid rgba(255,255,255,.25)}.obj-info{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1}.obj-info strong{font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}.obj-info small{color:var(--muted);font-size:10px}.obj-tag{color:#88b3c2;background:#102d3a;border:1px solid #214455;padding:3px 5px;border-radius:4px;font-size:10px}.obj-tag.pinned{color:var(--warm)}.bottom-tools{display:grid;grid-template-columns:1fr 1fr;gap:7px;border-top:1px solid var(--edge);padding-top:13px;margin-top:8px}.bottom-tools button{font-size:11px}.section-note{margin-top:17px;display:flex;gap:9px;align-items:flex-start;color:#77949f;font-size:11px;line-height:1.55;border-left:2px solid #2d6170;padding:8px 8px 8px 10px;background:#0d2230}.note-icon{font-size:14px;font-weight:700;color:#72b8c6}.center{min-width:0;min-height:0;display:flex;flex-direction:column;background:#06121b}.stagebar{height:78px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:12px 22px;gap:12px;border-bottom:1px solid var(--edge)}.stage-title h2{font-size:18px;margin-top:4px}.stage-actions{display:flex;align-items:center;gap:8px}.stage-actions button{font-size:11px;padding:9px 11px}.toggle-pair{display:flex;border-radius:9px;background:#0e2632;padding:3px;border:1px solid #294453}.toggle-pair .tool{border:1px solid transparent;background:transparent;color:#7fa3ad}.toggle-pair .tool.active{background:#1e4653;color:#d8fdff;border-color:#397280}.viewport{flex:1;min-height:230px;position:relative;background:radial-gradient(ellipse at 45% 55%,#102a37,#071723 48%,#05111a 90%);overflow:hidden;touch-action:none}#glcanvas{display:block;width:100%;height:100%;touch-action:none;cursor:crosshair}.viewport-label{position:absolute;pointer-events:none;z-index:2;display:flex;gap:8px;align-items:center;background:rgba(6,20,30,.76);border:1px solid rgba(60,109,123,.35);border-radius:6px;padding:7px 10px;font-size:10px;color:#9dbec8;letter-spacing:.5px;font-weight:600}.top-left{top:16px;left:18px}.top-right{top:16px;right:18px}.slash{opacity:.3}.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#e1b47f;box-shadow:0 0 6px #a47d53}.live-dot.running{background:#77ead1;box-shadow:0 0 8px #4cd1b9}.viewport-help{position:absolute;left:18px;bottom:15px;z-index:2;pointer-events:none;color:#94b6c3;font-size:10px;letter-spacing:.2px;opacity:.75}.axis-corner{position:absolute;bottom:15px;right:18px;display:flex;gap:7px;font-size:11px;font-weight:800;opacity:.8;pointer-events:none}.ax{padding:4px 6px;border:1px solid #36505c;border-radius:4px;background:#0b2531}.ax.x,.axis-tag.x{color:#f49b95}.ax.y,.axis-tag.y{color:#a5d2aa}.ax.z,.axis-tag.z{color:#80b4eb}.viewport-pop{position:absolute;top:60px;left:22px;background:rgba(17,44,58,.92);border:1px solid #3b7c8b;border-radius:7px;padding:11px;font-size:11px;color:#c9fbfa;pointer-events:none}.viewbottom{min-height:51px;flex-shrink:0;background:#091b26;border-top:1px solid var(--edge);border-bottom:1px solid var(--edge);display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 14px}.plane-picker{display:flex;gap:4px;align-items:center}.plane-picker span{color:var(--muted);font-size:9px;letter-spacing:.8px;font-weight:750;margin-right:8px}.plane-picker button{padding:6px 8px;background:transparent;border-color:transparent;font-size:11px}.plane-picker button.active{color:#8ae3e7;border-color:#326373;background:#10313c}.toggles{display:flex;gap:12px;color:#93b6c0;font-size:11px;white-space:nowrap}.toggles label{display:flex;align-items:center;gap:4px;cursor:pointer}.transport{height:74px;flex-shrink:0;display:flex;align-items:center;gap:18px;padding:10px 18px;background:#0c202c}.player{display:flex;gap:8px}.player .run{background:#1c646c;border-color:#2c9393;color:#d8fffb;font-weight:800;min-width:89px}.player .run.playing{background:#553c2a;color:#ffd8ba;border-color:#92694c}.icon-control{font-size:12px;min-width:55px}.time-input{display:flex;gap:10px;align-items:end}.time-input label{font-size:10px;color:#86a5af;font-weight:700;white-space:nowrap}.time-input input{width:87px}.time-input select{width:99px}.time-input input,.time-input select{display:block;margin-top:6px;padding:7px}.sim-info{margin-left:auto;text-align:right;display:flex;flex-direction:column;gap:3px;white-space:nowrap}.sim-info .mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;color:#b0e7e5}.sim-info small{font-size:10px;color:#688997}.right-indicator{font-size:10px;color:#c7dbde;border:1px solid #2d4c5a;padding:5px 7px;border-radius:6px}.inspector-empty{padding:25px 15px 20px;background:linear-gradient(120deg,#0d2634,#0b1924);border:1px dashed #2c4c59;text-align:center;border-radius:10px;color:#afc4ca;line-height:1.55;margin-bottom:12px}.inspector-empty .empty-glyph{font-size:36px;opacity:.6;margin-bottom:10px}.inspector-empty strong{font-size:13px}.inspector-empty p{color:var(--muted);font-size:11px;margin-top:10px}.inspector{padding-bottom:9px}.field-top{display:flex;gap:8px}.field-top input[type=text]{font-size:14px;font-weight:680}.inspector-tagline{display:flex;align-items:center;justify-content:space-between;gap:9px;margin-top:9px;color:#7ea4b0;font-size:10px}.pin{display:flex;gap:5px;align-items:center;color:#9caab0;cursor:pointer;font-size:10px}.segment-title{color:#789ba9;font-size:10px;letter-spacing:1px;font-weight:800;margin:22px 0 9px;display:flex;justify-content:space-between}.triple{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.triple label{display:flex;align-items:center;gap:4px;min-width:0;font-size:10px;color:#8aabb4}.triple input{min-width:0;padding:8px 5px;font-size:11px;font-family:ui-monospace,Consolas,monospace}.triple.single label{display:flex;flex-direction:column;align-items:flex-start;gap:6px;font-size:10px;color:#94b1bc}.axis-tag{font-weight:800;min-width:16px}.force-panel{border-radius:8px;margin-top:17px;padding:0 11px 10px;background:#0e2633;border:1px solid #274754}.force-panel .segment-title{margin-top:12px}.force-value{font-family:ui-monospace,Consolas,monospace;font-size:24px;font-weight:720;color:#b5efef;margin-bottom:4px}.vec-vals{font-size:11px;color:#82a4af;font-family:ui-monospace,Consolas,monospace}.ledger{max-height:190px;overflow:auto;margin-top:5px;scrollbar-width:thin;scrollbar-color:#325463 transparent}.ledger-row{display:flex;justify-content:space-between;gap:10px;padding:8px 5px;border-bottom:1px solid #1f3844;color:#a6c4cb;font-size:10px}.ledger-row strong{font-family:ui-monospace,Consolas,monospace;color:#8cd5df;font-weight:650}.global{border-top:1px solid var(--edge);margin-top:16px}.fullfield{display:block;font-size:11px;color:#88aebb}.fullfield select{margin-top:7px}.global-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:11px}.global-grid label{font-size:11px;color:#88aebb}.global-grid input{margin-top:7px}.global-caveat{margin-top:12px;padding:9px 10px;border-left:2px solid #996e50;background:#1b2630;line-height:1.55;color:#a8aeb6;font-size:10px}.metrics{display:grid;grid-template-columns:1fr 1.35fr 1.2fr 1.05fr 1.4fr;min-height:79px;flex-shrink:0;background:#0a1b26;border-top:1px solid #2a4652}.metric{padding:12px 20px;border-right:1px solid var(--edge);display:flex;flex-direction:column;gap:3px;min-width:0}.metric>span{font-size:9px;font-weight:800;letter-spacing:.9px;color:#7d9eaa}.metric strong{font-size:17px;font-family:ui-monospace,Consolas,monospace;color:#dcecef;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.metric small{color:#6f919d;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.status-metric strong{font-family:inherit;font-size:13px;color:#9be5d3}.toast{position:fixed;z-index:90;bottom:96px;left:50%;transform:translateX(-50%) translateY(10px);padding:12px 18px;max-width:550px;pointer-events:none;border:1px solid #498a96;color:#ddfbfb;background:#153340;box-shadow:var(--shadow);border-radius:9px;opacity:0;transition:opacity .2s,transform .2s}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.toast.error{border-color:#a36665;background:#3c282e;color:#ffe6e3}.modal-cover{position:fixed;inset:0;background:#020a0ed9;z-index:120;display:flex;align-items:center;justify-content:center;padding:20px}.modal-cover[hidden],.inspector[hidden],.inspector-empty[hidden],.viewport-pop[hidden]{display:none!important}.modal{position:relative;width:min(680px,100%);max-height:90vh;overflow:auto;background:#0d202b;border:1px solid #37505f;border-radius:16px;padding:29px;box-shadow:var(--shadow)}.modal h2{font-size:22px;margin:8px 0 10px}.modal p{color:#9db9c2;line-height:1.7}.modal-close{position:absolute;top:17px;right:17px;font-size:22px;padding:4px 11px}.keys{display:grid;grid-template-columns:1fr 1fr;gap:9px 16px;margin:21px 0}.keys div{display:flex;align-items:center;gap:10px;color:#a9c5cb;font-size:12px}.keys kbd{background:#1e3947;color:#b4dfe5;padding:7px 9px;border:1px solid #436473;border-radius:5px;min-width:80px;text-align:center;font-size:10px}.modal .small{font-size:11px;line-height:1.6;color:#7f9fa9;border-top:1px solid #294352;padding-top:12px}
+@media (max-width:1200px){.workspace{grid-template-columns:235px minmax(330px,1fr) 280px}.side{padding:15px 11px}.version{display:none}.head-actions{gap:5px}.plane-picker span{display:none}.toggles{gap:8px}.transport{gap:10px}.sim-info{display:none}.triple{gap:4px}}
+@media (max-width:970px){.app{height:auto;min-height:100vh;overflow:auto}.workspace{grid-template-columns:220px minmax(300px,1fr)}.right{grid-column:1/-1;max-height:none;border-top:1px solid var(--edge);border-left:none;display:block}.right .inspector{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}.right .global{margin-top:8px}.right .force-panel{grid-column:1/-1}.center{min-height:600px}.left{min-height:600px}.metrics{grid-template-columns:repeat(3,1fr)}.metric:nth-child(3){border-right:0}.stagebar{padding:10px 15px}.viewbottom{flex-wrap:wrap}}
+@media (max-width:690px){.top{height:auto;min-height:65px;flex-wrap:wrap;padding:10px 12px}.brand-title small{display:none}.head-actions{width:100%;justify-content:flex-end}.head-actions button{font-size:11px}.workspace{display:flex;flex-direction:column}.left{min-height:260px;max-height:380px;order:2;border-top:1px solid var(--edge)}.center{order:1;min-height:550px}.right{order:3;min-height:250px}.viewport{min-height:350px}.viewport-help{font-size:9px;max-width:270px}.viewbottom{padding:7px}.toggles{flex-wrap:wrap}.transport{height:auto;flex-wrap:wrap;justify-content:space-between}.right .inspector{display:block}.metrics{grid-template-columns:repeat(2,1fr)}.metric{padding:12px}.metric strong{font-size:14px}.keys{grid-template-columns:1fr}}
+
+/* V2 editing / lattice-wave / Max import */
+.max-import-block{border:1px solid #2b4b5b;border-radius:9px;margin:11px 0;padding:9px;background:#0d2230}
+.max-import-block summary,.wave-lab summary{font-size:11px;font-weight:750;color:#91dce1;cursor:pointer;list-style:none}
+.max-import-block summary::before,.wave-lab summary::before{content:'▸  ';color:#6fb5b8}
+.max-import-block[open] summary::before,.wave-lab[open] summary::before{content:'▾  '}
+.max-import-inner{display:grid;gap:8px;margin-top:9px}.max-import-inner label{font-size:10px;color:#94b5c0;display:grid;gap:4px}
+.max-import-inner label.max-check{display:flex;align-items:center;gap:6px}.max-import-inner p{font-size:10px;color:#739aaa;line-height:1.5}
+.max-button{background:#1e4858!important;color:#baf4ef!important;border-color:#3c7180!important}
+.wave-lab{border-top:1px solid #2b4655;background:#0b202a;padding:8px 16px 6px;flex-shrink:0}
+.wave-content{display:grid;grid-template-columns:235px 1fr;gap:12px;margin-top:9px}.wave-controls{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.wave-controls label{color:#85a8b4;font-size:10px;min-width:0}.wave-controls label select,.wave-controls label input{display:block;width:100%;margin-top:3px;padding:5px;font-size:11px}
+.wave-controls button{grid-column:1/-1;font-size:11px;padding:7px}.wave-readout{min-width:0;display:flex;flex-direction:column;gap:4px}
+#waveplot{width:100%;height:110px;border:1px solid #274958;border-radius:8px;background:#091926}
+.wave-details{color:#799eaa;font-size:10px;white-space:normal;line-height:1.45}
+@media(max-width:1200px){.wave-content{grid-template-columns:195px 1fr}.wave-lab{padding:6px}.wave-controls{gap:4px}}
+@media(max-width:850px){.wave-content{grid-template-columns:1fr}}
+
+.wave-chart-switch{display:flex;justify-content:space-between;align-items:center;gap:8px;color:#7395a3;font-size:10px}.wave-chart-switch select{width:185px;display:inline-block;padding:4px 5px;font-size:10px}.wave-chart-switch label{display:flex;gap:8px;align-items:center}
+
+</style></head><body>
+<div class="app" id="app">
+ <header class="top">
+  <div class="brand"><div class="mark"><span></span><span></span></div><div><div class="overline">БГП · VOXELLAB</div><div class="brand-title">STUDIO <span>Р45</span> <small>ONLINE · FCC / BCC / WAVE / MAX</small> <small>редактор физической сцены</small></div></div></div>
+  <div class="head-actions"><span class="version">R45 · BROWSER JS PREVIEW / ZERO-MEAN</span><button class="flat" id="save-scene" title="Сохранить JSON (Ctrl+S)">↧ Сохранить</button><button class="flat" id="load-scene">↥ Открыть</button><button class="flat" id="export-state">≡ Данные</button><input type="file" id="file-input" accept=".json,application/json" hidden><button class="flat" id="screenshot" title="Снимок сцены">▣ Кадр</button><button class="flat iconbtn" id="help" title="Управление">?</button></div>
+ </header>
+ <div class="workspace">
+  <aside class="side left">
+   <div class="side-head"><div><span class="eyebrow">01 · ОБЪЕКТЫ</span><h2>Сцена</h2></div><span class="count" id="body-count">0</span></div>
+   <div class="scene-preset"><label for="preset" class="hint-title">Начальная конфигурация</label><select id="preset"><option value="custom" disabled>Пользовательская сцена</option><option value="pair">Две конечные сферы</option><option value="three">Три тела</option><option value="ring">Кольцо + центр</option><option value="bcc">BCC · 16 (быстрый контроль)</option><option value="bcc3">BCC · 54 · ρ̄=1</option><option value="bcc4">BCC · 128 · ρ̄=1</option><option value="fcc">FCC · 32 (быстрый контроль)</option><option value="fcc3">FCC · 108 · ρ̄=1</option><option value="wave_fcc_L">Волна · FCC108 · продольный импульс</option><option value="wave_fcc_T">Волна · FCC108 · поперечный импульс</option><option value="wave_bcc_L">Волна · BCC54 · продольный импульс</option><option value="wave_bcc_T">Волна · BCC54 · поперечный импульс</option><option value="empty">Чистая сцена</option></select></div>
+   <details class="max-import-block"><summary>↥ Импорт из 3ds Max 2024+ / Web</summary>
+     <div class="max-import-inner"><button id="import-max" class="max-button">Выбрать JSON от экспортёра</button><button id="download-max-exporter" class="max-button" type="button">↓ Скрипт экспорта для 3ds Max</button><input hidden type="file" id="max-file" accept=".json,application/json">
+       <label>Режим<select id="max-mode"><option value="replace">Новая сцена</option><option value="merge">Добавить к текущей</option></select></label>
+       <label>Единиц Max / 1 ед. Studio <input id="max-scale" type="number" value="100" min="0.001" step="1"></label>
+       <label class="max-check"><input id="max-recenter" type="checkbox" checked> Центрировать импортируемую группу</label>
+       <p id="max-import-status">MAX Z-up → Studio Y-up. Произвольные mesh передаются как сферические объёмные прокси, не как деформируемые тела.</p>
+     </div>
+    </details>
+   <div class="object-actions"><button class="primary" id="add-sphere">+ Добавить сферу</button><button id="add-cursor" title="Разместить сферу щелчком по плоскости">⊕ В сцену</button></div>
+   <div class="small-header"><span>СПИСОК ТЕЛ</span><span id="selected-counter">0 выделено</span></div>
+   <div class="objects" id="object-list" role="listbox" aria-label="Список объектов"></div>
+   <div class="bottom-tools"><button id="duplicate" title="Дублировать (Ctrl+D)">⧉ Копия</button><button id="remove" title="Удалить (Delete)">× Удалить</button></div>
+   <div class="section-note"><span class="note-icon">i</span><p>Каждый объект — конечный однородный объём. Выделение и редактирование доступны без загрузки заготовленных историй.</p></div>
+  </aside>
+  <section class="center">
+   <div class="stagebar"><div class="stage-title"><span class="eyebrow">02 · ФИЗИЧЕСКОЕ ПРОСТРАНСТВО</span><h2>Интерактивная лаборатория</h2></div><div class="stage-actions"><div class="toggle-pair"><button class="tool active" id="tool-select" title="Выбор и перемещение [G]">↖ Выбор</button><button class="tool" id="tool-place" title="Добавить тело щелчком">⊕ Построить</button></div><button id="fit-camera" title="Показать все объекты">⌗ Все</button></div></div>
+   <div class="viewport" id="viewport"><canvas id="glcanvas" aria-label="Трёхмерная физическая сцена"></canvas>
+     <div class="viewport-label top-left"><span class="live-dot"></span><span id="running-label">ПАУЗА</span><span class="slash">/</span><span id="mode-label">ПЕРИОДИЧЕСКОЕ</span></div>
+     <div class="viewport-label top-right"><span id="live-time">t = 0.0000</span><span class="slash">/</span><span id="live-steps">шаг 0</span></div>
+     <div class="viewport-help">ЛКМ — выбрать и тянуть · пустое место — орбита · ПКМ — сдвиг камеры · колесо — масштаб · Shift — несколько</div>
+     <div class="axis-corner"><span class="ax x">X</span><span class="ax y">Y</span><span class="ax z">Z</span></div>
+     <div class="viewport-pop" id="viewport-pop" hidden></div>
+   </div>
+   <div class="viewbottom"><div class="plane-picker"><span>ПЛОСКОСТЬ ПЕРЕМЕЩЕНИЯ</span><button class="plane active" data-plane="view">Экран</button><button class="plane" data-plane="xz">XZ</button><button class="plane" data-plane="xy">XY</button><button class="plane" data-plane="yz">YZ</button></div><div class="toggles"><label><input id="grid-toggle" type="checkbox" checked> сетка</label><label><input id="force-toggle" type="checkbox" checked> силы</label><label><input id="velocity-toggle" type="checkbox"> скорости</label><label><input id="trail-toggle" type="checkbox" checked> траектории</label></div></div>
+   <details class="wave-lab" open><summary>◉ Волновая лаборатория · одноразовый импульс / измерение</summary>
+     <div class="wave-content"><div class="wave-controls">
+       <label>Ось распространения<select id="wave-axis"><option value="0">X</option><option value="1">Y</option><option value="2">Z</option></select></label>
+       <label>Поляризация<select id="wave-pol"><option value="longitudinal">Продольная</option><option value="transverse">Поперечная</option></select></label>
+       <label>Амплитуда A<input id="wave-amplitude" type="number" min="0.0001" max="2" step="0.02" value="0.10"></label>
+       <label>Ширина σ<input id="wave-width" type="number" min="0.03" step="0.1" value="0.75"></label>
+       <button class="primary" id="wave-kick">↯ Начальный импульс</button>
+     </div><div class="wave-readout"><div class="wave-chart-switch"><label>График <select id="wave-chart-mode"><option value="instant">Скорость вдоль оси</option><option value="spacetime">Пространство × время</option></select></label><span>Волновой профиль — диагностический</span></div><canvas id="waveplot" width="660" height="118" aria-label="Профиль скорости по выбранной оси"></canvas><div class="wave-details" id="wave-details">Выберите волновую сцену или создайте импульс на собственных телах. Это подготовка скорости, не доказанный перенос волны.</div></div></div>
+   </details>
+   <div class="transport"><div class="player"><button class="run" id="play" title="Пуск / пауза [Пробел]">▶ Пуск</button><button class="icon-control" id="step" title="Один расчётный шаг">↦ Шаг</button><button class="icon-control" id="reset" title="Вернуться к подготовленному состоянию">↺ Сброс</button></div><div class="time-input"><label>ШАГ Δt <input id="dt" type="number" min="0.000001" max="0.3" step="0.001" value="0.006"></label><label>ШАГОВ / КАДР <select id="steps-per-frame"><option>1</option><option>2</option><option selected>3</option><option>5</option><option>10</option></select></label></div><div class="sim-info"><span id="fps" class="mono">— мс</span><small>Velocity Verlet · без демпфирования</small></div></div>
+  </section>
+  <aside class="side right">
+   <div class="side-head"><div><span class="eyebrow">03 · ИНСПЕКТОР</span><h2>Свойства</h2></div><span class="right-indicator" id="inspector-status">—</span></div>
+   <div class="inspector-empty" id="inspector-empty"><div class="empty-glyph">◎</div><strong>Выберите тело</strong><p>Нажмите на сферу в 3D или на строку в списке объектов. Можно выделять несколько через Shift.</p></div>
+   <div class="inspector" id="inspector" hidden>
+     <div class="field-top"><input id="obj-name" type="text" maxlength="64" placeholder="Название"><input id="obj-color" type="color" title="Цвет объекта" value="#63c6ea"></div>
+     <div class="inspector-tagline"><span id="obj-id">#</span><label class="pin"><input id="obj-pin" type="checkbox"> Закрепить внешней опорой</label></div>
+     <div class="segment-title">КОЛИЧЕСТВО И ГЕОМЕТРИЯ</div>
+     <div class="triple single"><label>Количество N <input id="obj-n" type="number" min="0.00001" step="0.1"></label><label>Инерция M <input id="obj-m" type="number" min="0.00001" step="0.1"></label><label>Радиус R <input id="obj-radius" type="number" min="0.0001" step="0.1"></label></div>
+     <div class="segment-title">ПОЛОЖЕНИЕ</div>
+     <div class="triple"><label><span class="axis-tag x">X</span><input id="obj-x" type="number" step="0.1"></label><label><span class="axis-tag y">Y</span><input id="obj-y" type="number" step="0.1"></label><label><span class="axis-tag z">Z</span><input id="obj-z" type="number" step="0.1"></label></div>
+     <div class="segment-title">ВЕКТОР СКОРОСТИ</div>
+     <div class="triple"><label><span class="axis-tag x">Vx</span><input id="obj-vx" type="number" step="0.1"></label><label><span class="axis-tag y">Vy</span><input id="obj-vy" type="number" step="0.1"></label><label><span class="axis-tag z">Vz</span><input id="obj-vz" type="number" step="0.1"></label></div>
+     <div class="force-panel"><div class="segment-title">РЕЗУЛЬТИРУЮЩАЯ СИЛА</div><div class="force-value" id="force-magnitude">—</div><div class="vec-vals" id="force-vec">—</div></div>
+     <div class="segment-title">ВКЛАДЫ ИСТОЧНИКОВ <span id="ledger-count">0</span></div>
+     <div id="source-ledger" class="ledger"></div>
+   </div>
+   <div class="global"><div class="side-head compact"><div><span class="eyebrow">04 · ОПЕРАТОР</span><h2>Расчёт</h2></div></div>
+      <label class="fullfield">Граничная задача<select id="boundary"><option value="periodic">Периодика · zero-mean Р45</option><option value="open">Открытый Direct · контроль</option></select></label>
+      <div class="global-grid"><label>Сторона ячейки L <input id="box-L" type="number" step="1" min="2" value="12"></label><label>Множитель κ <input id="coefficient" type="number" min="0.00001" step="0.1" value="1"></label></div>
+      <p class="global-caveat" id="boundary-info">Нулевое среднее — периодическая математическая конвенция. Не доказанное положительное бесконечное КУО.</p>
+   </div>
+  </aside>
+ </div>
+ <footer class="metrics"><div class="metric"><span>ТЕЛА</span><strong id="metric-bodies">2</strong><small id="metric-amount">ΣN —</small></div><div class="metric"><span>ЭНЕРГИЯ K + U</span><strong id="metric-energy">—</strong><small id="metric-delta">ΔE —</small></div><div class="metric"><span>ИМПУЛЬС |P|</span><strong id="metric-momentum">—</strong><small>прикреплённые тела — внешняя опора</small></div><div class="metric"><span>ПЕРЕСЕЧЕНИЯ</span><strong id="metric-overlaps">0</strong><small id="metric-gap">мин. зазор —</small></div><div class="metric status-metric"><span>ВЫЧИСЛИТЕЛЬНЫЙ СТАТУС</span><strong id="metric-status">Браузерный вычислитель</strong><small>Исследовательская квалификация не заявлена</small></div></footer>
+ <div class="toast" id="toast" aria-live="polite"></div>
+ <div class="modal-cover" id="modal" hidden><div class="modal"><button id="modal-close" class="modal-close">×</button><span class="eyebrow">VOXELLAB STUDIO · Р45</span><h2>Работа со сценой</h2><p>Здесь можно создать собственную сцену и запустить движение конечных объёмов. Все изменения состояния создают новую подготовку опыта.</p><div class="keys"><div><kbd>ЛКМ</kbd> выбрать и переместить тело</div><div><kbd>Shift + ЛКМ</kbd> добавить к выделению</div><div><kbd>ЛКМ по фону</kbd> вращать камеру</div><div><kbd>ПКМ / Shift</kbd> переместить камеру</div><div><kbd>G</kbd> выбрать / двигать</div><div><kbd>Пробел</kbd> пуск / пауза</div><div><kbd>Delete</kbd> удалить выбранные тела</div><div><kbd>Ctrl + D</kbd> создать копии</div><div><kbd>Ctrl + S</kbd> сохранить сцену</div><div><kbd>Ctrl + Z/Y</kbd> отмена / возврат правки</div></div><p class="small">Физика: JS-перенос математического оператора PeriodicGreen Р45, объёмный интеграл однородных сфер при перекрытии, явно назначенная инерция M и интегратор Verlet. Нет контакта, TURN, экранирования, пружин или скрытого удержания. Закрепление — отдельная внешняя опора. Статус — engineering preview.</p></div></div>
+</div><script id="worker-source" type="text/plain">
+/* VoxelLab Studio R45 | browser engineering translation of the archived
+ * mathematical periodic Green operator, NOT the frozen Python source or a
+ * physically certified infinite-KOU solver. No remote requests or server.
+ * Physics: finite homogeneous spheres, Ewald zero-mean periodic kernel,
+ * finite-sphere analytic free pair and its smooth periodic correction.
+ */
+const PI=Math.PI,SQRTPI=Math.sqrt(PI),PI4=4*PI;
+const sq=x=>x*x;
+const norm3=a=>Math.hypot(a[0],a[1],a[2]);
+const dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
+const deep=x=>JSON.parse(JSON.stringify(x));
+const fmtVec=x=>x.map(Number);
+const wrap=(x,L)=>((x+L/2)%L+L)%L-L/2;
+function polevl(x,p){let y=p[0];for(let i=1;i<p.length;i++)y=y*x+p[i];return y}
+function p1evl(x,p){let y=x+p[0];for(let i=1;i<p.length;i++)y=y*x+p[i];return y}
+// Cephes erf/erfc rational coefficients (open mathematical implementation),
+// evaluated as in the standard ndtr family for approximately FP64 accuracy.
+const T=[9.60497373987051638749e0,9.00260197203842689217e1,2.23200534594684319226e3,7.00332514112805075473e3,5.55923013010394962768e4];
+const U=[3.35617141647503099647e1,5.21357949780152679795e2,4.59432382970980127987e3,2.26290000613890934246e4,4.92673942608635921086e4];
+const P=[2.46196981473530512524e-10,5.64189564831068821977e-1,7.46321056442269912687e0,4.86371970985681366614e1,1.96520832956077098242e2,5.26445194995477358631e2,9.34528527171957607540e2,1.02755188689515710272e3,5.57535335369399327526e2];
+const Q=[1.32281951154744992508e1,8.67072140885989742329e1,3.54937778887819891062e2,9.75708501743205489753e2,1.82390916687909736289e3,2.24633760818710981792e3,1.65666309194161350182e3,5.57535340817727675546e2];
+const R=[5.64189583547755073984e-1,1.27536670759978104416e0,5.01905042251180477414e0,6.16021097993053585195e0,7.40974269950448939160e0,2.97886665372100240670e0];
+const S=[2.26052863220117276590e0,9.39603524938001434673e0,1.20489539808096656605e1,1.70814450747565897222e1,9.60896809063285878198e0,3.36907645100081516050e0];
+function erf(x){if(x<0)return -erf(-x);if(x>1)return 1-erfc(x);let t=x*x;return x*polevl(t,T)/p1evl(t,U)}
+function erfc(x){if(x<0)return 2-erfc(-x);if(x<1)return 1-erf(x);if(x>27)return 0;return Math.exp(-x*x)*(x<8?polevl(x,P)/p1evl(x,Q):polevl(x,R)/p1evl(x,S))}
+function gaussLegendre(n){const x=[],w=[];for(let i=0;i<n;i++){let z=Math.cos(PI*(i+0.75)/(n+0.5)),z1=0,p1=0,p2=0,pp=0;for(let q=0;q<30;q++){p1=1;p2=0;for(let j=1;j<=n;j++){let p3=p2;p2=p1;p1=((2*j-1)*z*p2-(j-1)*p3)/j}pp=n*(z*p1-p2)/(z*z-1);z1=z;z=z1-p1/pp;if(Math.abs(z-z1)<1e-15)break}x.push(z);w.push(2/((1-z*z)*pp*pp))}return {x,w}}
+const GAUSS=gaussLegendre(18);
+function spherePairFree(d,a,b,na,nb){
+ if(a<=0||b<=0||d<0||!Number.isFinite(d))throw Error('Invalid sphere geometry');
+ let f=0,u=0,q=na*nb;
+ if(d>=a+b){return {f:q/(d*d),u:q/d}}
+ if(Math.abs(a-b)<=1e-12*Math.max(a,b)){
+  const e=d/a;u=q/a*(1.2-0.5*e*e+3*e**3/16-e**5/160);
+  f=q/(a*a)*(e-9*e*e/16+e**4/32);return {f,u};
+ }
+ const small=Math.min(a,b),big=Math.max(a,b);
+ if(d+small<=big){return {f:q*d/(big**3),u:q*(1.5/big-.3*small**2/big**3-.5*d*d/big**3)}};
+ const cuts=[0,a];for(const c of [d,Math.abs(d-b),d+b,b-d,d-b])if(c>1e-13&&c<a-1e-13)cuts.push(c);
+ cuts.sort((x,y)=>x-y);let Uacc=0,Facc=0;
+ const h=z=>z<=b?(0.75*b*b*z*z-0.125*z**4)/(b**3):z-0.375*b;
+ for(let j=0;j<cuts.length-1;j++){
+  const x0=cuts[j],x1=cuts[j+1];if(x1-x0<1e-14)continue;
+  const center=(x1+x0)/2,half=(x1-x0)/2;
+  for(let k=0;k<18;k++){
+   let rr=center+half*GAUSS.x[k],ww=half*GAUSS.w[k];
+   let lo=Math.abs(d-rr),hi=d+rr,t=d*d-rr*rr;
+   const jj=z=>z<=b?z**4/(4*b**3)+t*z*z/(2*b**3):z-t/Math.max(z,1e-300)+(b/4+t/(2*b))-(b-t/b);
+   Uacc+=ww*rr*(h(hi)-h(lo));Facc+=ww*rr*(jj(hi)-jj(lo));
+  }
+ }
+ u=3*q/(2*a**3*d)*Uacc;f=3*q/(4*a**3*d*d)*Facc;
+ return {f,u};
+}
+class PeriodicGreen{
+ constructor(L){
+  this.L=L;this.V=L**3;this.alpha=5/L;this.rcut=1.5*L;
+  this.images=[];this.k=[];this.w=[];
+  for(let i=-2;i<=2;i++)for(let j=-2;j<=2;j++)for(let k=-2;k<=2;k++)this.images.push([i*L,j*L,k*L]);
+  for(let i=-9;i<=9;i++)for(let j=-9;j<=9;j++)for(let k=-9;k<=9;k++){
+   const s=i*i+j*j+k*k;if(s===0||s>81||!(i>0||(i===0&&j>0)||(i===0&&j===0&&k>0)))continue;
+   const kx=2*PI*i/L,ky=2*PI*j/L,kz=2*PI*k/L,k2=kx*kx+ky*ky+kz*kz;
+   this.k.push([kx,ky,kz]);this.w.push(8*PI/this.V*Math.exp(-k2/(4*this.alpha**2))/k2);
+  }
+  const sumW=this.w.reduce((a,b)=>a+b,0);
+  let imageG=0;for(const o of this.images){const r=norm3(o);if(r>0&&r<this.rcut)imageG+=erfc(this.alpha*r)/r}
+  this.self_g=imageG+sumW-PI/(this.alpha*this.alpha*this.V)-2*this.alpha/SQRTPI;
+ }
+ kernel(displacement){
+  const L=this.L,x=displacement.map(v=>wrap(v,L));let fx=0,fy=0,fz=0,g=-PI/(this.alpha*this.alpha*this.V);
+  const a=this.alpha,cut2=this.rcut**2;
+  for(const v of this.images){const dx=x[0]+v[0],dy=x[1]+v[1],dz=x[2]+v[2],r2=dx*dx+dy*dy+dz*dz;
+   if(r2<=1e-28||r2>=cut2)continue;
+   const r=Math.sqrt(r2),exp=Math.exp(-a*a*r2),er=erfc(a*r),coeff=er/(r2*r)+2*a/SQRTPI*exp/r2;
+   fx+=coeff*dx;fy+=coeff*dy;fz+=coeff*dz;g+=er/r;
+  }
+  for(let i=0;i<this.k.length;i++){
+   const k=this.k[i],z=x[0]*k[0]+x[1]*k[1]+x[2]*k[2],w=this.w[i];
+   const co=w*Math.cos(z),si=w*Math.sin(z);
+   g+=co;fx+=si*k[0];fy+=si*k[1];fz+=si*k[2];
+  }
+  return {f:[fx,fy,fz],g};
+ }
+}
+function convertMax(payload,mode,old,units,recenter){
+ const fmt=payload?.format??payload?.schema;let source,warnings=[],upm=1,bodies=[];
+ if(fmt==='VOXELLAB_MAX_R45_V2'){
+  upm=Number(units??payload.units_per_studio_unit??100);
+  if(!Number.isFinite(upm)||upm<1e-6||upm>1e9)throw Error('Invalid units_per_studio_unit');
+  if(!Array.isArray(payload.nodes)||!payload.nodes.length)throw Error('Empty 3ds Max import');
+  source='3ds Max JSON V2';
+  for(const [i,o] of payload.nodes.entries()){
+   const x=o.position,v=o.velocity??[0,0,0];if(!Array.isArray(x)||x.length!==3||!Array.isArray(v)||v.length!==3)throw Error('Max position/velocity must be xyz');
+   const n=Number(o.N??o.amount??1),m=Number(o.M??o.mass??n),rad=Number(o.radius);
+   if(![...x,...v,n,m,rad].every(Number.isFinite)||n<=0||m<=0||rad<=0)throw Error('Invalid Max node properties');
+   const color=/^#[0-9a-f]{6}$/i.test(o.color)?o.color:'#73c2ff';
+   bodies.push({src_id:'max_'+String(o.handle??i),name:String(o.name??('Max '+i)).slice(0,120),x:[x[0]/upm,x[2]/upm,-x[1]/upm],v:[v[0]/upm,v[2]/upm,-v[1]/upm],n,m,radius:rad/upm,color,pinned:!!o.pinned});
+   if(!['sphere_primitive','user_property','explicit'].includes(o.radius_method))warnings.push('Объект '+bodies.at(-1).name+': сферический прокси');
+  }
+ }else if(Array.isArray(payload?.objects)){
+  if(units!==null&&units!==undefined&&Number(units)!==1)throw Error('Legacy VoxelLab Web JSON requires units=1');
+  source='VoxelLab Web JSON';warnings.push('Rigid mesh → сферический объёмный прокси');
+  for(const [i,o] of payload.objects.entries()){
+   const n=Number(o.amount??1),rho=Number(o.density??1),m=Number(o.inertia??n);
+   if(!(n>0&&rho>0&&m>0))throw Error('Invalid amount / density / inertia');
+   const x=o.transform?.position??o.position,v=o.velocity??[0,0,0];if(!Array.isArray(x)||x.length!==3||!Array.isArray(v)||v.length!==3)throw Error('Invalid position');
+   bodies.push({src_id:String(o.object_id??('web_'+i)),name:String(o.display_name??o.name??('Web '+i)),x:x.map(Number),v:v.map(Number),n,m,radius:Math.cbrt(3*n/(PI4*rho)),color:o.color??'#73c2ff',pinned:!!o.world_locked});
+  }
+ }else throw Error('Неизвестный формат файла Max/Web');
+ if(!bodies.length)throw Error('Пустой импорт');
+ if(recenter){let min=[Infinity,Infinity,Infinity],max=[-Infinity,-Infinity,-Infinity];for(const b of bodies)for(let a=0;a<3;a++){min[a]=Math.min(min[a],b.x[a]);max[a]=Math.max(max[a],b.x[a])}for(const b of bodies)for(let a=0;a<3;a++)b.x[a]-=(min[a]+max[a])/2}
+ const keep=mode==='merge'?deep(old.bodies):[];
+ if(bodies.length+keep.length>160)throw Error('Live limit: 160 objects');
+ const ids=new Set(keep.map(x=>x.id));const fresh=()=>{};
+ const clean=s=>{let t=String(s).replace(/[^a-zA-Z0-9_-]/g,'_').slice(0,52)||'max_obj';if(/^\d/.test(t))t='mx_'+t;let x=t,i=2;while(ids.has(x))x=t+'_'+(i++);ids.add(x);return x};
+ for(const b of bodies)keep.push({id:clean(b.src_id),name:b.name,x:b.x,v:b.v,n:b.n,m:b.m,radius:b.radius,color:b.color,pinned:b.pinned});
+ const result={schema:'voxel-r45-editor/1',L:old.L,boundary:old.boundary,kappa:old.kappa,dt:old.dt,bodies:keep,wave:null};
+ const span=Math.max(...keep.flatMap(b=>[0,1,2].map(i=>Math.abs(b.x[i])+b.radius))),maxRad=Math.max(...keep.map(b=>b.radius));
+ const needed=Math.max(2*span+2*maxRad+1,6*maxRad+1,2);
+ if(needed>result.L){let was=result.L;result.L=Math.ceil(needed*1000)/1000;warnings.push(`Размер периодической ячейки L изменён: ${was} → ${result.L}`)}
+ const note={source,mode,imported:bodies.length,total:keep.length,recentered:!!recenter,warnings:warnings.slice(0,40),units_per_studio:upm,body_model:'homogeneous sphere proxy'};
+ result.import_note=note;return {result,note};
+}
+class SceneModel{
+ constructor(){this.rev=0;this.time=0;this.steps=0;this.nextId=1;this.green=null;this.greenL=NaN;this.cache=null;this.status='READY';this.demo('pair')}
+ create(x,n=1,m=n,radius=.36,name=null,color='#68c8f3'){
+  let id;do{id='b'+String(this.nextId++).padStart(3,'0')}while(this.bodies.some(b=>b.id===id));
+  return {id,name:name??('Сфера '+id),x:[...x],v:[0,0,0],n,m,radius,color,pinned:false};
+ }
+ wrap(x){return this.boundary==='periodic'?x.map(y=>wrap(y,this.L)):[...x]}
+ dump(){return {schema:'voxel-r45-editor/1',L:this.L,boundary:this.boundary,kappa:this.kappa,dt:this.dt,bodies:deep(this.bodies),wave:deep(this.wave),import_note:deep(this.import_note)}}
+ validate(){
+  if(!(this.L>0&&this.L<=10000&&this.kappa>0&&this.kappa<=1000&&this.dt>=1e-6&&this.dt<=.3))throw Error('Invalid scene parameters');
+  if(this.bodies.length>160)throw Error('Maximum 160 bodies; large-N batch solver separate');
+  const seen=new Set();for(const b of this.bodies){if(!b.id||seen.has(b.id))throw Error('Duplicate ID');seen.add(b.id);
+   if(![...b.x,...b.v,b.n,b.m,b.radius].every(Number.isFinite)||b.n<=0||b.m<=0||b.radius<=0||b.radius>=this.L/3)throw Error('Invalid body or radius');
+  }
+  if(this.boundary==='periodic')for(let i=0;i<this.bodies.length;i++)for(let j=i+1;j<this.bodies.length;j++)if(this.bodies[i].radius+this.bodies[j].radius>=.499*this.L)throw Error('R_a+R_b must be < L/2');
+ }
+ greenCore(){if(!this.green||this.greenL!==this.L){this.green=new PeriodicGreen(this.L);this.greenL=this.L}return this.green}
+ evaluate(){
+  this.validate();const n=this.bodies.length,forces=Array.from({length:n},()=>[0,0,0]);let upair=0;
+  const led=Array.from({length:n},()=>[]),overlaps=[];let minGap=Infinity,overlapSum=0;
+  const gr=this.boundary==='periodic'?this.greenCore():null;
+  for(let i=0;i<n-1;i++)for(let j=i+1;j<n;j++){
+   const a=this.bodies[i],b=this.bodies[j];let dv=a.x.map((v,k)=>v-b.x[k]);if(gr)dv=dv.map(v=>wrap(v,this.L));
+   const d=norm3(dv),gap=d-a.radius-b.radius;minGap=Math.min(minGap,gap);
+   const {f:force,u:pot}=spherePairFree(d,a.radius,b.radius,a.n,b.n);
+   let dir=d>1e-12?dv.map(v=>v/d):[0,0,0];
+   const direct=dir.map(v=>v*force);let corr=[0,0,0],addU=0;
+   if(gr){const {f,g}=gr.kernel(dv);const inv=d>1e-12?1/d:0;
+    corr=d>1e-12?f.map((v,k)=>a.n*b.n*(v-dir[k]*inv*inv)):[0,0,0];
+    addU=a.n*b.n*((d>1e-12?g-inv:gr.self_g)+(a.radius*a.radius+b.radius*b.radius)*PI4/gr.V/10);
+   }
+   const total=direct.map((v,k)=>(v+corr[k])*this.kappa),dc=direct.map(v=>v*this.kappa),pc=corr.map(v=>v*this.kappa);
+   for(let k=0;k<3;k++){forces[i][k]+=total[k];forces[j][k]-=total[k]}
+   led[i].push({id:b.id,name:b.name,force:total,direct_force:dc,periodic_residual:pc,distance:d,gap});
+   led[j].push({id:a.id,name:a.name,force:total.map(v=>-v),direct_force:dc.map(v=>-v),periodic_residual:pc.map(v=>-v),distance:d,gap});
+   upair+=pot+addU;
+   if(gap<0){let intersect;if(d<=Math.abs(a.radius-b.radius))intersect=PI4/3*Math.min(a.radius,b.radius)**3;
+    else intersect=PI*(a.radius+b.radius-d)**2*(d*d+2*d*(a.radius+b.radius)-3*(a.radius-b.radius)**2)/(12*d);
+    overlaps.push({a:a.id,b:b.id,gap,intersection:intersect,fraction_smaller:intersect/(PI4/3*Math.min(a.radius,b.radius)**3)});
+    overlapSum+=intersect;
+   }
+  }
+  const N=this.bodies.reduce((q,b)=>q+b.n*b.n/b.radius,0),sR=this.bodies.reduce((q,b)=>q+b.n*b.n*b.radius*b.radius,0);
+  let selfU=3/5*N;if(gr){const sumN=this.bodies.reduce((q,b)=>q+b.n*b.n,0);selfU+=.5*gr.self_g*sumN+sR*PI4/gr.V/10}
+  this.cache={forces,ledger:led,overlaps,overlapSum,minGap:n>=2?minGap:null,U:(upair+selfU)*this.kappa,pairU:upair*this.kappa,selfU:selfU*this.kappa};
+  return this.cache;
+ }
+ snapshot(selected=null){const c=this.cache??this.evaluate();let kinetic=0,P=[0,0,0];for(const b of this.bodies){kinetic+=.5*b.m*dot(b.v,b.v);for(let k=0;k<3;k++)P[k]+=b.m*b.v[k]}
+  const idx=this.bodies.findIndex(b=>b.id===selected);
+  const ledger=idx>=0?[...c.ledger[idx]].sort((a,b)=>norm3(b.force)-norm3(a.force)).slice(0,96):[];
+  return {ok:true,revision:this.rev,scene:this.dump(),time:this.time,steps:this.steps,
+   forces:Object.fromEntries(this.bodies.map((b,i)=>[b.id,c.forces[i]])),kinetic,potential:c.U,energy:kinetic+c.U,momentum:P,
+   overlaps:c.overlaps.slice(0,50),overlap_count:c.overlaps.length,overlap_pair_volume_sum:c.overlapSum,min_gap:c.minGap,
+   selected_ledger:ledger,kernel:'R45 PeriodicGreen — JS engineering translation; finite spheres',operator:this.boundary,
+   wave:deep(this.wave),wave_profile:this.waveProfile(),import_note:deep(this.import_note),status:this.status};
+ }
+ waveProfile(){if(!this.wave)return null;const axis=this.wave.axis,dir=this.wave.direction;const bins=[];let sigma=Math.max(this.L/32,.17);
+  for(let i=0;i<32;i++){const p=-this.L/2+(i+.5)*this.L/32;let a=0,z=0;
+   for(const b of this.bodies){let dx=b.x[axis]-p;if(this.boundary==='periodic')dx=wrap(dx,this.L);const w=b.m*Math.exp(-.5*sq(dx/sigma));a+=w;z+=w*b.v[dir]}
+   bins.push(a>1e-100?z/a:0);
+  }return {axis,polarization:this.wave.polarization,direction:dir,bins,center:0,sigma};
+ }
+ invalidate(prepared=true){this.cache=null;this.rev++;if(prepared){this.time=0;this.steps=0;this.status='EDITED_SCENE_NEW_PREPARATION';this.baseline=this.dump()}}
+ load(doc){if(!doc||!Array.isArray(doc.bodies))throw Error('Invalid scene');this.L=Number(doc.L??12);this.boundary=doc.boundary??'periodic';this.kappa=Number(doc.kappa??1);this.dt=Number(doc.dt??.006);
+  this.bodies=doc.bodies.map(x=>({id:String(x.id),name:String(x.name??x.id),x:x.x.map(Number),v:(x.v??[0,0,0]).map(Number),n:Number(x.n??1),m:Number(x.m??x.n??1),radius:Number(x.radius??.35),color:x.color??'#73c2ff',pinned:!!x.pinned}));
+  this.wave=doc.wave??null;this.import_note=doc.import_note??null;this.green=null;this.nextId=1;this.invalidate();this.status='LOADED';this.baseline=this.dump();this.validate();
+ }
+ demo(name){
+  this.L=12;this.boundary='periodic';this.kappa=1;this.dt=.006;this.bodies=[];this.nextId=1;this.wave=null;this.import_note=null;this.green=null;
+  const add=(pos,n,r,name,color,v=[0,0,0])=>{const b=this.create(pos,n,n,r,name,color);b.v=v;this.bodies.push(b)};
+  if(name==='pair'){
+   add([-1.8,0,0],1.5,.69,'A · сфера','#4ad4e2');add([1.8,0,0],1,.59,'B · сфера','#f8ac65');
+  }else if(name==='three'){
+   add([-2.7,0,0],1,.57,'Левая','#64cfff');add([0,0,0],1.8,.7,'Центр','#e8d891');add([2.7,0,0],1,.57,'Правая','#b3adfc');
+  }else if(name==='ring'){
+   for(let i=0;i<12;i++){const t=i*PI/6;add([2.75*Math.cos(t),0,2.75*Math.sin(t)],.5,.35,'Кольцо · '+(i+1),'#66b5ec',[-.25*Math.sin(t),0,.25*Math.cos(t)])}
+   add([0,0,0],3,.7,'Центральный','#eeaa6e');
+  }else if(['fcc','bcc'].includes(name)){
+   const bas=name==='fcc'?[[0,0,0],[0,.5,.5],[.5,0,.5],[.5,.5,0]]:[[0,0,0],[.5,.5,.5]];
+   for(let i=0;i<2;i++)for(let j=0;j<2;j++)for(let k=0;k<2;k++)for(const o of bas)add([(i+o[0]-.75)*4,(j+o[1]-.75)*4,(k+o[2]-.75)*4],name==='fcc'?.65:.7,name==='fcc'?.36:.39,name.toUpperCase()+' '+(this.bodies.length+1),'#69bcd3');
+  }else if(['fcc3','bcc3','bcc4','wave_fcc_L','wave_fcc_T','wave_bcc_L','wave_bcc_T'].includes(name)){
+   const typ=name.includes('fcc')?'fcc':'bcc',cells=name==='bcc4'?4:3,bas=typ==='fcc'?[[0,0,0],[0,.5,.5],[.5,0,.5],[.5,.5,0]]:[[0,0,0],[.5,.5,.5]];
+   this.L=Math.cbrt(bas.length*cells**3);const a=this.L/cells;
+   for(let i=0;i<cells;i++)for(let j=0;j<cells;j++)for(let k=0;k<cells;k++)for(let b=0;b<bas.length;b++){
+    const o=bas[b];add([-this.L/2+a*(i+o[0]),-this.L/2+a*(j+o[1]),-this.L/2+a*(k+o[2])],1,.3,typ.toUpperCase()+' '+(this.bodies.length+1),typ==='fcc'?'#7bcfe3':'#a2b3fb');
+   }this.dt=.004;
+   if(name.startsWith('wave_'))this.pulse(0,name.endsWith('_L')?'longitudinal':'transverse',.10,.75,true);
+  }else if(name!=='empty')throw Error('Unknown scene '+name);
+  this.invalidate();this.status='DEMO_'+name.toUpperCase();this.baseline=this.dump();this.validate();
+ }
+ pulse(axis,pol,amplitude,width,initializing=false){axis=Number(axis);amplitude=Number(amplitude);width=Number(width);
+  if(![0,1,2].includes(axis)||!['longitudinal','transverse'].includes(pol)||!Number.isFinite(amplitude)||Math.abs(amplitude)>2||Math.abs(amplitude)<=0||width<.03||width>this.L/2)throw Error('Bad pulse parameters');
+  const free=this.bodies.filter(b=>!b.pinned);if(free.length<2)throw Error('Need at least 2 free objects');
+  const dir=pol==='longitudinal'?axis:(axis+1)%3,bumps=free.map(b=>Math.exp(-.5*(wrap(b.x[axis],this.L)/width)**2));
+  const tot=free.reduce((s,b)=>s+b.m,0);const mean=free.reduce((s,b,i)=>s+b.m*bumps[i],0)/tot;
+  let before=free.reduce((s,b)=>s+.5*b.m*dot(b.v,b.v),0),max=0;
+  free.forEach((b,i)=>{let dv=amplitude*(bumps[i]-mean);max=Math.max(max,Math.abs(dv));b.v[dir]+=dv});
+  if(max<1e-8)throw Error('Wave width under-resolved by lattice');
+  const after=free.reduce((s,b)=>s+.5*b.m*dot(b.v,b.v),0);
+  this.wave={kind:'velocity_pulse',axis,polarization:pol,direction:dir,amplitude,width,injected_kinetic:after-before,description:'Однократный импульс; не подтверждённая волна'};
+  if(!initializing){this.invalidate();this.status='WAVE_INITIAL_PULSE_NEW_PREPARATION'}
+ }
+ action(msg){const kind=msg.kind;
+  if(kind==='demo')return this.demo(msg.name??'pair');
+  if(kind==='load')return this.load(msg.scene);
+  if(kind==='wave_pulse')return this.pulse(msg.axis??0,msg.polarization??'longitudinal',msg.amplitude??.1,msg.width??.75);
+  if(kind==='import_max'){
+   const {result,note}=convertMax(msg.payload,msg.mode??'replace',this.dump(),msg.units_per_studio??null,msg.recenter??true);
+   this.load(result);this.import_note=note;this.baseline=this.dump();this.status='IMPORTED_MAX_NEW_PREPARATION';return;
+  }
+  if(kind==='reset'){if(this.baseline)this.load(this.baseline);return}
+  if(kind==='add'){const x=msg.x??[0,0,0];this.bodies.push(this.create(x,Number(msg.n??1),Number(msg.n??1),Number(msg.radius??.5),msg.name??'Новая сфера',msg.color??'#77cce0'));this.validate();this.invalidate();return}
+  if(kind==='delete'){const ids=new Set(msg.ids??[]);this.bodies=this.bodies.filter(b=>!ids.has(b.id));this.invalidate();return}
+  if(kind==='duplicate'){
+   const ids=new Set(msg.ids??[]);for(const b of [...this.bodies])if(ids.has(b.id)){
+    const c=this.create([b.x[0]+.6,b.x[1],b.x[2]+.6],b.n,b.m,b.radius,b.name+' · копия',b.color);c.v=[...b.v];c.pinned=b.pinned;this.bodies.push(c)
+   }this.validate();this.invalidate();return;
+  }
+  if(kind==='move'){for(const b of this.bodies)if(msg.positions&&msg.positions[b.id])b.x=msg.positions[b.id].map(Number);this.validate();this.invalidate();return}
+  if(kind==='set'){
+   const b=this.bodies.find(b=>b.id===msg.id);if(!b)throw Error('Unknown object');for(const [k,v] of Object.entries(msg.values??{}))if(['x','v'].includes(k))b[k]=v.map(Number);else if(['m','n','radius'].includes(k))b[k]=Number(v);else if(['name','color'].includes(k))b[k]=String(v);else if(k==='pinned')b.pinned=!!v;
+   this.validate();this.invalidate();return;
+  }
+  if(kind==='config'){
+   for(const k of ['L','dt','kappa'])if(k in msg)this[k]=Number(msg[k]);if('boundary' in msg)this.boundary=msg.boundary;
+   this.green=null;this.validate();this.invalidate();return;
+  }
+  if(kind==='checkpoint'){this.baseline=this.dump();this.status='CHECKPOINT_SET';return}
+  throw Error('Unsupported action '+kind);
+ }
+ step(n=1,dt=this.dt){n=Number(n);dt=Number(dt);if(!Number.isInteger(n)||n<1||n>40||dt<1e-6||dt>.3)throw Error('Invalid step parameters');
+  this.validate();if(!this.cache)this.evaluate();const saved=this.dump(),savedTime=this.time,savedStep=this.steps;
+  try{for(let k=0;k<n;k++){
+   const prev=this.cache.forces;
+   for(let i=0;i<this.bodies.length;i++){const b=this.bodies[i];if(b.pinned)continue;
+    for(let a=0;a<3;a++){b.v[a]+=.5*dt*prev[i][a]/b.m;b.x[a]+=dt*b.v[a]}
+    if(this.boundary==='periodic')b.x=b.x.map(x=>wrap(x,this.L));
+   }
+   const next=this.evaluate().forces;
+   for(let i=0;i<this.bodies.length;i++){const b=this.bodies[i];if(b.pinned)continue;for(let a=0;a<3;a++)b.v[a]+=.5*dt*next[i][a]/b.m}
+   this.time+=dt;this.steps++;
+  }this.status='RUNNING_NUMERIC_PREVIEW';this.rev++}
+  catch(e){this.bodies=saved.bodies;this.time=savedTime;this.steps=savedStep;this.cache=null;this.status='NUMERIC_HOLD_ROLLBACK';throw e}
+ }
+}
+
+
+const model=new SceneModel();
+self.addEventListener('message',event=>{
+ const {id,path,body}=event.data;
+ try{
+  const url=new URL(path,'https://local.voxellab/');let out;
+  if(url.pathname==='/api/meta'){
+   out={ok:true,backend:'R45 PeriodicGreen mathematical translation + finite homogeneous sphere adapter',
+    live_kernel_sha256:'47fa68060d6d7c43cc2b5eb968dfc606ebe9f4f893b4d447df6988ce8a570e34',
+    runtime:'BROWSER_JS_WORKER_CPU_PREVIEW',physics_scope:'Ewald zero-mean periodic/open; finite overlapping spheres, explicit M and Verlet',status:'NOT_RESEARCH_AUTHORITATIVE'};
+  }else if(url.pathname==='/api/state')out=model.snapshot(url.searchParams.get('selected'));
+  else if(url.pathname==='/api/action'){
+   const prev=model.dump(),oldTime=model.time,oldSteps=model.steps,oldStatus=model.status,oldBase=structuredClone(model.baseline);
+   try{model.action(body)}catch(e){model.load(prev);model.time=oldTime;model.steps=oldSteps;model.status=oldStatus;model.baseline=oldBase;throw e}
+   out=model.snapshot(body.selected);
+  }else if(url.pathname==='/api/step'){
+   model.step(body.steps??1,body.dt??model.dt);out=model.snapshot(body.selected);
+  }else throw Error('Unknown /api route');
+  self.postMessage({id,status:200,data:out});
+ }catch(err){self.postMessage({id,status:400,data:{ok:false,error:String(err?.message??err),status:model.status}})}
+});
+
+</script>
+<script id="max-export-source" type="text/plain">
+# -*- coding: utf-8 -*-
+"""3ds Max 2024+ → VoxelLab Studio R45 (run INSIDE 3ds Max Python).
+
+Open: Scripting > New Script > Python; load/run this file.
+Each geometry node becomes one *finite homogeneous SPHERE PROXY*. The original
+mesh is NOT claimed to be physically integrated. Overrides via User Defined
+Properties: vl_N, vl_M, vl_radius, vl_vx, vl_vy, vl_vz, vl_pinned.
+"""
+import json
+import math
+import os
+from datetime import datetime, timezone
+
+try:
+    from pymxs import runtime as rt
+except ImportError as ex:
+    raise RuntimeError('Run this file inside 3ds Max 2024+ Python scripting (pymxs required)') from ex
+
+# CONFIGURATION — set these explicitly for the scale of your scene.
+EXPORT_SELECTED_ONLY = True
+UNITS_PER_STUDIO_UNIT = 100.0  # 100 native Max system units -> 1 VoxelLab unit
+EXPORT_PATH = os.path.join(os.path.expanduser('~'), 'Desktop', 'voxellab_max_r45.json')
+INCLUDE_HIDDEN = False
+DEFAULT_AMOUNT = 1.0
+
+
+def _float_user(node, name, default):
+    try:
+        v = rt.getUserProp(node, name)
+        if v is None or str(v).lower() in ('undefined', 'none', ''):
+            return float(default)
+        x = float(v)
+        if not math.isfinite(x):
+            raise ValueError(name)
+        return x
+    except (TypeError,ValueError):
+        return float(default)
+
+
+def _bool_user(node, name, default=False):
+    try:
+        v = rt.getUserProp(node,name)
+        if v is None or str(v).lower() in ('undefined', 'none', ''):
+            return default
+        return str(v).strip().lower() in ('1','true','yes','on')
+    except Exception:
+        return default
+
+
+def _handle(node):
+    try:return int(rt.getHandleByAnim(node))
+    except Exception:
+        try:return int(node.handle)
+        except Exception:return str(node.name)
+
+
+def _node_geometry(node):
+    try:
+        return rt.superClassOf(node) == rt.GeometryClass
+    except Exception:
+        try:return hasattr(node, 'baseObject')
+        except Exception:return False
+
+
+def _bounding_box_world(node):
+    # World coordinate bounding box. 'matrix3 1' is the identity coordinate system.
+    bb = rt.nodeGetBoundingBox(node, rt.matrix3(1))
+    lo,hi=bb[0],bb[1]
+    mn=[float(lo.x),float(lo.y),float(lo.z)]
+    mx=[float(hi.x),float(hi.y),float(hi.z)]
+    if any(not math.isfinite(x) for x in mn+mx):
+        raise ValueError('Nonfinite bounding box')
+    return mn,mx
+
+
+def _color(node):
+    try:
+        c=node.wirecolor
+        return '#%02x%02x%02x' % tuple(max(0,min(255,round(float(v)))) for v in (c.r,c.g,c.b))
+    except Exception:return '#73c2ff'
+
+
+def _parent_handle(node):
+    try:
+        p=node.parent
+        return None if p is None or str(p).lower()=='undefined' else _handle(p)
+    except Exception:return None
+
+
+def _make_node(node):
+    lo,hi=_bounding_box_world(node)
+    cx=[(lo[i]+hi[i])/2 for i in range(3)]
+    half=[max(0.0,(hi[i]-lo[i])/2) for i in range(3)]
+    try:
+        name=str(rt.classOf(node.baseObject)).lower()
+        sphere='sphere' in name
+    except Exception:sphere=False
+    # For sphere primitives use max axis half width; for arbitrary meshes use
+    # circumscribed world-axis-aligned AABB sphere. This is an approximation.
+    r=(max(half) if sphere else math.sqrt(sum(x*x for x in half)))
+    custom=_float_user(node,'vl_radius',-1)
+    if custom>0:
+        radius=custom;method='user_property'
+    else:
+        radius=r;method='sphere_primitive' if sphere else 'aabb_enclosing'
+    if radius <= 0:raise ValueError('zero-size geometry')
+    N=_float_user(node,'vl_N',DEFAULT_AMOUNT)
+    M=_float_user(node,'vl_M',N)
+    if N<=0 or M<=0:raise ValueError('N/M must be positive')
+    return dict(handle=_handle(node),name=str(node.name),position=cx,radius=radius,
+                radius_method=method,N=N,M=M,
+                velocity=[_float_user(node,'vl_vx',0),_float_user(node,'vl_vy',0),_float_user(node,'vl_vz',0)],
+                pinned=_bool_user(node,'vl_pinned'),color=_color(node),
+                max_parent_handle=_parent_handle(node),max_class=str(rt.classOf(node)))
+
+
+def main():
+    nodes=list(rt.selection) if EXPORT_SELECTED_ONLY else list(rt.objects)
+    out=[];skipped=[]
+    for node in nodes:
+        try:
+            hidden=False
+            try:hidden=bool(rt.isHidden(node))
+            except Exception:
+                try:hidden=bool(node.isHidden)
+                except Exception:pass
+            if not INCLUDE_HIDDEN and hidden:continue
+            if not _node_geometry(node):continue
+            out.append(_make_node(node))
+        except Exception as exc:
+            skipped.append(str(getattr(node,'name','?'))+': '+str(exc))
+    if not out:raise RuntimeError('No geometry nodes selected/exportable. Select spheres or meshes and run again.')
+    doc={'format':'VOXELLAB_MAX_R45_V2','version':2,
+         'source':'3ds Max Python pymxs', 'exported_utc':datetime.now(timezone.utc).isoformat(),
+         'coordinate_system':'MAX_Z_UP_RIGHT_HANDED',
+         'units_per_studio_unit':UNITS_PER_STUDIO_UNIT,
+         'selected_only':bool(EXPORT_SELECTED_ONLY),
+         'notes':'Meshes become finite spherical proxies. X,Y,Z(Max) → X,Z,-Y (Studio). No physical scale is asserted.',
+         'nodes':out,'skipped':skipped}
+    os.makedirs(os.path.dirname(os.path.abspath(EXPORT_PATH)),exist_ok=True)
+    with open(EXPORT_PATH,'w',encoding='utf-8') as f:
+        json.dump(doc,f,ensure_ascii=False,indent=2)
+    print('VoxelLab R45: exported %d nodes → %s' % (len(out),EXPORT_PATH))
+    if skipped:print('VoxelLab skipped:',skipped)
+    try:rt.messageBox('VoxelLab: экспортировано %d объектов\n%s' % (len(out),EXPORT_PATH),title='VoxelLab R45')
+    except Exception:pass
+
+
+if __name__=='__main__':main()
+
+</script>
+<script>
+/* Offline-first browser API shim: models stay in this tab's dedicated Worker.
+   No physical states or imports are uploaded to a server. */
+(()=>{
+ const worker=new Worker(URL.createObjectURL(new Blob([document.getElementById('worker-source').textContent],{type:'text/javascript'})));
+ const pending=new Map();let next=1;
+ worker.addEventListener('message',e=>{const task=pending.get(e.data.id);if(!task)return;pending.delete(e.data.id);task.resolve(e.data)});
+ worker.addEventListener('error',e=>{for(const task of pending.values())task.reject(new Error('Ошибка вычислителя: '+e.message));pending.clear()});
+ const originalFetch=window.fetch.bind(window);
+ window.fetch=async (resource,opts={})=>{
+  const url=typeof resource==='string'?resource:resource?.url;
+  if(typeof url!=='string'||!url.startsWith('/api/'))return originalFetch(resource,opts);
+  const id=next++;let body=null;
+  if(opts.body){try{body=JSON.parse(opts.body)}catch{throw Error('Неверный JSON запроса')}}
+  const result=await new Promise((resolve,reject)=>{pending.set(id,{resolve,reject});worker.postMessage({id,path:url,body})});
+  return new Response(JSON.stringify(result.data),{status:result.status,headers:{'Content-Type':'application/json; charset=utf-8'}});
+ };
+ window.VXL_ONLINE=true;
+})();
+
+</script>
+<script>
+'use strict';
+// VOXELLAB STUDIO R45 — browser edition. Physics runs in a dedicated Web Worker.
+// The worker implements an engineering JS translation of the archived R45 kernel.
+const $=id=>document.getElementById(id);
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const V=(x,y,z)=>[x,y,z];
+const add=(a,b)=>[a[0]+b[0],a[1]+b[1],a[2]+b[2]];
+const sub=(a,b)=>[a[0]-b[0],a[1]-b[1],a[2]-b[2]];
+const mul=(a,k)=>a.map(x=>x*k);
+const dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
+const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+const norm=a=>Math.hypot(...a);
+const unit=a=>{const d=norm(a);return d>1e-15?mul(a,1/d):[0,0,0]};
+const fmt=(n,d=4)=>!Number.isFinite(n)?'—':Math.abs(n)<1e-7&&n!==0?n.toExponential(2):Math.abs(n)>=1e4?n.toExponential(3):n.toFixed(d);
+const clone=v=>JSON.parse(JSON.stringify(v));
+const hexVec=h=>{h=String(h).replace('#','');if(!/^[0-9a-f]{6}$/i.test(h))h='70cce4';return [0,2,4].map(i=>parseInt(h.substring(i,i+2),16)/255)};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const csscolor=s=>/^#[0-9a-f]{6}$/i.test(s)?s:'#73c2df';
+
+async function request(path,data){
+ const opt=data===undefined?{}:{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)};
+ const resp=await fetch(path,opt);
+ let body;try{body=await resp.json()}catch{throw new Error('Не удалось прочитать ответ вычислителя')}
+ if(!resp.ok||body?.ok===false)throw new Error(body.error||'Ошибка ядра');return body;
+}
+let state=null,selected=[],primary=null,running=false,tool='select',plane='view',energyBase=null;
+let pending=Promise.resolve(),undo=[],redo=[],toastTimer=0,lastStepAt=0,trails=new Map(),waveHistory=[],lastWaveStep=-1;
+function bodyById(id){return state?.scene.bodies.find(x=>x.id===id)}
+function message(s,error=false){const t=$('toast');t.textContent=s;t.classList.toggle('error',error);t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),3300)}
+function setText(id,v){const a=$(id);if(a)a.textContent=v}
+function setVal(id,value){const e=$(id);if(e&&document.activeElement!==e){e.value=String(value??'')}}
+function halt(){running=false;$('play').classList.remove('playing');setText('play','▶ Пуск');setText('running-label','ПАУЗА');document.querySelector('.live-dot').classList.remove('running')}
+function refreshTrail(s){
+ if(!state||s.steps===0||s.steps<state.steps){trails.clear();return}
+ if(s.steps>state.steps){for(const b of s.scene.bodies){const old=trails.get(b.id)||[];old.push(b.x.slice());if(old.length>120)old.shift();trails.set(b.id,old)}}
+}
+function apply(s,{resetCamera=false,clearTrails=false}={}){
+ if(clearTrails)trails.clear();else refreshTrail(s);
+ if(clearTrails || (state&&s.steps<state.steps) || (state&&s.steps===0&&state.steps===0&&s.revision!==state.revision)) {waveHistory=[];lastWaveStep=-1}
+ if(s.wave_profile&&s.steps!==lastWaveStep){waveHistory.push({time:s.time,step:s.steps,bins:s.wave_profile.bins.slice()});if(waveHistory.length>128)waveHistory.shift();lastWaveStep=s.steps}
+ const wasEmpty=!state;state=s;
+ if(s.import_note && s.status==='IMPORTED_MAX_NEW_PREPARATION')$('preset').value='custom';
+ if(s.status==='LOADED')$('preset').value='custom';
+ const ids=new Set(s.scene.bodies.map(b=>b.id));selected=selected.filter(id=>ids.has(id));
+ if(primary&&!ids.has(primary))primary=null;
+ if(!primary&&selected.length)primary=selected[0];
+ if(!selected.length&&ids.size&&!primary){selected=[s.scene.bodies[0].id];primary=selected[0]}
+ drawList();drawInspector();drawGlobal();drawMetrics();drawWave();stage.setScene(s.scene.bodies,s.forces,selected,trails);
+ if(resetCamera||wasEmpty)stage.fit();stage.render();
+}
+function drawList(){
+ const list=$('object-list');const bodies=state?.scene.bodies||[];
+ setText('body-count',bodies.length);setText('selected-counter',selected.length+' выделено');
+ list.innerHTML=bodies.map(b=>`<div class="obj ${selected.includes(b.id)?'selected':''}" data-object="${esc(b.id)}" role="option" aria-selected="${selected.includes(b.id)}"><span class="obj-color" style="background:${csscolor(b.color)}"></span><span class="obj-info"><strong>${esc(b.name)}</strong><small>N ${fmt(b.n,2)} &nbsp; R ${fmt(b.radius,3)}</small></span><span class="obj-tag ${b.pinned?'pinned':''}">${b.pinned?'■':'◦'}</span></div>`).join('')||'<div class="section-note">Сцена пуста. Добавьте сферу.</div>';
+ for(const el of list.querySelectorAll('[data-object]'))el.addEventListener('click',e=>choose(el.dataset.object,e.shiftKey||e.ctrlKey));
+ $('duplicate').disabled=!selected.length;$('remove').disabled=!selected.length;
+}
+function choose(id,multiple=false){
+ if(!id){selected=[];primary=null}
+ else if(multiple){if(selected.includes(id))selected=selected.filter(x=>x!==id);else selected=[...selected,id];primary=selected[0]||null}
+ else {selected=[id];primary=id}
+ drawList();drawInspector();stage.setScene(state.scene.bodies,state.forces,selected,trails);stage.render();
+ request('/api/state?selected='+encodeURIComponent(primary||'')).then(r=>{if(state&&r.revision===state.revision){state.selected_ledger=r.selected_ledger;drawInspector()}}).catch(e=>message(e.message,true));
+}
+function drawInspector(){
+ const b=bodyById(primary),multi=selected.length>1;
+ $('inspector').hidden=!b||multi;$('inspector-empty').hidden=!!b&&!multi;
+ setText('inspector-status',multi?`${selected.length} объекта`:b?b.id:'—');
+ if(multi){$('inspector-empty').innerHTML=`<div class="empty-glyph">◉</div><strong>${selected.length} объектов выделено</strong><p>Тяните выделение в 3D: все объекты переместятся вместе. Кнопки «Копия» и «Удалить» работают для всей группы.</p>`;return}
+ if(!b){$('inspector-empty').innerHTML='<div class="empty-glyph">◎</div><strong>Выберите тело</strong><p>Кликните на сферу в сцене или строку списка.</p>';return}
+ setVal('obj-name',b.name);setVal('obj-color',csscolor(b.color));$('obj-pin').checked=!!b.pinned;
+ setText('obj-id','ID · '+b.id);setVal('obj-n',fmt(b.n,6));setVal('obj-m',fmt(b.m,6));setVal('obj-radius',fmt(b.radius,6));
+ for(let i=0;i<3;i++){setVal(['obj-x','obj-y','obj-z'][i],fmt(b.x[i],6));setVal(['obj-vx','obj-vy','obj-vz'][i],fmt(b.v[i],6))}
+ const f=state?.forces?.[b.id]||[0,0,0];setText('force-magnitude',fmt(norm(f),6));setText('force-vec','['+f.map(x=>fmt(x,5)).join(', ')+']');
+ const led=state?.selected_ledger||[];
+ setText('ledger-count',led.length);
+ $('source-ledger').innerHTML=led.length?led.map(x=>`<div class="ledger-row" title="r ${fmt(x.distance,4)} / gap ${fmt(x.gap,4)} / |Direct| ${fmt(norm(x.direct_force||[0,0,0]),4)} / |PBC residual| ${fmt(norm(x.periodic_residual||[0,0,0]),4)}"><span>${esc(x.name)}</span><strong>${fmt(norm(x.force),6)}</strong></div>`).join(''):'<div class="ledger-row">Нет других источников</div>';
+}
+function drawGlobal(){if(!state)return;setVal('boundary',state.scene.boundary);setVal('box-L',fmt(state.scene.L,4));setVal('coefficient',fmt(state.scene.kappa,4));setVal('dt',fmt(state.scene.dt,6));setText('mode-label',state.scene.boundary==='periodic'?'ПЕРИОДИЧЕСКОЕ':'ОТКРЫТОЕ');$('boundary-info').textContent=state.scene.boundary==='periodic'?'Периодический Green Р45 использует конвенцию нулевого среднего. Это не выведенный физический бесконечный КУО.':'Открытый Direct: только конечные положительные сферические источники. Без периодической компенсации.';}
+function drawMetrics(){if(!state)return;
+ setText('live-time','t = '+fmt(state.time,4));setText('live-steps','шаг '+state.steps);
+ setText('metric-bodies',state.scene.bodies.length);setText('metric-amount','ΣN '+fmt(state.scene.bodies.reduce((a,b)=>a+b.n,0),4));
+ setText('metric-energy',fmt(state.energy,7));if(energyBase===null)energyBase=state.energy;
+ setText('metric-delta',energyBase?`ΔE ${fmt((state.energy-energyBase)/(Math.abs(energyBase)+1e-30)*100,5)} %`:'ΔE —');
+ setText('metric-momentum',fmt(norm(state.momentum),6));setText('metric-overlaps',state.overlap_count);
+ setText('metric-gap','мин. зазор '+(state.min_gap===null?'—':fmt(state.min_gap,5)));
+ const status=state.status||'READY';setText('metric-status',status.replaceAll('_',' '));
+ $('metric-overlaps').style.color=state.overlap_count?'#e4ad7f':'#dcecef';
+}
+function drawWave(){
+ const prof=state?.wave_profile, cfg=state?.scene?.wave||state?.wave;
+ const can=$('waveplot');if(!can)return;
+ const ctx=can.getContext('2d'),w=can.width,h=can.height;
+ ctx.clearRect(0,0,w,h);ctx.fillStyle='#091b27';ctx.fillRect(0,0,w,h);
+ ctx.strokeStyle='#264653';ctx.lineWidth=1;
+ for(let i=1;i<4;i++){let y=i*h/4;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}
+ const a=prof?.bins||[];
+ if($('wave-chart-mode').value==='spacetime'&&waveHistory.length){
+  const arr=waveHistory.map(z=>z.bins), vMax=Math.max(1e-6,...arr.flatMap(x=>x.map(z=>Math.abs(z))));
+  const left=9,top=7,ww=w-18,hh=h-14,dy=hh/arr.length,dx=ww/arr[0].length;
+  for(let j=0;j<arr.length;j++)for(let i=0;i<arr[j].length;i++){
+    const v=arr[j][i]/vMax; const t=Math.abs(v);
+    ctx.fillStyle=v>=0?`rgba(80,230,208,${.10+.85*t})`:`rgba(237,151,115,${.10+.85*t})`;
+    ctx.fillRect(left+i*dx,top+j*dy,dx+.6,dy+1);
+  }
+  ctx.fillStyle='#abc4cd';ctx.font='11px ui-monospace,monospace';ctx.fillText('t '+fmt(waveHistory[0].time,3)+' → '+fmt(waveHistory.at(-1).time,3),14,17);
+ }else if(a.length){
+   const absmax=Math.max(.0001,...a.map(v=>Math.abs(v)))*1.12;
+   ctx.strokeStyle='#7ce2d1';ctx.lineWidth=2;ctx.beginPath();
+   a.forEach((v,i)=>{let x=10+(w-20)*i/(a.length-1),y=h/2-(h*.40)*v/absmax;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)});ctx.stroke();
+   ctx.strokeStyle='#b5a2fa';ctx.setLineDash([3,4]);ctx.beginPath();ctx.moveTo(0,h/2);ctx.lineTo(w,h/2);ctx.stroke();ctx.setLineDash([]);
+   ctx.fillStyle='#8eacb9';ctx.font='12px ui-monospace,monospace';ctx.fillText('max |v| '+fmt(absmax/1.12,5),10,16)
+ }else{ctx.fillStyle='#5e8e9e';ctx.font='13px system-ui';ctx.fillText('Нет начального волнового импульса',20,h/2)}
+ setText('wave-details',cfg?`Импульс ${cfg.polarization==='longitudinal'?'продольный':'поперечный'} · ось ${['X','Y','Z'][cfg.axis]} · добавлено ΔK=${fmt(cfg.injected_kinetic||0,6)} · t=${fmt(state.time,3)}. График: сглаженная скорость; не физическое сглаживание сил.`:
+   'Выберите волновую сцену или создайте начальный импульс. Измеряется свободный отклик, не доказанное распространение волны.');
+ if(cfg && state.time===0){setVal('wave-axis',cfg.axis);setVal('wave-pol',cfg.polarization);setVal('wave-amplitude',cfg.amplitude);setVal('wave-width',cfg.width)}
+ if(state?.import_note){setText('max-import-status',`Импорт ${state.import_note.imported} объектов (${state.import_note.source}). ${state.import_note.warnings?.join(' · ')||'Без предупреждений.'}`)}
+}
+function beforeEdit(){halt();if(!state)return null;return clone(state.scene)}
+function queueEdit(action,{record=true,fit=false}={}){
+ const previous=beforeEdit();
+ pending=pending.then(async()=>{
+  try{
+   const s=await request('/api/action',{...action,selected:primary});
+   if(record&&previous){undo.push(previous);if(undo.length>32)undo.shift();redo=[]}
+   energyBase=null;apply(s,{resetCamera:fit,clearTrails:true});
+   return s;
+  }catch(e){message(e.message,true);try{apply(await request('/api/state?selected='+encodeURIComponent(primary||'')))}catch{}return null}
+ });return pending;
+}
+async function doUndo(){if(!undo.length)return;const old=undo.pop();redo.push(clone(state.scene));await queueEdit({kind:'load',scene:old},{record:false})}
+async function doRedo(){if(!redo.length)return;const old=redo.pop();undo.push(clone(state.scene));await queueEdit({kind:'load',scene:old},{record:false})}
+async function stepOnce(n){if(!state)return;try{const start=performance.now();const s=await request('/api/step',{steps:n,selected:primary});apply(s);setText('fps',fmt(performance.now()-start,0)+' мс');}catch(e){halt();message(e.message,true)}}
+async function playLoop(){while(running){await pending;if(!running)break;await stepOnce(+($('steps-per-frame').value));await new Promise(r=>setTimeout(r,12))}}
+function toggleRun(){if(running){halt();return}if(!state)return;running=true;$('play').classList.add('playing');setText('play','Ⅱ Пауза');setText('running-label','РАСЧЁТ');document.querySelector('.live-dot').classList.add('running');void playLoop()}
+async function reset(){halt();energyBase=null;await queueEdit({kind:'reset'},{record:false})}
+function download(filename,content,type){const a=document.createElement('a');const url=URL.createObjectURL(new Blob([content],{type}));a.href=url;a.download=filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),5000)}
+function saveScene(){if(!state)return;download('voxellab_r45_scene_'+new Date().toISOString().replace(/[:.]/g,'-')+'.json',JSON.stringify(state.scene,null,2),'application/json')}
+function screenshot(){const a=$('glcanvas');stage.render();a.toBlob(b=>{if(b)download('voxellab_r45_frame.png',b,'image/png')},'image/png')}
+function inspectBind(){
+ const ids=['obj-name','obj-color','obj-pin','obj-n','obj-m','obj-radius','obj-x','obj-y','obj-z','obj-vx','obj-vy','obj-vz'];
+ for(const id of ids){$(id).addEventListener('change',()=>{
+   const b=bodyById(primary);if(!b)return;const values={};
+   if(id==='obj-name')values.name=$('obj-name').value;
+   if(id==='obj-color')values.color=$('obj-color').value;
+   if(id==='obj-pin')values.pinned=$('obj-pin').checked;
+   const map={'obj-n':'n','obj-m':'m','obj-radius':'radius'};
+   if(map[id])values[map[id]]=Number($(id).value);
+   if(id.startsWith('obj-v'))values.v=['obj-vx','obj-vy','obj-vz'].map(s=>Number($(s).value));
+   if(['obj-x','obj-y','obj-z'].includes(id))values.x=['obj-x','obj-y','obj-z'].map(s=>Number($(s).value));
+   void queueEdit({kind:'set',id:b.id,values});
+ })}
+ for(const id of ['boundary','box-L','coefficient','dt'])$(id).addEventListener('change',()=>{
+   const msg={kind:'config'};if(id==='boundary')msg.boundary=$('boundary').value;
+   if(id==='box-L')msg.L=Number($('box-L').value);
+   if(id==='coefficient')msg.kappa=Number($('coefficient').value);
+   if(id==='dt')msg.dt=Number($('dt').value);
+   void queueEdit(msg)
+ });
+}
+function bindControls(){
+ $('preset').addEventListener('change',()=>{if(!confirm('Заменить текущую сцену выбранной конфигурацией?'))return;void queueEdit({kind:'demo',name:$('preset').value},{record:true,fit:true}).then(()=>{if($('preset').value.startsWith('wave_'))$('steps-per-frame').value='1'})});
+ $('wave-chart-mode').addEventListener('change',drawWave);
+ $('wave-kick').addEventListener('click',()=>{void queueEdit({kind:'wave_pulse',axis:Number($('wave-axis').value),
+  polarization:$('wave-pol').value,amplitude:Number($('wave-amplitude').value),width:Number($('wave-width').value)},
+  {record:true}).then(s=>{if(s)message('Создана новая подготовка с однократным импульсом; дальше только свободная динамика')})});
+ $('import-max').addEventListener('click',()=>$('max-file').click());
+ $('max-file').addEventListener('change',async e=>{
+   const file=e.target.files[0];if(!file)return;
+   try{
+     const data=JSON.parse(await file.text());const raw=$('max-scale').value;
+     const opt={kind:'import_max',payload:data,mode:$('max-mode').value,
+       units_per_studio:raw?Number(raw):null,recenter:$('max-recenter').checked};
+     const s=await queueEdit(opt,{record:true,fit:true});
+     if(s)message('Импортировано: '+s.import_note?.imported+' объектов · '+(s.import_note?.warnings?.length||0)+' предупреждений');
+   }catch(ex){message(ex.message,true)}e.target.value='';
+ });
+ $('add-sphere').addEventListener('click',()=>addSphereAt(stage.target));
+ $('add-cursor').addEventListener('click',()=>setTool('place'));
+ $('tool-select').addEventListener('click',()=>setTool('select'));$('tool-place').addEventListener('click',()=>setTool('place'));
+ $('duplicate').addEventListener('click',()=>{if(selected.length)void queueEdit({kind:'duplicate',ids:selected})});
+ $('remove').addEventListener('click',()=>{if(selected.length&&confirm('Удалить '+selected.length+' объектов?')){const ids=selected.slice();selected=[];primary=null;void queueEdit({kind:'delete',ids})}});
+ $('play').addEventListener('click',toggleRun);$('step').addEventListener('click',async()=>{halt();await stepOnce(1)});
+ $('reset').addEventListener('click',reset);$('fit-camera').addEventListener('click',()=>stage.fit());
+ $('save-scene').addEventListener('click',saveScene);$('export-state').addEventListener('click',()=>{if(state)download('voxellab_r45_state.json',JSON.stringify({...state,diagnostic_wave_history:waveHistory,exported_at:new Date().toISOString()},null,2),'application/json')});$('load-scene').addEventListener('click',()=>$('file-input').click());
+ $('file-input').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{const data=JSON.parse(await file.text());const scene=data.scene||data;
+    if(scene.format==='VOXELLAB_MAX_R45_V2'||Array.isArray(scene.objects)){
+      const s=await queueEdit({kind:'import_max',payload:scene,mode:'replace',units_per_studio:scene.format==='VOXELLAB_MAX_R45_V2'?Number($('max-scale').value):1,
+        recenter:$('max-recenter').checked},{fit:true});if(s)message('Импорт Max/Web: '+s.import_note?.imported+' объектов');
+    }else{const s=await queueEdit({kind:'load',scene},{fit:true});if(s)message('Сцена загружена')}}catch(ex){message(ex.message,true)}e.target.value=''});
+ $('screenshot').addEventListener('click',screenshot);
+ $('help').addEventListener('click',()=>{$('modal').hidden=false});$('modal-close').addEventListener('click',()=>{$('modal').hidden=true});
+ $('modal').addEventListener('pointerdown',e=>{if(e.target===$('modal'))$('modal').hidden=true});
+ for(const btn of document.querySelectorAll('.plane'))btn.addEventListener('click',()=>{plane=btn.dataset.plane;document.querySelectorAll('.plane').forEach(x=>x.classList.toggle('active',x===btn))});
+ for(const id of ['grid-toggle','force-toggle','velocity-toggle','trail-toggle'])$(id).addEventListener('change',()=>stage.render());
+ document.addEventListener('keydown',e=>{
+  if(!($('modal').hidden)&&e.key==='Escape'){$('modal').hidden=true;return}
+  const tag=document.activeElement?.tagName;if(['INPUT','TEXTAREA','SELECT'].includes(tag))return;
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='s'){e.preventDefault();saveScene();return}
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();void doUndo();return}
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='y'){e.preventDefault();void doRedo();return}
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='d'){e.preventDefault();if(selected.length)void queueEdit({kind:'duplicate',ids:selected});return}
+  if(['Delete','Backspace'].includes(e.key)){if(selected.length){e.preventDefault();const ids=selected.slice();selected=[];primary=null;void queueEdit({kind:'delete',ids})}return}
+  if(e.key===' '){e.preventDefault();toggleRun()}if(e.key.toLowerCase()==='g'){setTool('select')}
+  if(e.key==='Escape'){setTool('select');stage.cancelDrag()}
+ });
+}
+function setTool(mode){tool=mode;$('tool-select').classList.toggle('active',tool==='select');$('tool-place').classList.toggle('active',tool==='place');$('glcanvas').style.cursor=tool==='place'?'crosshair':'default';message(tool==='place'?'Щёлкните на плоскости XZ в сцене, чтобы добавить сферу':'Выбор / перемещение объектов')}
+async function addSphereAt(pos){const x=pos.map(v=>Math.round(v*10)/10);await queueEdit({kind:'add',x,n:1,radius:.48},{record:true});const b=state?.scene.bodies.at(-1);if(b){selected=[b.id];primary=b.id;choose(b.id)}}
+
+function perspective(fov,aspect,n,f){let t=1/Math.tan(fov/2),o=new Float32Array(16);o[0]=t/aspect;o[5]=t;o[10]=(f+n)/(n-f);o[11]=-1;o[14]=2*f*n/(n-f);return o}
+function lookAt(eye,target){let z=unit(sub(eye,target)),x=unit(cross([0,1,0],z));if(norm(x)<1e-8)x=[1,0,0];let y=cross(z,x);return new Float32Array([x[0],y[0],z[0],0,x[1],y[1],z[1],0,x[2],y[2],z[2],0,-dot(x,eye),-dot(y,eye),-dot(z,eye),1])}
+function mm(a,b){let o=new Float32Array(16);for(let c=0;c<4;c++)for(let r=0;r<4;r++)for(let k=0;k<4;k++)o[c*4+r]+=a[k*4+r]*b[c*4+k];return o}
+function shader(gl,type,source){let h=gl.createShader(type);gl.shaderSource(h,source);gl.compileShader(h);if(!gl.getShaderParameter(h,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(h));return h}
+function program(gl,v,f){let p=gl.createProgram();gl.attachShader(p,shader(gl,gl.VERTEX_SHADER,v));gl.attachShader(p,shader(gl,gl.FRAGMENT_SHADER,f));gl.linkProgram(p);if(!gl.getProgramParameter(p,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(p));return p}
+function makeSphere(){const data=[];const L=26,B=20;const point=(t,p)=>[Math.sin(t)*Math.cos(p),Math.cos(t),Math.sin(t)*Math.sin(p)];for(let i=0;i<B;i++)for(let j=0;j<L;j++){
+ let t0=Math.PI*i/B,t1=Math.PI*(i+1)/B,p0=2*Math.PI*j/L,p1=2*Math.PI*(j+1)/L;
+ let a=point(t0,p0),b=point(t1,p0),c=point(t1,p1),d=point(t0,p1);
+ for(const p of [...a,...b,...c]){} // leave vertices explicit below
+ for(const v of [a,b,d,b,c,d])data.push(...v,...v)
+}return new Float32Array(data)}
+
+class Stage{
+ constructor(canvas){
+  this.canvas=canvas;this.gl=canvas.getContext('webgl',{antialias:true,preserveDrawingBuffer:true,alpha:false});
+  if(!this.gl){this.ctx=canvas.getContext('2d');this.fallback=true;this.bodies=[];this.forces={};this.selected=[];this.trails=trails;this.preview=null;this.target=[0,0,0];this.distance=13;this.az=1.0;this.el=.40;this.pointer=null;this._bind();new ResizeObserver(()=>this.render()).observe(canvas);return;}
+  this.fallback=false;
+  this.bodies=[];this.forces={};this.selected=[];this.trails=trails;this.preview=null;
+  this.target=[0,0,0];this.distance=13;this.az=1.0;this.el=.40;this.pointer=null;
+  const gl=this.gl;
+  this.spheres=program(gl,`attribute vec3 p; attribute vec3 n;uniform mat4 vp;uniform vec3 center;uniform float radius;varying vec3 normal;varying vec3 pos;void main(){vec3 w=center+p*radius;normal=n;pos=w;gl_Position=vp*vec4(w,1.);}`,`precision mediump float;uniform vec3 color;uniform vec3 camera;uniform float selected;varying vec3 normal;varying vec3 pos;void main(){vec3 n=normalize(normal),v=normalize(camera-pos);float shade=.30+.61*max(0.,dot(n,normalize(vec3(.48,.85,.36))));float rim=pow(1.-max(0.,dot(n,v)),2.2);vec3 c=color*shade+vec3(.16,.40,.48)*rim;gl_FragColor=vec4(c,1.);}`);
+  this.lines=program(gl,`attribute vec3 p;attribute vec3 color;uniform mat4 vp;varying vec3 col;void main(){col=color;gl_Position=vp*vec4(p,1.);}`,`precision mediump float;varying vec3 col;void main(){gl_FragColor=vec4(col,1.);}`);
+  this.spv=gl.createBuffer();const geo=makeSphere();this.spCount=geo.length/6;gl.bindBuffer(gl.ARRAY_BUFFER,this.spv);gl.bufferData(gl.ARRAY_BUFFER,geo,gl.STATIC_DRAW);
+  this.lb=gl.createBuffer();this._bind();new ResizeObserver(()=>this.render()).observe(canvas);
+ }
+ _bind(){const c=this.canvas;c.addEventListener('pointerdown',e=>this.down(e));c.addEventListener('pointermove',e=>this.move(e));c.addEventListener('pointerup',e=>this.up(e));c.addEventListener('pointercancel',()=>this.cancelDrag());c.addEventListener('wheel',e=>{e.preventDefault();this.distance=clamp(this.distance*Math.exp(e.deltaY*.001),1.2,150);this.render()},{passive:false});c.addEventListener('contextmenu',e=>e.preventDefault())}
+ setScene(bodies,forces,selected,trails){this.bodies=bodies;this.forces=forces;this.selected=selected;this.trails=trails}
+ fit(){const bodies=this.bodies;if(!bodies?.length){this.target=[0,0,0];this.distance=13;this.render();return}const ctr=[0,0,0];for(const b of bodies)for(let k=0;k<3;k++)ctr[k]+=b.x[k]/bodies.length;let R=2;for(const b of bodies)R=Math.max(R,norm(sub(b.x,ctr))+b.radius);this.target=ctr;this.distance=clamp(R*2.6,3.5,120);this.render()}
+ camera(){const z=this.distance*Math.cos(this.el);const eye=add(this.target,[z*Math.cos(this.az),this.distance*Math.sin(this.el),z*Math.sin(this.az)]);const forward=unit(sub(this.target,eye));const right=unit(cross(forward,[0,1,0]));const up=unit(cross(right,forward));return {eye,forward,right,up}}
+ coords(e){const r=this.canvas.getBoundingClientRect();return [(e.clientX-r.left)/r.width,(e.clientY-r.top)/r.height]}
+ ray(e){const [u,v]=this.coords(e);const cam=this.camera(),asp=this.canvas.clientWidth/Math.max(1,this.canvas.clientHeight),t=Math.tan(50*Math.PI/360);return {origin:cam.eye,dir:unit(add(cam.forward,add(mul(cam.right,(2*u-1)*t*asp),mul(cam.up,(1-2*v)*t))))}}
+ hit(e){const ray=this.ray(e),obj=this.bodies||[];let best=null;let tbest=Infinity;for(const b of obj){const x=this.preview?.[b.id]||b.x,oc=sub(ray.origin,x),B=dot(oc,ray.dir),C=dot(oc,oc)-b.radius*b.radius,D=B*B-C;if(D<0)continue;let t=-B-Math.sqrt(D);if(t<0)t=-B+Math.sqrt(D);if(t>0&&t<tbest){best=b.id;tbest=t}}return best}
+ intersect(ray,point,normal){const den=dot(ray.dir,normal);if(Math.abs(den)<1e-6)return null;const t=dot(sub(point,ray.origin),normal)/den;return t>0?add(ray.origin,mul(ray.dir,t)):null}
+ planeNormal(){if(plane==='xz')return [0,1,0];if(plane==='xy')return [0,0,1];if(plane==='yz')return [1,0,0];return this.camera().forward}
+ down(e){if(e.button!==0&&e.button!==2)return;this.canvas.setPointerCapture(e.pointerId);const hit=this.hit(e);
+  if(e.button===2){this.pointer={mode:'pan',x:e.clientX,y:e.clientY};return}
+  if(tool==='place'){
+   const pos=this.intersect(this.ray(e),[0,0,0],[0,1,0]);if(pos){void addSphereAt(pos);setTool('select')}else message('Нет пересечения с плоскостью XZ',true);return;
+  }
+  if(hit){
+   if(e.shiftKey||e.ctrlKey){choose(hit,true);return}
+   if(!selected.includes(hit)){choose(hit,false)}
+   const b=bodyById(hit);if(!b)return;
+   const normal=this.planeNormal(),pt=this.intersect(this.ray(e),b.x,normal);
+   this.pointer={mode:'drag',x:e.clientX,y:e.clientY,normal,pt,
+                original:Object.fromEntries((selected.includes(hit)?selected:[hit]).map(id=>[id,bodyById(id)?.x.slice()])),moved:false};
+  } else {
+   if(e.shiftKey){this.pointer={mode:'pan',x:e.clientX,y:e.clientY}}
+   else{choose(null,false);this.pointer={mode:'orbit',x:e.clientX,y:e.clientY}}
+  }
+ }
+ move(e){if(!this.pointer){this.canvas.style.cursor=tool==='place'?'crosshair':this.hit(e)?'grab':'default';return}
+  const p=this.pointer,dx=e.clientX-p.x,dy=e.clientY-p.y;
+  if(p.mode==='drag'){
+   if(!p.pt)return;
+   const cur=this.intersect(this.ray(e),bodyById(Object.keys(p.original)[0])?.x||[0,0,0],p.normal);
+   if(!cur)return;
+   const delta=sub(cur,p.pt);if(norm(delta)>0.005)p.moved=true;
+   this.preview=Object.fromEntries(Object.entries(p.original).map(([id,x])=>[id,add(x,delta)]));
+   this.render();return;
+  }
+  p.x=e.clientX;p.y=e.clientY;
+  if(p.mode==='orbit'){this.az-=dx*.007;this.el=clamp(this.el+dy*.006,-1.47,1.47)}
+  if(p.mode==='pan'){const cam=this.camera();const speed=this.distance*.0017;this.target=add(this.target,add(mul(cam.right,-dx*speed),mul(cam.up,dy*speed)))}
+  this.render()
+ }
+ up(e){if(!this.pointer)return;const p=this.pointer;this.pointer=null;
+  if(p.mode==='drag'&&p.moved&&this.preview){const positions=clone(this.preview);this.preview=null;void queueEdit({kind:'move',positions})}
+  else this.preview=null;
+  this.render()
+ }
+ cancelDrag(){this.pointer=null;this.preview=null;this.render()}
+ line(arr,a,b,color){arr.push(...a,...color,...b,...color)}
+ arrow(arr,a,v,color,scale=1){const mag=norm(v);if(mag<1e-10)return;const len=clamp(.14*Math.log1p(mag)*scale,.13,2.3),u=mul(v,1/mag),end=add(a,mul(u,len));this.line(arr,a,end,color);let side=unit(cross(u,[0,1,0]));if(norm(side)<.1)side=unit(cross(u,[0,0,1]));const wing=.11*Math.sqrt(Math.min(2,len));this.line(arr,end,add(add(end,mul(u,-wing*1.5)),mul(side,wing)),color);this.line(arr,end,add(add(end,mul(u,-wing*1.5)),mul(side,-wing)),color)}
+ render(){if(this.fallback){this.renderCanvas();return;}const gl=this.gl,c=this.canvas,w=Math.max(1,c.clientWidth),h=Math.max(1,c.clientHeight),ratio=Math.min(2,window.devicePixelRatio||1);
+  if(c.width!==Math.round(w*ratio)||c.height!==Math.round(h*ratio)){c.width=Math.round(w*ratio);c.height=Math.round(h*ratio)}
+  gl.viewport(0,0,c.width,c.height);gl.clearColor(.025,.072,.105,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+  gl.enable(gl.DEPTH_TEST);gl.disable(gl.CULL_FACE);const cam=this.camera();const vp=mm(perspective(50*Math.PI/180,w/h,.03,1000),lookAt(cam.eye,this.target));
+  const segments=[];const L=state?.scene?.L||12;
+  if($('grid-toggle').checked){const half=Math.min(L/2,18),step=half>10?2:1;
+   for(let i=-half;i<=half+.0001;i+=step){let c=i===0?[.21,.44,.48]:[.105,.24,.30];this.line(segments,[-half,-.025,i],[half,-.025,i],c);this.line(segments,[i,-.025,-half],[i,-.025,half],c)}
+   this.line(segments,[-half,0,0],[half,0,0],[.53,.28,.29]);this.line(segments,[0,-half,0],[0,half,0],[.28,.52,.35]);this.line(segments,[0,0,-half],[0,0,half],[.3,.41,.66]);
+   // Periodic boundary box, visually distinct from the ground grid.
+   if(state?.scene.boundary==='periodic'){
+    const H=L/2,C=[.15,.34,.38];for(const a of [-H,H])for(const b of [-H,H]){
+     this.line(segments,[a,-H,b],[a,H,b],C);this.line(segments,[-H,a,b],[H,a,b],C);this.line(segments,[a,b,-H],[a,b,H],C)
+    }
+   }
+  }
+  if($('trail-toggle').checked){for(const [id,path] of this.trails){const b=this.bodies.find(b=>b.id===id);if(!b)continue;const col=hexVec(b.color).map(x=>.30*x+.17);for(let i=1;i<path.length;i++)if(norm(sub(path[i],path[i-1]))<L*.3)this.line(segments,path[i-1],path[i],col)}}
+  this.drawLines(segments,vp);
+  const pro=this.spheres;gl.useProgram(pro);gl.bindBuffer(gl.ARRAY_BUFFER,this.spv);
+  const locP=gl.getAttribLocation(pro,'p'),locN=gl.getAttribLocation(pro,'n');gl.enableVertexAttribArray(locP);gl.enableVertexAttribArray(locN);
+  gl.vertexAttribPointer(locP,3,gl.FLOAT,false,24,0);gl.vertexAttribPointer(locN,3,gl.FLOAT,false,24,12);
+  gl.uniformMatrix4fv(gl.getUniformLocation(pro,'vp'),false,vp);gl.uniform3fv(gl.getUniformLocation(pro,'camera'),cam.eye);
+  for(const b of [...this.bodies].sort((a,b)=>norm(sub(b.x,cam.eye))-norm(sub(a.x,cam.eye)))){
+   gl.uniform3fv(gl.getUniformLocation(pro,'center'),this.preview?.[b.id]||b.x);gl.uniform1f(gl.getUniformLocation(pro,'radius'),b.radius);
+   gl.uniform3fv(gl.getUniformLocation(pro,'color'),hexVec(b.color));gl.uniform1f(gl.getUniformLocation(pro,'selected'),this.selected.includes(b.id)?1:0);gl.drawArrays(gl.TRIANGLES,0,this.spCount)
+  }
+  const overlays=[];
+  for(const b of this.bodies){const x=this.preview?.[b.id]||b.x;
+   if(this.selected.includes(b.id)){const rr=b.radius*1.095,c=[.52,.93,.93];for(let plane=0;plane<3;plane++)for(let i=0;i<64;i++){
+     const phi=i*2*Math.PI/64,q=(i+1)*2*Math.PI/64,a=[0,0,0],d=[0,0,0];
+     if(plane===0){a[0]=rr*Math.cos(phi);a[1]=rr*Math.sin(phi);d[0]=rr*Math.cos(q);d[1]=rr*Math.sin(q)}
+     if(plane===1){a[0]=rr*Math.cos(phi);a[2]=rr*Math.sin(phi);d[0]=rr*Math.cos(q);d[2]=rr*Math.sin(q)}
+     if(plane===2){a[1]=rr*Math.cos(phi);a[2]=rr*Math.sin(phi);d[1]=rr*Math.cos(q);d[2]=rr*Math.sin(q)}
+     this.line(overlays,add(x,a),add(x,d),c)
+   }}
+   if($('force-toggle').checked)this.arrow(overlays,x,this.forces[b.id]||[0,0,0],[.27,.93,.92]);
+   if($('velocity-toggle').checked)this.arrow(overlays,x,b.v,[.98,.68,.35],1.4);
+  }
+  gl.disable(gl.DEPTH_TEST);this.drawLines(overlays,vp);gl.enable(gl.DEPTH_TEST);
+ }
+ drawLines(data,vp){if(!data.length)return;const gl=this.gl,pr=this.lines;gl.useProgram(pr);gl.bindBuffer(gl.ARRAY_BUFFER,this.lb);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.DYNAMIC_DRAW);const p=gl.getAttribLocation(pr,'p'),col=gl.getAttribLocation(pr,'color');gl.enableVertexAttribArray(p);gl.enableVertexAttribArray(col);gl.vertexAttribPointer(p,3,gl.FLOAT,false,24,0);gl.vertexAttribPointer(col,3,gl.FLOAT,false,24,12);gl.uniformMatrix4fv(gl.getUniformLocation(pr,'vp'),false,vp);gl.drawArrays(gl.LINES,0,data.length/6)}
+ renderCanvas(){
+  const ctx=this.ctx,c=this.canvas,w=Math.max(1,c.clientWidth),h=Math.max(1,c.clientHeight),ratio=Math.min(2,devicePixelRatio||1);
+  if(c.width!==Math.round(w*ratio)||c.height!==Math.round(h*ratio)){c.width=Math.round(w*ratio);c.height=Math.round(h*ratio)}
+  ctx.setTransform(ratio,0,0,ratio,0,0);
+  const bg=ctx.createRadialGradient(w*.48,h*.43,20,w*.48,h*.43,Math.max(w,h)*.74);bg.addColorStop(0,'#173644');bg.addColorStop(.5,'#0a1e2b');bg.addColorStop(1,'#07121b');ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);
+  const cam=this.camera(),vp=mm(perspective(50*Math.PI/180,w/h,.03,1000),lookAt(cam.eye,this.target));
+  const proj=p=>{const v=[p[0],p[1],p[2],1],o=[0,0,0,0];for(let row=0;row<4;row++)for(let col=0;col<4;col++)o[row]+=vp[col*4+row]*v[col];if(o[3]<.05)return null;return [w*(o[0]/o[3]+1)/2,h*(1-o[1]/o[3])/2,o[3]]};
+  const line=(a,b,col,width=1)=>{const x=proj(a),y=proj(b);if(!x||!y)return;ctx.strokeStyle=col;ctx.lineWidth=width;ctx.beginPath();ctx.moveTo(x[0],x[1]);ctx.lineTo(y[0],y[1]);ctx.stroke()};
+  const L=state?.scene?.L||12,half=Math.min(L/2,16);
+  if($('grid-toggle').checked){
+    for(let i=-half;i<=half+.001;i+=(half>10?2:1)){const cc=i===0?'#326775':'#203947';line([-half,-.02,i],[half,-.02,i],cc);line([i,-.02,-half],[i,-.02,half],cc)}
+    line([-half,0,0],[half,0,0],'#6c484a',1.5);line([0,-half,0],[0,half,0],'#43745a',1.5);line([0,0,-half],[0,0,half],'#395d84',1.5);
+    if(state?.scene.boundary==='periodic'){let H=L/2;for(const a of [-H,H])for(const b of [-H,H]){line([a,-H,b],[a,H,b],'#1a5264');line([-H,a,b],[H,a,b],'#1a5264');line([a,b,-H],[a,b,H],'#1a5264')}}
+  }
+  if($('trail-toggle').checked){for(const [id,path] of this.trails){const b=this.bodies.find(x=>x.id===id);if(!b)continue;for(let i=1;i<path.length;i++)if(norm(sub(path[i],path[i-1]))<L*.3)line(path[i-1],path[i],csscolor(b.color)+'77',1.25)}}
+  const items=[...this.bodies].sort((a,b)=>norm(sub(b.x,cam.eye))-norm(sub(a.x,cam.eye)));
+  for(const b of items){const x=this.preview?.[b.id]||b.x,pp=proj(x);if(!pp)continue;const rz=Math.max(2,Math.min(2000,h*.5*b.radius/(Math.tan(50*Math.PI/360)*pp[2])));
+   const col=csscolor(b.color),gr=ctx.createRadialGradient(pp[0]-rz*.32,pp[1]-rz*.32,rz*.09,pp[0],pp[1],rz);
+   gr.addColorStop(0,'#defafe');gr.addColorStop(.14,col);gr.addColorStop(.64,col);gr.addColorStop(1,'#173542');
+   ctx.fillStyle=gr;ctx.strokeStyle='#a0cedc55';ctx.lineWidth=1;ctx.beginPath();ctx.arc(pp[0],pp[1],rz,0,Math.PI*2);ctx.fill();ctx.stroke();
+   if(this.selected.includes(b.id)){ctx.strokeStyle='#a2faff';ctx.lineWidth=1.8;ctx.beginPath();ctx.arc(pp[0],pp[1],rz+4,0,Math.PI*2);ctx.stroke();ctx.strokeStyle='#b2e7ed77';ctx.setLineDash([4,5]);ctx.beginPath();ctx.arc(pp[0],pp[1],rz+9,0,Math.PI*2);ctx.stroke();ctx.setLineDash([])}
+   if(rz>12){ctx.fillStyle='#062331aa';ctx.textAlign='center';ctx.font='10px Segoe UI';ctx.fillText(b.id,pp[0],pp[1]+3)}
+  }
+  const arrow=(p,v,col,scale=1)=>{let mag=norm(v);if(mag<1e-12)return;const len=clamp(.14*Math.log1p(mag)*scale,.13,2.3),u=unit(v),q=add(p,mul(u,len));line(p,q,col,2);
+    let side=unit(cross(u,[0,1,0]));if(norm(side)<.1)side=unit(cross(u,[0,0,1]));line(q,add(q,add(mul(u,-len*.18),mul(side,len*.1))),col,2);line(q,add(q,add(mul(u,-len*.18),mul(side,-len*.1))),col,2);
+  };
+  for(const b of this.bodies){const x=this.preview?.[b.id]||b.x;if($('force-toggle').checked)arrow(x,this.forces[b.id]||[0,0,0],'#50e8e4');if($('velocity-toggle').checked)arrow(x,b.v,'#f9b16a',1.3)}
+  // Runtime flag: faithful scene geometry is 3D, fallback projection is Canvas2D.
+  ctx.fillStyle='#568492';ctx.textAlign='right';ctx.font='10px Segoe UI';ctx.fillText('CANVAS / 3D-PROJECTION',w-16,h-33);
+ }
+}
+let stage;
+async function start(){try{
+ stage=new Stage($('glcanvas'));bindControls();inspectBind();
+ const meta=await request('/api/meta');const s=await request('/api/state?selected=b001');apply(s,{resetCamera:true});
+ $('preset').value='pair';message('Лаборатория готова · выделяйте и перемещайте тела');
+}catch(e){message('Ошибка запуска: '+e.message,true);setText('metric-status','ОШИБКА ЗАПУСКА');console.error(e)}}
+window.addEventListener('DOMContentLoaded',start);
+
+</script><script>document.getElementById("download-max-exporter").addEventListener("click",()=>{const data=document.getElementById("max-export-source").textContent;const u=URL.createObjectURL(new Blob([data],{type:"text/x-python"}));const a=document.createElement("a");a.href=u;a.download="voxellab_export_max_2024.py";a.click();setTimeout(()=>URL.revokeObjectURL(u),1500)});</script></body></html>
