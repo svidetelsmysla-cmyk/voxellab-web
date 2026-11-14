@@ -24,10 +24,15 @@
 
 .wave-chart-switch{display:flex;justify-content:space-between;align-items:center;gap:8px;color:#7395a3;font-size:10px}.wave-chart-switch select{width:185px;display:inline-block;padding:4px 5px;font-size:10px}.wave-chart-switch label{display:flex;gap:8px;align-items:center}
 
+
+.dynamics-panel{display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:#123041;border:1px solid #2c6677;border-radius:8px;padding:9px 12px;margin:9px 13px 5px;font-size:12px;color:#c4dce3}
+.dynamics-panel #dyn-message{flex:1;min-width:190px}
+.dynamics-panel button{padding:7px 11px;background:#126d77;color:#eefaff;border:1px solid #3aaab6;border-radius:6px;cursor:pointer}
+.dynamics-panel label{display:flex;gap:5px;align-items:center}.dynamics-panel select{font-size:11px;max-width:175px;color:#ecf7ff;background:#122a38;border:1px solid #3e6677;border-radius:5px;padding:5px}
 </style></head><body>
 <div class="app" id="app">
  <header class="top">
-  <div class="brand"><div class="mark"><span></span><span></span></div><div><div class="overline">БГП · VOXELLAB</div><div class="brand-title">STUDIO <span>Р45</span> <small>ONLINE · FCC / BCC / WAVE / MAX</small> <small>редактор физической сцены</small></div></div></div>
+  <div class="brand"><div class="mark"><span></span><span></span></div><div><div class="overline">БГП · VOXELLAB</div><div class="brand-title">STUDIO <span>Р45</span> <small>ONLINE v2.2 · FCC / BCC / WAVE / MAX</small> <small>редактор физической сцены</small></div></div></div>
   <div class="head-actions"><span class="version">R45 · BROWSER JS PREVIEW / ZERO-MEAN</span><button class="flat" id="save-scene" title="Сохранить JSON (Ctrl+S)">↧ Сохранить</button><button class="flat" id="load-scene">↥ Открыть</button><button class="flat" id="export-state">≡ Данные</button><input type="file" id="file-input" accept=".json,application/json" hidden><button class="flat" id="screenshot" title="Снимок сцены">▣ Кадр</button><button class="flat iconbtn" id="help" title="Управление">?</button></div>
  </header>
  <div class="workspace">
@@ -67,7 +72,8 @@
        <button class="primary" id="wave-kick">↯ Начальный импульс</button>
      </div><div class="wave-readout"><div class="wave-chart-switch"><label>График <select id="wave-chart-mode"><option value="instant">Скорость вдоль оси</option><option value="spacetime">Пространство × время</option></select></label><span>Волновой профиль — диагностический</span></div><canvas id="waveplot" width="660" height="118" aria-label="Профиль скорости по выбранной оси"></canvas><div class="wave-details" id="wave-details">Выберите волновую сцену или создайте импульс на собственных телах. Это подготовка скорости, не доказанный перенос волны.</div></div></div>
    </details>
-   <div class="transport"><div class="player"><button class="run" id="play" title="Пуск / пауза [Пробел]">▶ Пуск</button><button class="icon-control" id="step" title="Один расчётный шаг">↦ Шаг</button><button class="icon-control" id="reset" title="Вернуться к подготовленному состоянию">↺ Сброс</button></div><div class="time-input"><label>ШАГ Δt <input id="dt" type="number" min="0.000001" max="0.3" step="0.001" value="0.006"></label><label>ШАГОВ / КАДР <select id="steps-per-frame"><option>1</option><option>2</option><option selected>3</option><option>5</option><option>10</option></select></label></div><div class="sim-info"><span id="fps" class="mono">— мс</span><small>Velocity Verlet · без демпфирования</small></div></div>
+   <div class="dynamics-panel" id="dynamics-panel"><span id="dyn-message">Проверка исходного состояния…</span><button id="kick-quick" title="Однократный импульс скоростей, без изменения сил">↯ Возбудить упаковку</button><label>Отображение <select id="motion-scale"><option value="1">×1 · физический размер</option><option value="10">×10 · увеличено</option><option value="50">×50 · увеличено</option><option value="100">×100 · увеличено</option></select></label></div>
+  <div class="transport"><div class="player"><button class="run" id="play" title="Пуск / пауза [Пробел]">▶ Пуск</button><button class="icon-control" id="step" title="Один расчётный шаг">↦ Шаг</button><button class="icon-control" id="reset" title="Вернуться к подготовленному состоянию">↺ Сброс</button></div><div class="time-input"><label>ШАГ Δt <input id="dt" type="number" min="0.000001" max="0.3" step="0.001" value="0.006"></label><label>ШАГОВ / КАДР <select id="steps-per-frame"><option>1</option><option>2</option><option selected>3</option><option>5</option><option>10</option></select></label></div><div class="sim-info"><span id="fps" class="mono">— мс</span><small>Velocity Verlet · без демпфирования</small></div></div>
   </section>
   <aside class="side right">
    <div class="side-head"><div><span class="eyebrow">03 · ИНСПЕКТОР</span><h2>Свойства</h2></div><span class="right-indicator" id="inspector-status">—</span></div>
@@ -236,6 +242,94 @@ class SceneModel{
  }
  greenCore(){if(!this.green||this.greenL!==this.L){this.green=new PeriodicGreen(this.L);this.greenL=this.L}return this.green}
  evaluate(){
+  // Ewald reciprocal sum factorized via structure factors: mathematically the
+  // same paired periodic Green, O(N*K) rather than O(N^2*K).
+  this.validate();const n=this.bodies.length,forces=Array.from({length:n},()=>[0,0,0]);
+  let upair=0,minGap=Infinity,overlapSum=0;
+  const overlaps=[],gr=this.boundary==='periodic'?this.greenCore():null;
+  const piRoot=2/SQRTPI;
+  for(let i=0;i<n-1;i++)for(let j=i+1;j<n;j++){
+   const a=this.bodies[i],b=this.bodies[j],q=a.n*b.n;
+   const dv=a.x.map((v,k)=>v-b.x[k]);if(gr)for(let k=0;k<3;k++)dv[k]=wrap(dv[k],this.L);
+   const d=norm3(dv),gap=d-a.radius-b.radius;minGap=Math.min(minGap,gap);
+   const direct=spherePairFree(d,a.radius,b.radius,a.n,b.n),dir=d>1e-12?dv.map(v=>v/d):[0,0,0];
+   let F=dir.map(v=>v*direct.f),U=direct.u;
+   if(gr){
+    // Replace free point source with finite-volume direct pair. The periodic
+    // image and Ewald regular remainder is a smooth correction at d=0.
+    const alpha=gr.alpha,V=gr.V,z=alpha*d;
+    let regF,regU;
+    if(d<1e-4/alpha){
+     const z2=z*z;
+     regF=-4*alpha**3/(3*SQRTPI)*(1-3*z2/5+3*z2*z2/14);
+     regU=-2*alpha/SQRTPI*(1-z2/3+z2*z2/10);
+    }else{
+     regF=(-erf(z)+piRoot*z*Math.exp(-z*z))/(d*d*d);
+     regU=-erf(z)/d;
+    }
+    for(let k=0;k<3;k++)F[k]+=q*regF*dv[k];
+    U+=q*(regU-PI/(alpha*alpha*V)+(a.radius*a.radius+b.radius*b.radius)*PI4/V/10);
+    // Only neighbouring images can fall under rcut=1.5L for wrapped dv.
+    for(let ix=-1;ix<=1;ix++)for(let iy=-1;iy<=1;iy++)for(let iz=-1;iz<=1;iz++){
+      if(ix===0&&iy===0&&iz===0)continue;
+      const rx=dv[0]+ix*this.L,ry=dv[1]+iy*this.L,rz=dv[2]+iz*this.L,r2=rx*rx+ry*ry+rz*rz;
+      if(r2>=gr.rcut*gr.rcut)continue;
+      const r=Math.sqrt(r2),z=alpha*r,ex=Math.exp(-z*z),er=erfc(z);
+      const coef=q*(er/(r2*r)+piRoot*alpha*ex/r2);
+      F[0]+=coef*rx;F[1]+=coef*ry;F[2]+=coef*rz;U+=q*er/r;
+    }
+   }
+   for(let k=0;k<3;k++){forces[i][k]+=F[k]*this.kappa;forces[j][k]-=F[k]*this.kappa}
+   upair+=U;
+   if(gap<0){let intersect;if(d<=Math.abs(a.radius-b.radius))intersect=PI4/3*Math.min(a.radius,b.radius)**3;
+    else intersect=PI*(a.radius+b.radius-d)**2*(d*d+2*d*(a.radius+b.radius)-3*(a.radius-b.radius)**2)/(12*d);
+    overlaps.push({a:a.id,b:b.id,gap,intersection:intersect,fraction_smaller:intersect/(PI4/3*Math.min(a.radius,b.radius)**3)});
+    overlapSum+=intersect;
+   }
+  }
+  if(gr){
+   const sumNsq=this.bodies.reduce((s,b)=>s+b.n*b.n,0);
+   // sin(k.(xi-xj)) = sin_i*cos_j - cos_i*sin_j.
+   // Includes every pair and exact zero self force; no physical approximation.
+   for(let m=0;m<gr.k.length;m++){
+    const kv=gr.k[m],w=gr.w[m],S=new Float64Array(n),C=new Float64Array(n);
+    let sumC=0,sumS=0;
+    for(let i=0;i<n;i++){
+     const b=this.bodies[i],phase=kv[0]*b.x[0]+kv[1]*b.x[1]+kv[2]*b.x[2];
+     const co=Math.cos(phase),si=Math.sin(phase);C[i]=co;S[i]=si;sumC+=b.n*co;sumS+=b.n*si;
+    }
+    upair+=.5*w*(sumC*sumC+sumS*sumS-sumNsq);
+    for(let i=0;i<n;i++){
+     const b=this.bodies[i],factor=this.kappa*b.n*w*(S[i]*sumC-C[i]*sumS);
+     forces[i][0]+=factor*kv[0];forces[i][1]+=factor*kv[1];forces[i][2]+=factor*kv[2];
+    }
+   }
+  }
+  const N=this.bodies.reduce((q,b)=>q+b.n*b.n/b.radius,0),sR=this.bodies.reduce((q,b)=>q+b.n*b.n*b.radius*b.radius,0);
+  let selfU=3/5*N;
+  if(gr){const sumN=this.bodies.reduce((q,b)=>q+b.n*b.n,0);
+   selfU+=.5*gr.self_g*sumN+sR*PI4/gr.V/10;
+  }
+  this.cache={forces,ledger:new Map(),overlaps,overlapSum,minGap:n>=2?minGap:null,
+   U:(upair+selfU)*this.kappa,pairU:upair*this.kappa,selfU:selfU*this.kappa};
+  return this.cache;
+ }
+ ledgerFor(index){
+  const a=this.bodies[index],led=[],gr=this.boundary==='periodic'?this.greenCore():null;
+  for(let j=0;j<this.bodies.length;j++){if(j===index)continue;
+   const b=this.bodies[j],dv=a.x.map((v,k)=>v-b.x[k]);if(gr)for(let k=0;k<3;k++)dv[k]=wrap(dv[k],this.L);
+   const d=norm3(dv),gap=d-a.radius-b.radius,base=spherePairFree(d,a.radius,b.radius,a.n,b.n);
+   const dir=d>1e-12?dv.map(v=>v/d):[0,0,0],direct=dir.map(v=>v*base.f);
+   let corr=[0,0,0];if(gr){const {f}=gr.kernel(dv),inv=d>1e-12?1/d:0;
+    corr=d>1e-12?f.map((v,k)=>a.n*b.n*(v-dir[k]*inv*inv)):[0,0,0];
+   }
+   const total=direct.map((v,k)=>(v+corr[k])*this.kappa);
+   led.push({id:b.id,name:b.name,force:total,direct_force:direct.map(v=>v*this.kappa),
+     periodic_residual:corr.map(v=>v*this.kappa),distance:d,gap});
+  }
+  return led;
+ }
+ evaluateReference(){
   this.validate();const n=this.bodies.length,forces=Array.from({length:n},()=>[0,0,0]);let upair=0;
   const led=Array.from({length:n},()=>[]),overlaps=[];let minGap=Infinity,overlapSum=0;
   const gr=this.boundary==='periodic'?this.greenCore():null;
@@ -267,12 +361,12 @@ class SceneModel{
  }
  snapshot(selected=null){const c=this.cache??this.evaluate();let kinetic=0,P=[0,0,0];for(const b of this.bodies){kinetic+=.5*b.m*dot(b.v,b.v);for(let k=0;k<3;k++)P[k]+=b.m*b.v[k]}
   const idx=this.bodies.findIndex(b=>b.id===selected);
-  const ledger=idx>=0?[...c.ledger[idx]].sort((a,b)=>norm3(b.force)-norm3(a.force)).slice(0,96):[];
+  const ledger=idx>=0?[...(c.ledger.has(idx)?c.ledger.get(idx):(c.ledger.set(idx,this.ledgerFor(idx)),c.ledger.get(idx)))].sort((a,b)=>norm3(b.force)-norm3(a.force)).slice(0,96):[];
   return {ok:true,revision:this.rev,scene:this.dump(),time:this.time,steps:this.steps,
    forces:Object.fromEntries(this.bodies.map((b,i)=>[b.id,c.forces[i]])),kinetic,potential:c.U,energy:kinetic+c.U,momentum:P,
    overlaps:c.overlaps.slice(0,50),overlap_count:c.overlaps.length,overlap_pair_volume_sum:c.overlapSum,min_gap:c.minGap,
    selected_ledger:ledger,kernel:'R45 PeriodicGreen — JS engineering translation; finite spheres',operator:this.boundary,
-   wave:deep(this.wave),wave_profile:this.waveProfile(),import_note:deep(this.import_note),status:this.status};
+   wave:deep(this.wave),wave_profile:this.waveProfile(),import_note:deep(this.import_note),status:this.status,parity:this.debugParity??null};
  }
  waveProfile(){if(!this.wave)return null;const axis=this.wave.axis,dir=this.wave.direction;const bins=[];let sigma=Math.max(this.L/32,.17);
   for(let i=0;i<32;i++){const p=-this.L/2+(i+.5)*this.L/32;let a=0,z=0;
@@ -321,6 +415,14 @@ class SceneModel{
   if(!initializing){this.invalidate();this.status='WAVE_INITIAL_PULSE_NEW_PREPARATION'}
  }
  action(msg){const kind=msg.kind;
+  if(kind==='parity_debug'){
+   const fast=this.evaluate(), ref=this.evaluateReference();let forceError=0,relativeError=0;
+   for(let i=0;i<fast.forces.length;i++)for(let k=0;k<3;k++){
+    forceError=Math.max(forceError,Math.abs(fast.forces[i][k]-ref.forces[i][k]));
+    relativeError=Math.max(relativeError,Math.abs(fast.forces[i][k]-ref.forces[i][k])/(Math.max(1e-12,Math.abs(ref.forces[i][k]))));
+   }
+   this.cache=fast;this.debugParity={forceError,relativeError,energyError:Math.abs(fast.U-ref.U)};return;
+  }
   if(kind==='demo')return this.demo(msg.name??'pair');
   if(kind==='load')return this.load(msg.scene);
   if(kind==='wave_pulse')return this.pulse(msg.axis??0,msg.polarization??'longitudinal',msg.amplitude??.1,msg.width??.75);
@@ -588,6 +690,7 @@ async function request(path,data){
 }
 let state=null,selected=[],primary=null,running=false,tool='select',plane='view',energyBase=null;
 let pending=Promise.resolve(),undo=[],redo=[],toastTimer=0,lastStepAt=0,trails=new Map(),waveHistory=[],lastWaveStep=-1;
+let visualRef=new Map(),visualScale=1;
 function bodyById(id){return state?.scene.bodies.find(x=>x.id===id)}
 function message(s,error=false){const t=$('toast');t.textContent=s;t.classList.toggle('error',error);t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),3300)}
 function setText(id,v){const a=$(id);if(a)a.textContent=v}
@@ -601,6 +704,8 @@ function apply(s,{resetCamera=false,clearTrails=false}={}){
  if(clearTrails)trails.clear();else refreshTrail(s);
  if(clearTrails || (state&&s.steps<state.steps) || (state&&s.steps===0&&state.steps===0&&s.revision!==state.revision)) {waveHistory=[];lastWaveStep=-1}
  if(s.wave_profile&&s.steps!==lastWaveStep){waveHistory.push({time:s.time,step:s.steps,bins:s.wave_profile.bins.slice()});if(waveHistory.length>128)waveHistory.shift();lastWaveStep=s.steps}
+ const newPreparation=resetCamera||clearTrails||!state||s.steps===0&&state.steps!==0||s.steps===0&&state.steps===0&&s.revision!==state.revision;
+ if(newPreparation)visualRef=new Map(s.scene.bodies.map(b=>[b.id,b.x.slice()]));
  const wasEmpty=!state;state=s;
  if(s.import_note && s.status==='IMPORTED_MAX_NEW_PREPARATION')$('preset').value='custom';
  if(s.status==='LOADED')$('preset').value='custom';
@@ -608,7 +713,7 @@ function apply(s,{resetCamera=false,clearTrails=false}={}){
  if(primary&&!ids.has(primary))primary=null;
  if(!primary&&selected.length)primary=selected[0];
  if(!selected.length&&ids.size&&!primary){selected=[s.scene.bodies[0].id];primary=selected[0]}
- drawList();drawInspector();drawGlobal();drawMetrics();drawWave();stage.setScene(s.scene.bodies,s.forces,selected,trails);
+ drawList();drawInspector();drawGlobal();drawMetrics();drawWave();drawDynamics();stage.setScene(s.scene.bodies,s.forces,selected,trails);stage.visualRef=visualRef;stage.visualScale=visualScale;
  if(resetCamera||wasEmpty)stage.fit();stage.render();
 }
 function drawList(){
@@ -649,6 +754,19 @@ function drawMetrics(){if(!state)return;
  setText('metric-gap','мин. зазор '+(state.min_gap===null?'—':fmt(state.min_gap,5)));
  const status=state.status||'READY';setText('metric-status',status.replaceAll('_',' '));
  $('metric-overlaps').style.color=state.overlap_count?'#e4ad7f':'#dcecef';
+}
+function drawDynamics(){
+ if(!state)return;
+ const B=state.scene.bodies,vm=Math.max(0,...B.map(b=>norm(b.v))), fm=Math.max(0,...B.map(b=>norm(state.forces[b.id]||[0,0,0])));
+ let maxMotion=0;for(const b of B){const origin=visualRef.get(b.id);if(!origin)continue;
+  const dr=b.x.map((x,i)=>state.scene.boundary==='periodic'?(x-origin[i]-Math.round((x-origin[i])/state.scene.L)*state.scene.L):x-origin[i]);
+  maxMotion=Math.max(maxMotion,norm(dr));
+ }
+ const stationary=vm<1e-10&&fm<1e-9;
+ const m=stationary?'Равновесная упаковка: F≈0, v=0, движение не начнётся без импульса.':
+  `Модельное t=${fmt(state.time,3)} · max |v|=${fmt(vm,5)} · смещение=${fmt(maxMotion,5)} · визуализация ×${visualScale} (только показ).`;
+ setText('dyn-message',m);
+ $('dynamics-panel').style.borderColor=stationary?'#bb9766':'#2c6677';
 }
 function drawWave(){
  const prof=state?.wave_profile, cfg=state?.scene?.wave||state?.wave;
@@ -722,7 +840,7 @@ function inspectBind(){
  });
 }
 function bindControls(){
- $('preset').addEventListener('change',()=>{if(!confirm('Заменить текущую сцену выбранной конфигурацией?'))return;void queueEdit({kind:'demo',name:$('preset').value},{record:true,fit:true}).then(()=>{if($('preset').value.startsWith('wave_'))$('steps-per-frame').value='1'})});
+ $('preset').addEventListener('change',()=>{if(!confirm('Заменить текущую сцену выбранной конфигурацией?'))return;void queueEdit({kind:'demo',name:$('preset').value},{record:true,fit:true}).then(()=>{const w=$('preset').value.startsWith('wave_');if(w){$('steps-per-frame').value='3';visualScale=50;$('motion-scale').value='50';$('velocity-toggle').checked=true;}else{visualScale=1;$('motion-scale').value='1'}stage.visualScale=visualScale;drawDynamics();stage.render();})});
  $('wave-chart-mode').addEventListener('change',drawWave);
  $('wave-kick').addEventListener('click',()=>{void queueEdit({kind:'wave_pulse',axis:Number($('wave-axis').value),
   polarization:$('wave-pol').value,amplitude:Number($('wave-amplitude').value),width:Number($('wave-width').value)},
@@ -743,6 +861,14 @@ function bindControls(){
  $('tool-select').addEventListener('click',()=>setTool('select'));$('tool-place').addEventListener('click',()=>setTool('place'));
  $('duplicate').addEventListener('click',()=>{if(selected.length)void queueEdit({kind:'duplicate',ids:selected})});
  $('remove').addEventListener('click',()=>{if(selected.length&&confirm('Удалить '+selected.length+' объектов?')){const ids=selected.slice();selected=[];primary=null;void queueEdit({kind:'delete',ids})}});
+ $('motion-scale').addEventListener('change',()=>{visualScale=Number($('motion-scale').value);stage.visualScale=visualScale;drawDynamics();stage.render()});
+ $('kick-quick').addEventListener('click',()=>{
+  const axis=Number($('wave-axis').value),pol=$('wave-pol').value;
+  const amplitude=Number($('wave-amplitude').value),width=Number($('wave-width').value);
+  void queueEdit({kind:'wave_pulse',axis,polarization:pol,amplitude,width},{record:true}).then(s=>{
+   if(!s)return;visualScale=50;$('motion-scale').value='50';stage.visualScale=50;$('velocity-toggle').checked=true;drawDynamics();stage.render();message('Импульс добавлен · нажмите Пуск · визуальный масштаб ×50');
+  });
+ });
  $('play').addEventListener('click',toggleRun);$('step').addEventListener('click',async()=>{halt();await stepOnce(1)});
  $('reset').addEventListener('click',reset);$('fit-camera').addEventListener('click',()=>stage.fit());
  $('save-scene').addEventListener('click',saveScene);$('export-state').addEventListener('click',()=>{if(state)download('voxellab_r45_state.json',JSON.stringify({...state,diagnostic_wave_history:waveHistory,exported_at:new Date().toISOString()},null,2),'application/json')});$('load-scene').addEventListener('click',()=>$('file-input').click());
@@ -798,11 +924,17 @@ class Stage{
  }
  _bind(){const c=this.canvas;c.addEventListener('pointerdown',e=>this.down(e));c.addEventListener('pointermove',e=>this.move(e));c.addEventListener('pointerup',e=>this.up(e));c.addEventListener('pointercancel',()=>this.cancelDrag());c.addEventListener('wheel',e=>{e.preventDefault();this.distance=clamp(this.distance*Math.exp(e.deltaY*.001),1.2,150);this.render()},{passive:false});c.addEventListener('contextmenu',e=>e.preventDefault())}
  setScene(bodies,forces,selected,trails){this.bodies=bodies;this.forces=forces;this.selected=selected;this.trails=trails}
+ visualX(b){
+  const p=this.preview?.[b.id]||b.x;
+  if((this.visualScale||1)===1||!this.visualRef?.has(b.id))return p;
+  const old=this.visualRef.get(b.id),L=state?.scene?.L,per=state?.scene?.boundary==='periodic';
+  return p.map((x,k)=>old[k]+this.visualScale*(per?(x-old[k]-Math.round((x-old[k])/L)*L):(x-old[k])));
+ }
  fit(){const bodies=this.bodies;if(!bodies?.length){this.target=[0,0,0];this.distance=13;this.render();return}const ctr=[0,0,0];for(const b of bodies)for(let k=0;k<3;k++)ctr[k]+=b.x[k]/bodies.length;let R=2;for(const b of bodies)R=Math.max(R,norm(sub(b.x,ctr))+b.radius);this.target=ctr;this.distance=clamp(R*2.6,3.5,120);this.render()}
  camera(){const z=this.distance*Math.cos(this.el);const eye=add(this.target,[z*Math.cos(this.az),this.distance*Math.sin(this.el),z*Math.sin(this.az)]);const forward=unit(sub(this.target,eye));const right=unit(cross(forward,[0,1,0]));const up=unit(cross(right,forward));return {eye,forward,right,up}}
  coords(e){const r=this.canvas.getBoundingClientRect();return [(e.clientX-r.left)/r.width,(e.clientY-r.top)/r.height]}
  ray(e){const [u,v]=this.coords(e);const cam=this.camera(),asp=this.canvas.clientWidth/Math.max(1,this.canvas.clientHeight),t=Math.tan(50*Math.PI/360);return {origin:cam.eye,dir:unit(add(cam.forward,add(mul(cam.right,(2*u-1)*t*asp),mul(cam.up,(1-2*v)*t))))}}
- hit(e){const ray=this.ray(e),obj=this.bodies||[];let best=null;let tbest=Infinity;for(const b of obj){const x=this.preview?.[b.id]||b.x,oc=sub(ray.origin,x),B=dot(oc,ray.dir),C=dot(oc,oc)-b.radius*b.radius,D=B*B-C;if(D<0)continue;let t=-B-Math.sqrt(D);if(t<0)t=-B+Math.sqrt(D);if(t>0&&t<tbest){best=b.id;tbest=t}}return best}
+ hit(e){const ray=this.ray(e),obj=this.bodies||[];let best=null;let tbest=Infinity;for(const b of obj){const x=this.visualX(b),oc=sub(ray.origin,x),B=dot(oc,ray.dir),C=dot(oc,oc)-b.radius*b.radius,D=B*B-C;if(D<0)continue;let t=-B-Math.sqrt(D);if(t<0)t=-B+Math.sqrt(D);if(t>0&&t<tbest){best=b.id;tbest=t}}return best}
  intersect(ray,point,normal){const den=dot(ray.dir,normal);if(Math.abs(den)<1e-6)return null;const t=dot(sub(point,ray.origin),normal)/den;return t>0?add(ray.origin,mul(ray.dir,t)):null}
  planeNormal(){if(plane==='xz')return [0,1,0];if(plane==='xy')return [0,0,1];if(plane==='yz')return [1,0,0];return this.camera().forward}
  down(e){if(e.button!==0&&e.button!==2)return;this.canvas.setPointerCapture(e.pointerId);const hit=this.hit(e);
@@ -811,6 +943,7 @@ class Stage{
    const pos=this.intersect(this.ray(e),[0,0,0],[0,1,0]);if(pos){void addSphereAt(pos);setTool('select')}else message('Нет пересечения с плоскостью XZ',true);return;
   }
   if(hit){
+   if(this.visualScale>1){visualScale=1;this.visualScale=1;$('motion-scale').value='1';drawDynamics();this.render();message('Масштаб смещений сброшен до ×1 для точного редактирования');}
    if(e.shiftKey||e.ctrlKey){choose(hit,true);return}
    if(!selected.includes(hit)){choose(hit,false)}
    const b=bodyById(hit);if(!b)return;
@@ -867,11 +1000,11 @@ class Stage{
   gl.vertexAttribPointer(locP,3,gl.FLOAT,false,24,0);gl.vertexAttribPointer(locN,3,gl.FLOAT,false,24,12);
   gl.uniformMatrix4fv(gl.getUniformLocation(pro,'vp'),false,vp);gl.uniform3fv(gl.getUniformLocation(pro,'camera'),cam.eye);
   for(const b of [...this.bodies].sort((a,b)=>norm(sub(b.x,cam.eye))-norm(sub(a.x,cam.eye)))){
-   gl.uniform3fv(gl.getUniformLocation(pro,'center'),this.preview?.[b.id]||b.x);gl.uniform1f(gl.getUniformLocation(pro,'radius'),b.radius);
+   gl.uniform3fv(gl.getUniformLocation(pro,'center'),this.visualX(b));gl.uniform1f(gl.getUniformLocation(pro,'radius'),b.radius);
    gl.uniform3fv(gl.getUniformLocation(pro,'color'),hexVec(b.color));gl.uniform1f(gl.getUniformLocation(pro,'selected'),this.selected.includes(b.id)?1:0);gl.drawArrays(gl.TRIANGLES,0,this.spCount)
   }
   const overlays=[];
-  for(const b of this.bodies){const x=this.preview?.[b.id]||b.x;
+  for(const b of this.bodies){const x=this.visualX(b);
    if(this.selected.includes(b.id)){const rr=b.radius*1.095,c=[.52,.93,.93];for(let plane=0;plane<3;plane++)for(let i=0;i<64;i++){
      const phi=i*2*Math.PI/64,q=(i+1)*2*Math.PI/64,a=[0,0,0],d=[0,0,0];
      if(plane===0){a[0]=rr*Math.cos(phi);a[1]=rr*Math.sin(phi);d[0]=rr*Math.cos(q);d[1]=rr*Math.sin(q)}
@@ -901,7 +1034,7 @@ class Stage{
   }
   if($('trail-toggle').checked){for(const [id,path] of this.trails){const b=this.bodies.find(x=>x.id===id);if(!b)continue;for(let i=1;i<path.length;i++)if(norm(sub(path[i],path[i-1]))<L*.3)line(path[i-1],path[i],csscolor(b.color)+'77',1.25)}}
   const items=[...this.bodies].sort((a,b)=>norm(sub(b.x,cam.eye))-norm(sub(a.x,cam.eye)));
-  for(const b of items){const x=this.preview?.[b.id]||b.x,pp=proj(x);if(!pp)continue;const rz=Math.max(2,Math.min(2000,h*.5*b.radius/(Math.tan(50*Math.PI/360)*pp[2])));
+  for(const b of items){const x=this.visualX(b),pp=proj(x);if(!pp)continue;const rz=Math.max(2,Math.min(2000,h*.5*b.radius/(Math.tan(50*Math.PI/360)*pp[2])));
    const col=csscolor(b.color),gr=ctx.createRadialGradient(pp[0]-rz*.32,pp[1]-rz*.32,rz*.09,pp[0],pp[1],rz);
    gr.addColorStop(0,'#defafe');gr.addColorStop(.14,col);gr.addColorStop(.64,col);gr.addColorStop(1,'#173542');
    ctx.fillStyle=gr;ctx.strokeStyle='#a0cedc55';ctx.lineWidth=1;ctx.beginPath();ctx.arc(pp[0],pp[1],rz,0,Math.PI*2);ctx.fill();ctx.stroke();
@@ -911,7 +1044,7 @@ class Stage{
   const arrow=(p,v,col,scale=1)=>{let mag=norm(v);if(mag<1e-12)return;const len=clamp(.14*Math.log1p(mag)*scale,.13,2.3),u=unit(v),q=add(p,mul(u,len));line(p,q,col,2);
     let side=unit(cross(u,[0,1,0]));if(norm(side)<.1)side=unit(cross(u,[0,0,1]));line(q,add(q,add(mul(u,-len*.18),mul(side,len*.1))),col,2);line(q,add(q,add(mul(u,-len*.18),mul(side,-len*.1))),col,2);
   };
-  for(const b of this.bodies){const x=this.preview?.[b.id]||b.x;if($('force-toggle').checked)arrow(x,this.forces[b.id]||[0,0,0],'#50e8e4');if($('velocity-toggle').checked)arrow(x,b.v,'#f9b16a',1.3)}
+  for(const b of this.bodies){const x=this.visualX(b);if($('force-toggle').checked)arrow(x,this.forces[b.id]||[0,0,0],'#50e8e4');if($('velocity-toggle').checked)arrow(x,b.v,'#f9b16a',1.3)}
   // Runtime flag: faithful scene geometry is 3D, fallback projection is Canvas2D.
   ctx.fillStyle='#568492';ctx.textAlign='right';ctx.font='10px Segoe UI';ctx.fillText('CANVAS / 3D-PROJECTION',w-16,h-33);
  }
