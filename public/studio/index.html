@@ -29,10 +29,32 @@
 .dynamics-panel #dyn-message{flex:1;min-width:190px}
 .dynamics-panel button{padding:7px 11px;background:#126d77;color:#eefaff;border:1px solid #3aaab6;border-radius:6px;cursor:pointer}
 .dynamics-panel label{display:flex;gap:5px;align-items:center}.dynamics-panel select{font-size:11px;max-width:175px;color:#ecf7ff;background:#122a38;border:1px solid #3e6677;border-radius:5px;padding:5px}
+
+/* Studio V2.3: material-row preparation */
+.row-workshop{flex-shrink:0;margin:6px 0 12px;border:1px solid #315c68;background:#0a202c;border-radius:10px;overflow:visible}
+.row-workshop summary{font-weight:750;font-size:12px;cursor:pointer;padding:11px 12px;color:#b2f3ed;list-style-position:inside}
+.row-workshop[open] summary{border-bottom:1px solid #274b5a}
+.row-workshop-inner{padding:11px;display:flex;flex-direction:column;gap:9px}
+.row-guidance,.row-smallprint{font-size:10px;line-height:1.5;color:#86b2bd;margin:0}
+.row-grid-2{display:grid;grid-template-columns:1fr 1.15fr;gap:7px}
+.row-workshop label{font-size:10px;color:#91b8c5;min-width:0}
+.row-workshop input,.row-workshop select{margin-top:4px;padding:7px 6px;font-size:11px;width:100%;font-family:inherit}
+.row-workshop input[type="number"]{font-family:ui-monospace,Consolas,monospace}
+.row-workshop .row-full{display:block}
+.row-pick-actions{display:flex;gap:5px}
+.row-pick-actions button{font-size:10px;flex:1;min-width:0;padding:7px 5px}
+.row-status{font-size:10px;line-height:1.5;background:#102e3a;color:#b8e8e8;border-left:2px solid #4cbec3;padding:7px 8px;border-radius:3px;min-height:34px}
+.row-subhead{font-size:10px;font-weight:800;letter-spacing:.6px;color:#71c1ce;margin-top:6px}
+.row-vector-inputs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.row-check{display:flex;gap:7px;align-items:flex-start;line-height:1.4;cursor:pointer}
+.row-check input{width:15px;flex:0 0 15px;margin:0;accent-color:#73d5cd}
+.row-full-action{width:100%;font-size:11px}
+#row-impact{color:#91b0b9;background:#102532;border-radius:5px;padding:7px}
+@media(max-width:900px){.row-grid-2{grid-template-columns:1fr 1fr}.row-workshop-inner{padding:9px}}
 </style></head><body>
 <div class="app" id="app">
  <header class="top">
-  <div class="brand"><div class="mark"><span></span><span></span></div><div><div class="overline">БГП · VOXELLAB</div><div class="brand-title">STUDIO <span>Р45</span> <small>ONLINE v2.2 · FCC / BCC / WAVE / MAX</small> <small>редактор физической сцены</small></div></div></div>
+  <div class="brand"><div class="mark"><span></span><span></span></div><div><div class="overline">БГП · VOXELLAB</div><div class="brand-title">STUDIO <span>Р45</span> <small>ONLINE v2.3 · ROWS · FCC / BCC / WAVE / MAX</small> <small>РЯДЫ FCC/BCC · редактор физической сцены</small></div></div></div>
   <div class="head-actions"><span class="version">R45 · BROWSER JS PREVIEW / ZERO-MEAN</span><button class="flat" id="save-scene" title="Сохранить JSON (Ctrl+S)">↧ Сохранить</button><button class="flat" id="load-scene">↥ Открыть</button><button class="flat" id="export-state">≡ Данные</button><input type="file" id="file-input" accept=".json,application/json" hidden><button class="flat" id="screenshot" title="Снимок сцены">▣ Кадр</button><button class="flat iconbtn" id="help" title="Управление">?</button></div>
  </header>
  <div class="workspace">
@@ -47,7 +69,28 @@
        <p id="max-import-status">MAX Z-up → Studio Y-up. Произвольные mesh передаются как сферические объёмные прокси, не как деформируемые тела.</p>
      </div>
     </details>
-   <div class="object-actions"><button class="primary" id="add-sphere">+ Добавить сферу</button><button id="add-cursor" title="Разместить сферу щелчком по плоскости">⊕ В сцену</button></div>
+   <details class="row-workshop" open id="row-workshop">
+ <summary>▦ Ряды FCC / BCC · движение группы</summary>
+ <div class="row-workshop-inner">
+  <p class="row-guidance">Выделение опирается на исходные узлы упаковки. После деформации принадлежность ряду сохраняется.</p>
+  <div class="row-grid-2">
+   <label>Ось распространения<select id="row-prop-axis"><option value="0">X</option><option value="1">Y</option><option value="2">Z</option></select></label>
+   <label>Тип ряда<select id="row-orientation"><option value="long">Продольный ∥</option><option value="cross1">Поперечный ⟂ · 1</option><option value="cross2">Поперечный ⟂ · 2</option><option value="sheet">Поперечный слой ⟂</option></select></label>
+  </div>
+  <label class="row-full">Ряд / слой<select id="row-choice" aria-label="Выберите геометрический ряд"></select></label>
+  <div class="row-pick-actions"><button id="row-select" class="primary" title="Заменить выделение выбранным рядом">Выделить</button><button id="row-add-select" title="Добавить выбранный ряд к текущей группе">+ К выбору</button><button id="row-seed-select" title="Выбрать геометрический ряд, содержащий активную сферу">От тела</button></div>
+  <div class="row-status" id="row-status" role="status">Загрузите сцену FCC или BCC.</div>
+  <div class="row-subhead">Скорость выделенной группы</div>
+  <div class="row-vector-inputs"><label>Vx / ΔVx<input type="number" id="row-vx" value="0.1" step="0.05"></label><label>Vy / ΔVy<input type="number" id="row-vy" value="0" step="0.05"></label><label>Vz / ΔVz<input type="number" id="row-vz" value="0" step="0.05"></label></div>
+  <div class="row-pick-actions"><button id="row-velocity-add" class="primary" title="Прибавить вектор ко всем скоростям выбранных тел">+ Δv</button><button id="row-velocity-set">Задать v</button><button id="row-velocity-zero">v = 0</button></div>
+  <label class="row-check"><input type="checkbox" id="row-compensate"/> Компенсировать ΔP остальными свободными телами</label>
+  <div class="row-subhead">Смещение выделенной группы</div>
+  <div class="row-vector-inputs"><label>ΔX<input type="number" id="row-dx" value="0" step="0.05"></label><label>ΔY<input type="number" id="row-dy" value="0" step="0.05"></label><label>ΔZ<input type="number" id="row-dz" value="0" step="0.05"></label></div>
+  <button id="row-translate" class="row-full-action">↗ Сместить группу</button>
+  <p class="row-smallprint" id="row-impact">Выбор рядов не меняет физику. Скорость/смещение — новая подготовка; затем нажмите «Пуск».</p>
+ </div>
+</details>
+<div class="object-actions"><button class="primary" id="add-sphere">+ Добавить сферу</button><button id="add-cursor" title="Разместить сферу щелчком по плоскости">⊕ В сцену</button></div>
    <div class="small-header"><span>СПИСОК ТЕЛ</span><span id="selected-counter">0 выделено</span></div>
    <div class="objects" id="object-list" role="listbox" aria-label="Список объектов"></div>
    <div class="bottom-tools"><button id="duplicate" title="Дублировать (Ctrl+D)">⧉ Копия</button><button id="remove" title="Удалить (Delete)">× Удалить</button></div>
@@ -225,13 +268,13 @@ function convertMax(payload,mode,old,units,recenter){
  result.import_note=note;return {result,note};
 }
 class SceneModel{
- constructor(){this.rev=0;this.time=0;this.steps=0;this.nextId=1;this.green=null;this.greenL=NaN;this.cache=null;this.status='READY';this.demo('pair')}
+ constructor(){this.rev=0;this.time=0;this.steps=0;this.nextId=1;this.green=null;this.greenL=NaN;this.cache=null;this.status='READY';this.preparationLog=[];this.demo('pair')}
  create(x,n=1,m=n,radius=.36,name=null,color='#68c8f3'){
   let id;do{id='b'+String(this.nextId++).padStart(3,'0')}while(this.bodies.some(b=>b.id===id));
-  return {id,name:name??('Сфера '+id),x:[...x],v:[0,0,0],n,m,radius,color,pinned:false};
+  return {id,name:name??('Сфера '+id),x:[...x],v:[0,0,0],n,m,radius,color,pinned:false,lattice:null};
  }
  wrap(x){return this.boundary==='periodic'?x.map(y=>wrap(y,this.L)):[...x]}
- dump(){return {schema:'voxel-r45-editor/1',L:this.L,boundary:this.boundary,kappa:this.kappa,dt:this.dt,bodies:deep(this.bodies),wave:deep(this.wave),import_note:deep(this.import_note)}}
+ dump(){return {schema:'voxel-r45-editor/1',L:this.L,boundary:this.boundary,kappa:this.kappa,dt:this.dt,bodies:deep(this.bodies),wave:deep(this.wave),import_note:deep(this.import_note),preparation_log:deep(this.preparationLog)}}
  validate(){
   if(!(this.L>0&&this.L<=10000&&this.kappa>0&&this.kappa<=1000&&this.dt>=1e-6&&this.dt<=.3))throw Error('Invalid scene parameters');
   if(this.bodies.length>160)throw Error('Maximum 160 bodies; large-N batch solver separate');
@@ -376,11 +419,11 @@ class SceneModel{
  }
  invalidate(prepared=true){this.cache=null;this.rev++;if(prepared){this.time=0;this.steps=0;this.status='EDITED_SCENE_NEW_PREPARATION';this.baseline=this.dump()}}
  load(doc){if(!doc||!Array.isArray(doc.bodies))throw Error('Invalid scene');this.L=Number(doc.L??12);this.boundary=doc.boundary??'periodic';this.kappa=Number(doc.kappa??1);this.dt=Number(doc.dt??.006);
-  this.bodies=doc.bodies.map(x=>({id:String(x.id),name:String(x.name??x.id),x:x.x.map(Number),v:(x.v??[0,0,0]).map(Number),n:Number(x.n??1),m:Number(x.m??x.n??1),radius:Number(x.radius??.35),color:x.color??'#73c2ff',pinned:!!x.pinned}));
-  this.wave=doc.wave??null;this.import_note=doc.import_note??null;this.green=null;this.nextId=1;this.invalidate();this.status='LOADED';this.baseline=this.dump();this.validate();
+  this.bodies=doc.bodies.map(x=>({id:String(x.id),name:String(x.name??x.id),x:x.x.map(Number),v:(x.v??[0,0,0]).map(Number),n:Number(x.n??1),m:Number(x.m??x.n??1),radius:Number(x.radius??.35),color:x.color??'#73c2ff',pinned:!!x.pinned,lattice:x.lattice?deep(x.lattice):null}));
+  this.wave=doc.wave??null;this.import_note=doc.import_note??null;this.preparationLog=Array.isArray(doc.preparation_log)?deep(doc.preparation_log).slice(-120):[];this.green=null;this.nextId=1;this.invalidate();this.status='LOADED';this.baseline=this.dump();this.validate();
  }
  demo(name){
-  this.L=12;this.boundary='periodic';this.kappa=1;this.dt=.006;this.bodies=[];this.nextId=1;this.wave=null;this.import_note=null;this.green=null;
+  this.L=12;this.boundary='periodic';this.kappa=1;this.dt=.006;this.bodies=[];this.nextId=1;this.wave=null;this.import_note=null;this.preparationLog=[];this.green=null;
   const add=(pos,n,r,name,color,v=[0,0,0])=>{const b=this.create(pos,n,n,r,name,color);b.v=v;this.bodies.push(b)};
   if(name==='pair'){
    add([-1.8,0,0],1.5,.69,'A · сфера','#4ad4e2');add([1.8,0,0],1,.59,'B · сфера','#f8ac65');
@@ -391,12 +434,12 @@ class SceneModel{
    add([0,0,0],3,.7,'Центральный','#eeaa6e');
   }else if(['fcc','bcc'].includes(name)){
    const bas=name==='fcc'?[[0,0,0],[0,.5,.5],[.5,0,.5],[.5,.5,0]]:[[0,0,0],[.5,.5,.5]];
-   for(let i=0;i<2;i++)for(let j=0;j<2;j++)for(let k=0;k<2;k++)for(const o of bas)add([(i+o[0]-.75)*4,(j+o[1]-.75)*4,(k+o[2]-.75)*4],name==='fcc'?.65:.7,name==='fcc'?.36:.39,name.toUpperCase()+' '+(this.bodies.length+1),'#69bcd3');
+   for(let i=0;i<2;i++)for(let j=0;j<2;j++)for(let k=0;k<2;k++)for(let basis=0;basis<bas.length;basis++){const o=bas[basis];add([(i+o[0]-.75)*4,(j+o[1]-.75)*4,(k+o[2]-.75)*4],name==='fcc'?.65:.7,name==='fcc'?.36:.39,name.toUpperCase()+' '+(this.bodies.length+1),'#69bcd3');const body=this.bodies.at(-1);body.lattice={packing:name,cell:[i,j,k],basis,grid:[2*i+Math.round(2*o[0]),2*j+Math.round(2*o[1]),2*k+Math.round(2*o[2])],rest:[...body.x]};}
   }else if(['fcc3','bcc3','bcc4','wave_fcc_L','wave_fcc_T','wave_bcc_L','wave_bcc_T'].includes(name)){
    const typ=name.includes('fcc')?'fcc':'bcc',cells=name==='bcc4'?4:3,bas=typ==='fcc'?[[0,0,0],[0,.5,.5],[.5,0,.5],[.5,.5,0]]:[[0,0,0],[.5,.5,.5]];
    this.L=Math.cbrt(bas.length*cells**3);const a=this.L/cells;
    for(let i=0;i<cells;i++)for(let j=0;j<cells;j++)for(let k=0;k<cells;k++)for(let b=0;b<bas.length;b++){
-    const o=bas[b];add([-this.L/2+a*(i+o[0]),-this.L/2+a*(j+o[1]),-this.L/2+a*(k+o[2])],1,.3,typ.toUpperCase()+' '+(this.bodies.length+1),typ==='fcc'?'#7bcfe3':'#a2b3fb');
+    const o=bas[b];add([-this.L/2+a*(i+o[0]),-this.L/2+a*(j+o[1]),-this.L/2+a*(k+o[2])],1,.3,typ.toUpperCase()+' '+(this.bodies.length+1),typ==='fcc'?'#7bcfe3':'#a2b3fb');const body=this.bodies.at(-1);body.lattice={packing:typ,cell:[i,j,k],basis:b,grid:[2*i+Math.round(2*o[0]),2*j+Math.round(2*o[1]),2*k+Math.round(2*o[2])],rest:[...body.x]};
    }this.dt=.004;
    if(name.startsWith('wave_'))this.pulse(0,name.endsWith('_L')?'longitudinal':'transverse',.10,.75,true);
   }else if(name!=='empty')throw Error('Unknown scene '+name);
@@ -437,6 +480,42 @@ class SceneModel{
    const ids=new Set(msg.ids??[]);for(const b of [...this.bodies])if(ids.has(b.id)){
     const c=this.create([b.x[0]+.6,b.x[1],b.x[2]+.6],b.n,b.m,b.radius,b.name+' · копия',b.color);c.v=[...b.v];c.pinned=b.pinned;this.bodies.push(c)
    }this.validate();this.invalidate();return;
+  }
+  if(kind==='group_motion'){
+   const ids=Array.isArray(msg.ids)?[...new Set(msg.ids.map(String))]:[];
+   if(!ids.length||ids.length>160)throw Error('Group action: select 1–160 bodies');
+   const chosen=this.bodies.filter(b=>ids.includes(b.id));
+   if(chosen.length!==ids.length)throw Error('Group action: unknown ID in selection');
+   if(chosen.some(b=>b.pinned))throw Error('Group action: unpin selected bodies first');
+   const op=String(msg.op),vec=msg.vector;
+   if(!['velocity_add','velocity_set','translate'].includes(op)||!Array.isArray(vec)||vec.length!==3||vec.some(v=>!Number.isFinite(v)||Math.abs(v)>100))throw Error('Group action: invalid mode/vector');
+   if(vec.every(v=>v===0) && op!=='velocity_set')throw Error('Group action: zero change');
+   const members=new Set(ids),totalMass=chosen.reduce((s,b)=>s+b.m,0);
+   const oldP=[0,0,0],oldK=this.bodies.reduce((s,b)=>{for(let a=0;a<3;a++)oldP[a]+=b.m*b.v[a];return s+.5*b.m*dot(b.v,b.v)},0);
+   const prior={time:this.time,step:this.steps,revision:this.rev};
+   const priorVel=new Map(chosen.map(b=>[b.id,[...b.v]]));
+   if(op==='translate')for(const b of chosen){for(let a=0;a<3;a++)b.x[a]+=vec[a];if(this.boundary==='periodic')b.x=this.wrap(b.x)}
+   else for(const b of chosen)for(let a=0;a<3;a++)b.v[a]=op==='velocity_add'?b.v[a]+vec[a]:vec[a];
+   let balanced=false;
+   if(msg.compensate&&op!=='translate'){
+    const changeP=[0,0,0];
+    for(const b of chosen){const old=priorVel.get(b.id);for(let a=0;a<3;a++)changeP[a]+=b.m*(b.v[a]-old[a]);}
+    const other=this.bodies.filter(b=>!members.has(b.id)&&!b.pinned);
+    const otherMass=other.reduce((s,b)=>s+b.m,0);
+    if(!(otherMass>0))throw Error('Momentum compensation needs other free bodies');
+    const correction=changeP.map(x=>-x/otherMass);for(const b of other)for(let a=0;a<3;a++)b.v[a]+=correction[a];balanced=true;
+   }
+   this.validate();
+   const newP=[0,0,0],newK=this.bodies.reduce((s,b)=>{for(let a=0;a<3;a++)newP[a]+=b.m*b.v[a];return s+.5*b.m*dot(b.v,b.v)},0);
+   const entry={kind:'group_motion',op,ids,vector:vec.map(Number),count:chosen.length,mass:totalMass,compensated:balanced,delta_p:newP.map((x,a)=>x-oldP[a]),delta_k:newK-oldK,source_time:prior.time,source_step:prior.step,row:msg.row??null};
+   this.preparationLog.push(entry);this.preparationLog=this.preparationLog.slice(-120);
+   if(op==='translate')this.wave=null;
+   else{
+    const axis=[0,1,2].includes(Number(msg.propagation_axis))?Number(msg.propagation_axis):0;
+    const direction=vec.map(Math.abs).indexOf(Math.max(...vec.map(Math.abs)));
+    this.wave={kind:'row_velocity_preparation',axis,polarization:axis===direction?'longitudinal':'transverse',direction,amplitude:Math.hypot(...vec),width:null,injected_kinetic:entry.delta_k,description:'Один свободный ряд получил скорость; новая начальная подготовка'};
+   }
+   this.invalidate();this.status='ROW_GROUP_PREPARATION';return;
   }
   if(kind==='move'){for(const b of this.bodies)if(msg.positions&&msg.positions[b.id])b.x=msg.positions[b.id].map(Number);this.validate();this.invalidate();return}
   if(kind==='set'){
@@ -691,6 +770,84 @@ async function request(path,data){
 let state=null,selected=[],primary=null,running=false,tool='select',plane='view',energyBase=null;
 let pending=Promise.resolve(),undo=[],redo=[],toastTimer=0,lastStepAt=0,trails=new Map(),waveHistory=[],lastWaveStep=-1;
 let visualRef=new Map(),visualScale=1;
+
+// ROW GROUPS: integer half-cell coordinates are frozen at initial lattice setup.
+// They describe provenance and selection only; physical forces use current x/v.
+function latticeRows(bodies,propAxis,orientation){
+ propAxis=Number(propAxis);
+ if(![0,1,2].includes(propAxis)||!['long','cross1','cross2','sheet'].includes(orientation))return [];
+ const other=[0,1,2].filter(i=>i!==propAxis);
+ const dir=orientation==='long'?propAxis:orientation==='cross1'?other[0]:other[1];
+ const fixed=orientation==='sheet'?[propAxis]:[0,1,2].filter(i=>i!==dir);
+ const by=new Map();
+ for(const b of bodies||[]){const lat=b.lattice;
+  if(!lat||!['fcc','bcc'].includes(lat.packing)||!Array.isArray(lat.grid)||lat.grid.length!==3)continue;
+  const grid=lat.grid.map(Number);if(grid.some(v=>!Number.isInteger(v)))continue;
+  const key=lat.packing+':'+orientation+':'+propAxis+':'+fixed.map(i=>grid[i]).join(':');
+  if(!by.has(key))by.set(key,{key,packing:lat.packing,orientation,propAxis,dir,fixed,coords:fixed.map(i=>grid[i]),ids:[],bodies:[]});
+  const row=by.get(key);row.ids.push(b.id);row.bodies.push(b);
+ }
+ const labels=['X','Y','Z'];
+ return [...by.values()].filter(r=>r.ids.length>=2).sort((a,b)=>a.packing.localeCompare(b.packing)||a.coords.reduce((v,x,k)=>v||x-b.coords[k],0)).map((r,i)=>({
+  ...r,label:`${r.packing.toUpperCase()} ${orientation==='sheet'?'слой': 'ряд'} ${i+1} · ${r.fixed.map(a=>labels[a]+'='+Number(r.bodies[0].lattice.rest[a]).toFixed(2)).join(', ')} · ${r.ids.length} тел`
+ }));
+}
+let rowChoice='',rowCandidates=[];
+function drawRows(){
+ if(!state||!$('row-choice'))return;
+ rowCandidates=latticeRows(state.scene.bodies,+$('row-prop-axis').value,$('row-orientation').value);
+ const field=$('row-choice'),was=rowChoice||field.value;
+ field.innerHTML=rowCandidates.map(r=>`<option value="${esc(r.key)}">${esc(r.label)}</option>`).join('');
+ rowChoice=rowCandidates.some(r=>r.key===was)?was:(rowCandidates[0]?.key??'');field.value=rowChoice;
+ const enabled=!!rowCandidates.length;
+ for(const id of ['row-choice','row-select','row-add-select','row-seed-select'])$(id).disabled=!enabled;
+ const axes=['X','Y','Z'],p=+$('row-prop-axis').value,rest=[0,1,2].filter(i=>i!==p);
+ const opts=$('row-orientation').options;opts[0].text=`Продольный ∥ ${axes[p]}`;opts[1].text=`Поперечный ∥ ${axes[rest[0]]}`;opts[2].text=`Поперечный ∥ ${axes[rest[1]]}`;opts[3].text=`Поперечный слой ⟂ ${axes[p]}`;
+ const row=rowCandidates.find(r=>r.key===rowChoice);
+ setText('row-status',row?`${row.label}. Выберите и задайте скорость (или смещение) всей группе.`:'В сцене нет подготовленной FCC/BCC-топологии. Выберите FCC32, FCC108 или BCC.');
+}
+function chooseGroup(ids,append=false){
+ if(!state||!ids?.length)return;
+ const valid=new Set(state.scene.bodies.map(b=>b.id));
+ selected=(append?[...new Set([...selected,...ids])]:[...new Set(ids)]).filter(id=>valid.has(id));
+ primary=selected[0]||null;state.selected_ledger=[];drawList();drawInspector();
+ stage.setScene(state.scene.bodies,state.forces,selected,trails);stage.render();
+ setText('row-status',`Выделено ${selected.length} тел · масса ΣM=${fmt(selected.reduce((a,id)=>a+(bodyById(id)?.m??0),0),4)}. Дальше задайте Δv или Δx.`);
+}
+function selectedRow(){return rowCandidates.find(r=>r.key===$('row-choice').value)}
+function selectActiveRow(append=false){const row=selectedRow();if(row)chooseGroup(row.ids,append)}
+function groupMotion(op,vector){
+ if(!selected.length){message('Сначала выделите ряд или несколько тел',true);return}
+ if(vector.some(v=>!Number.isFinite(v))){message('Некорректный вектор',true);return}
+ void queueEdit({kind:'group_motion',op,ids:[...selected],vector,compensate:$('row-compensate').checked,
+  propagation_axis:+$('row-prop-axis').value,
+  row:{key:rowChoice,orientation:$('row-orientation').value,axis:+$('row-prop-axis').value}}, {record:true}).then(s=>{
+  if(!s)return;
+  const e=s.scene.preparation_log?.at(-1);
+  if(e){setText('row-impact',`Новая подготовка: ${e.count} тел · ΔK=${fmt(e.delta_k,7)} · |ΔP|=${fmt(norm(e.delta_p),7)} · ${e.compensated?'импульс скомпенсирован':'внешняя установка состояния'}.`)}
+  if(op!=='translate'){$('velocity-toggle').checked=true;stage.render()}
+  message(`Применено к ${selected.length} телам. Дальше «▶ Пуск».`);
+ });
+}
+function bindRowControls(){
+ $('row-prop-axis').addEventListener('change',()=>{rowChoice='';drawRows()});
+ $('row-orientation').addEventListener('change',()=>{rowChoice='';drawRows()});
+ $('row-choice').addEventListener('change',e=>{rowChoice=e.target.value;const r=selectedRow();if(r)setText('row-status',r.label+' · нажмите «Выделить» или «+ К выбору».')});
+ $('row-select').addEventListener('click',()=>selectActiveRow(false));
+ $('row-add-select').addEventListener('click',()=>selectActiveRow(true));
+ $('row-seed-select').addEventListener('click',()=>{
+  const id=primary;if(!id){message('Сначала выберите тело FCC/BCC в 3D',true);return}
+  const matching=rowCandidates.find(r=>r.ids.includes(id));
+  if(!matching){message('Выбранное тело не относится к ряду этого направления',true);return}
+  rowChoice=matching.key;$('row-choice').value=rowChoice;chooseGroup(matching.ids,false);
+ });
+ const vel=()=>['row-vx','row-vy','row-vz'].map(id=>Number($(id).value)),del=()=>['row-dx','row-dy','row-dz'].map(id=>Number($(id).value));
+ $('row-velocity-add').addEventListener('click',()=>groupMotion('velocity_add',vel()));
+ $('row-velocity-set').addEventListener('click',()=>groupMotion('velocity_set',vel()));
+ $('row-velocity-zero').addEventListener('click',()=>groupMotion('velocity_set',[0,0,0]));
+ $('row-translate').addEventListener('click',()=>groupMotion('translate',del()));
+}
+
 function bodyById(id){return state?.scene.bodies.find(x=>x.id===id)}
 function message(s,error=false){const t=$('toast');t.textContent=s;t.classList.toggle('error',error);t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),3300)}
 function setText(id,v){const a=$(id);if(a)a.textContent=v}
@@ -713,7 +870,7 @@ function apply(s,{resetCamera=false,clearTrails=false}={}){
  if(primary&&!ids.has(primary))primary=null;
  if(!primary&&selected.length)primary=selected[0];
  if(!selected.length&&ids.size&&!primary){selected=[s.scene.bodies[0].id];primary=selected[0]}
- drawList();drawInspector();drawGlobal();drawMetrics();drawWave();drawDynamics();stage.setScene(s.scene.bodies,s.forces,selected,trails);stage.visualRef=visualRef;stage.visualScale=visualScale;
+ drawList();drawInspector();drawRows();drawGlobal();drawMetrics();drawWave();drawDynamics();stage.setScene(s.scene.bodies,s.forces,selected,trails);stage.visualRef=visualRef;stage.visualScale=visualScale;
  if(resetCamera||wasEmpty)stage.fit();stage.render();
 }
 function drawList(){
@@ -794,7 +951,7 @@ function drawWave(){
  }else{ctx.fillStyle='#5e8e9e';ctx.font='13px system-ui';ctx.fillText('Нет начального волнового импульса',20,h/2)}
  setText('wave-details',cfg?`Импульс ${cfg.polarization==='longitudinal'?'продольный':'поперечный'} · ось ${['X','Y','Z'][cfg.axis]} · добавлено ΔK=${fmt(cfg.injected_kinetic||0,6)} · t=${fmt(state.time,3)}. График: сглаженная скорость; не физическое сглаживание сил.`:
    'Выберите волновую сцену или создайте начальный импульс. Измеряется свободный отклик, не доказанное распространение волны.');
- if(cfg && state.time===0){setVal('wave-axis',cfg.axis);setVal('wave-pol',cfg.polarization);setVal('wave-amplitude',cfg.amplitude);setVal('wave-width',cfg.width)}
+ if(cfg && cfg.kind==='velocity_pulse' && state.time===0){setVal('wave-axis',cfg.axis);setVal('wave-pol',cfg.polarization);setVal('wave-amplitude',cfg.amplitude);setVal('wave-width',cfg.width)}
  if(state?.import_note){setText('max-import-status',`Импорт ${state.import_note.imported} объектов (${state.import_note.source}). ${state.import_note.warnings?.join(' · ')||'Без предупреждений.'}`)}
 }
 function beforeEdit(){halt();if(!state)return null;return clone(state.scene)}
@@ -840,6 +997,7 @@ function inspectBind(){
  });
 }
 function bindControls(){
+ bindRowControls();
  $('preset').addEventListener('change',()=>{if(!confirm('Заменить текущую сцену выбранной конфигурацией?'))return;void queueEdit({kind:'demo',name:$('preset').value},{record:true,fit:true}).then(()=>{const w=$('preset').value.startsWith('wave_');if(w){$('steps-per-frame').value='3';visualScale=50;$('motion-scale').value='50';$('velocity-toggle').checked=true;}else{visualScale=1;$('motion-scale').value='1'}stage.visualScale=visualScale;drawDynamics();stage.render();})});
  $('wave-chart-mode').addEventListener('change',drawWave);
  $('wave-kick').addEventListener('click',()=>{void queueEdit({kind:'wave_pulse',axis:Number($('wave-axis').value),
